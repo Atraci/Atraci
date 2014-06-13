@@ -37,6 +37,19 @@ PlayNext = (artist, title, success) ->
 
             PlayTrack(t.artist, t.title, t.cover_url_medium, t.cover_url_large)
 
+PlayPrevious = (artist, title, success) ->
+    $.each __playerTracklist, (i, track) ->
+        if track.artist == artist and track.title == title
+            $('#tracklist-container .track-container').removeClass('playing');
+            if i == 0
+                t = __playerTracklist[0]
+                $('#tracklist-container .track-container').eq(0).addClass('playing');
+            else
+                t = __playerTracklist[i-1]
+                $('#tracklist-container .track-container').eq(i-1).addClass('playing');
+
+
+            PlayTrack(t.artist, t.title, t.cover_url_medium, t.cover_url_large)
 
 PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
 
@@ -99,7 +112,7 @@ PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
 
 videojs('video_player')
 
-# Pause/Play with Space key
+# Keyboard control : space : play / pause; arrows : previous / next
 $(document).keydown (e) ->
     if e.keyCode is 32 and e.target.tagName != 'INPUT'
         if videojs('video_player').paused()
@@ -107,6 +120,10 @@ $(document).keydown (e) ->
         else
             videojs('video_player').pause()
         return false
+    if e.keyCode is 37 and e.target.tagName != 'INPUT'
+        PlayPrevious(__currentTrack.artist, __currentTrack.title)
+    if e.keyCode is 39 and e.target.tagName != 'INPUT'
+        PlayNext(__currentTrack.artist, __currentTrack.title)
 
 $('#player-container #info #track-info #action i').click ->
     if $(@).hasClass('play')
@@ -146,6 +163,9 @@ videojs('video_player').ready ->
         userTracking.event("Playback Error", video_error_codes[code], __currentTrack.artist + ' - ' + __currentTrack.title).send()
         alert 'Playback Error (' + video_error_codes[code] + ')'
 
+$('#player-container #volume-bg').ready ->
+    $('#player-container #controls #volume-icon #action i.fa-volume-down').hide()
+    $('#player-container #controls #volume-icon #action i.fa-volume-off').hide()
 
 $('#player-container #progress-bg').on 'click', (e) ->
     percentage = (e.pageX - $(this).offset().left) / $(this).width()
@@ -156,3 +176,22 @@ $('#player-container #volume-bg').on 'click', (e) ->
     percentage = (e.pageX - $(this).offset().left) / $(this).width()
     videojs('video_player').volume(percentage)
     $('#player-container #volume-current').css({'width': (percentage) * 100 + '%'})
+    if percentage > 0.5
+        $('#player-container #controls #volume-icon #action i.fa-volume-up').show()
+        $('#player-container #controls #volume-icon #action i.fa-volume-down').hide()
+        $('#player-container #controls #volume-icon #action i.fa-volume-off').hide()
+    else if percentage < 0.5 and percentage > 0.1
+        $('#player-container #controls #volume-icon #action i.fa-volume-up').hide()
+        $('#player-container #controls #volume-icon #action i.fa-volume-down').show()
+        $('#player-container #controls #volume-icon #action i.fa-volume-off').hide()
+    else
+        $('#player-container #controls #volume-icon #action i.fa-volume-up').hide()
+        $('#player-container #controls #volume-icon #action i.fa-volume-down').hide()
+        $('#player-container #controls #volume-icon #action i.fa-volume-off').show()
+    console.log(percentage)
+
+$('#player-container #track-info #prev').on 'click', (e) ->
+    PlayPrevious(__currentTrack.artist, __currentTrack.title)
+
+$('#player-container #track-info #next').on 'click', (e) ->
+    PlayNext(__currentTrack.artist, __currentTrack.title)
