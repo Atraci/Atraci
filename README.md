@@ -4,7 +4,7 @@
 
 ## How does it work?
 
-When searching, the app will use iTunes and Last.fm to display song results (with cover, title, artist). It will then try to find the best match for this song on Youtube and stream the **highest quality audio stream**.
+When searching, the app will use iTunes and Last.fm to display song results (with cover, title, artist). It will then try to find the best match for this song on Youtube and stream the **highest quality video stream**.
 
 No torrents, completely decentralized.
 
