@@ -195,4 +195,3 @@ $('#player-container #track-info #prev').on 'click', (e) ->
 
 $('#player-container #track-info #next').on 'click', (e) ->
     PlayNext(__currentTrack.artist, __currentTrack.title)
-    $('#tracklist-container').animate({ scrollTop: (+$(".track-container.playing").position().top)})
