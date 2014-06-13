@@ -118,7 +118,7 @@ $('#player-container #info #track-info #action i').click ->
 
 videojs('video_player').ready ->
     @.on 'loadedmetadata', ->
-        $('#player-container #duration').text(moment(@duration()*1000).format('m:ss') + " / ")
+        $('#player-container #duration').text(moment(@duration()*1000).format('m:ss'))
         $(".cur").removeClass("cur")
         $(".playing").addClass("cur")
         $(".playing .cover").before($("#video_player"));
