@@ -1,0 +1,21 @@
+#search
+    input
+        -webkit-app-region: no-drag
+        width: 225px
+        height: 26px
+        padding: 0 28px
+        outline: 0
+        font-size: 13px
+        color: #000
+        border-radius: 26px
+        border: 1px solid black
+        background: #ddd url(../images/search.png) 10px 7px no-repeat
+        +box-shadow(rgba(black, .2) 0 1px 1px inset, rgba(white, .1) 0 1px 0, rgba(black, .1) 0 -1px 0)
+        &:focus
+            background-color: #eee
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2)
+    #search
+        input
+            background-size: 12px 14px
+            background-image: url(../images/search@2x.png)

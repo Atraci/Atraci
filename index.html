@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/app.css">
+    </head>
+    <body>
+
+        <!-- HEADER -->
+        <header id="header">
+            <nav id="search">
+                <input type="text" id="search-input" placeholder="Search...">
+            </nav>
+            <div id="logo"></div>
+            <div id="windowControls">
+                <div class="actionButton" id="ActionButtonClose"></div>
+                <div class="actionButton" id="ActionButtonExpand"></div>
+                <div class="actionButton" id="ActionButtonMinimize"></div>
+            </div>
+        </header>
+        <!---->
+
+        <div id="main">
+            <table>
+                <tr>
+                    <td class="sidebar">
+                        <div id="sidebar-container">
+                            <ul></ul>
+                        </div>
+                    </td>
+                    <td>
+                        <div id="tracklist-container"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div id="player-container">
+            <div id="cover">
+                <div id="loading-overlay"></div>
+            </div>
+            <div id="info">
+                <div id="info-text">
+                    <span id="track-info">
+                        <span id="action">
+                            <i class="pause fa fa-pause"></i>
+                            <i class="play fa fa-play"></i>
+                        </span>
+                        <span id="artist"></span> <span id="title"></span>
+                    </span>
+                    <span id="video-info"></span>
+                </div>
+                <div id="controls">
+                    <div id="current-time">0:00</div>
+                    <div id="progress-bg-container">
+                        <div id="progress-bg">
+                            <div id="progress-current"></div>
+                        </div>
+                    </div>
+                    <div id="duration">0:00</div>
+
+                    <div id="volume-icon">
+                        <i class="fa fa-volume-up"></i>
+                    </div>
+                    <div id="volume-bg-container">
+                        <div id="volume-bg">
+                            <div id="volume-current"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div id="video-container">
+            <video id="video_player" width="200" height="200" class="video-js"></video>
+        </div>
+
+
+        <!-- TEMPLATES -->
+        <script id="tmpl-tracklist" type="text/x-jquery-tmpl">
+            <div class="track-container">
+                <div class="cover" style="background-image: url(${cover_url_large})" data-cover_url_medium="${cover_url_medium}" data-cover_url_large="${cover_url_large}" title="${artist} - ${title}"></div>
+                <div class="info">
+                    <div class="title">${title}</div>
+                    <div class="artist">${artist}</div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </script>
+
+
+        <script id="tmpl-tracklist-error" type="text/x-jquery-tmpl">
+            <div class="tracklist-error">${message}</div>
+        </script>
+        <!---->
+
+
+        <!-- SCRIPTS -->
+        <script src="js/vendor/jquery-2.1.1.min.js"></script>
+        <script src="js/vendor/spin.min.js"></script>
+        <script src="js/vendor/video-js/video.js"></script>
+        <script src="js/vendor/moment.min.js"></script>
+        <script src="js/vendor/jquery.tmpl.min.js"></script>
+        <script src="js/app.js"></script>
+        <!---->
+    </body>
+</html>

@@ -1,0 +1,49 @@
+#header
+    +box-sizing(border-box)
+    -webkit-app-region: drag
+    z-index: 1001
+    position: fixed
+    padding: 10px
+    top: 0
+    width: 100%
+    background-image: linear-gradient(to bottom, #282828, #1e1e1e)
+    border-bottom: 1px solid #000
+    +box-shadow(rgba(black, .1) 0 2px 5px)
+
+    #logo
+        position: fixed
+        top: 7px
+        right: 59px
+        background-image: url(../images/logo@2x.png)
+        background-size: 89px 36px
+        width: 89px
+        height: 36px
+
+    nav
+        display: inline-block
+
+    #windowControls
+        position: fixed
+        right: 10px
+        top: 15px
+
+        .actionButton
+            -webkit-app-region: no-drag
+            height: 10px
+            width: 10px
+            display: block
+            background: #5b595c
+            border-radius: 5em
+            float: right
+            margin: 5px 2px
+            -webkit-transition: 0.2s
+            cursor: pointer
+
+            &#ActionButtonClose:hover
+                background: red
+
+            &#ActionButtonExpand:hover
+                background: green
+
+            &#ActionButtonMinimize:hover
+                background: yellow

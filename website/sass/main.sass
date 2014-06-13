@@ -1,0 +1,106 @@
+@import compass/css3
+@import compass/reset
+
+@import url("http://fonts.googleapis.com/css?family=Roboto:400,500,700,300")
+
+@import _download
+
+=font-smoothing($val: antialiased)
+    -webkit-font-smoothing: $val
+    -moz-font-smoothing: $val
+    -ms-font-smoothing: $val
+    -o-font-smoothing: $val
+
+html,
+body
+    margin: 0
+    padding: 0
+    font-family: 'roboto', helvetica, arial, sans-serif
+    @include font-smoothing(antialiased)
+
+    #header-container
+        position: fixed
+        z-index: 100
+        width: 100%
+        height: 58px
+        background-image: linear-gradient(to bottom, #282828, #1e1e1e)
+        border-bottom: 1px solid black
+        +box-shadow(rgba(black, .1) 0 5px 5px)
+
+        #header
+            width: 900px
+            margin-left: auto
+            margin-right: auto
+
+            #logo
+                float: left
+                margin-top: 16px
+                margin-left: 20px
+                width: 93px
+                height: 31px
+                background-size: 100%
+                background-image: url(../images/atraci.png)
+
+            #share_buttons
+                margin-top: 16px
+                float: right
+
+    #big-container
+        padding-top: 59px
+        height: 500px
+        background-color: #181817
+        background-image: url(../images/tagline_background_4.jpg)
+        background-size: 100% auto
+
+        #tagline-container
+            width: 900px
+            text-align: center
+            margin-left: auto
+            margin-right: auto
+            padding: 70px 0
+
+            #tagline1
+                color: white
+                font-size: 50px
+                font-weight: bold
+
+            #tagline2
+                color: white
+                font-size: 30px
+                margin-top: 20px
+
+            #download
+                margin-top: 30px
+
+                #version_info
+                    color: rgba(white, .8)
+                    margin-top: 15px
+                    font-size: 14px
+
+        #screenshot
+            width: 900px
+            height: 603px
+            margin-bottom: 90px
+            background-image: url(../images/screenshot_mac.png)
+            +box-shadow(black 0 15px 80px)
+            background-size: 100%
+            margin-left: auto
+            margin-right: auto
+
+    #description
+        width: 900px
+        padding: 0 30px
+        +box-sizing(border-box)
+        margin-left: auto
+        margin-right: auto
+        font-size: 22px
+        font-weight: 100
+        line-height: 34px
+        color: #888
+        margin-bottom: 140px
+
+        a
+            color: #888
+            text-decoration: none
+        a:hover
+            text-decoration: underline

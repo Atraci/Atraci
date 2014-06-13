@@ -1,0 +1,35 @@
+#sidebar-container
+    ul
+        margin-bottom: 15px
+        
+        li
+            padding: 7px 5px
+            color: rgba(white, .8)
+            font-size: 13px
+            font-weight: 400
+            border-radius: 3px
+
+            &:first-of-type
+                margin-top: 0
+            &:last-of-type
+                margin-bottom: 0
+
+            &:not(.sep):not(.active):hover
+                cursor: pointer
+                background: rgba(white, .05)
+                color: white
+            &.sep
+                padding: 0
+
+            &.active
+                background: rgba(white, .07)
+                border-radius: 3px
+                color: white
+
+            &.new
+                color: rgba(white, .4)
+
+            hr
+                border: 0
+                border-top: 1px solid rgba(white, .05)
+                height: 0

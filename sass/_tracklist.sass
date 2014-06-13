@@ -1,0 +1,61 @@
+#tracklist-container
+    .tracklist-error
+        text-align: center
+        padding: 15px
+        font-size: 13px
+        color: rgba(white, .4)
+
+    .track-container
+        float: left
+        margin-bottom: 3px
+        padding: 5px
+        width: 200px
+        height: 250px
+        overflow: hidden
+        &:hover
+            cursor: pointer
+            background: rgba(white, .03)
+            border-radius: 3px
+        &.playing
+            cursor: pointer
+            background: rgba(white, .03)
+            border-radius: 3px
+        &.cur
+            .cover
+                display: none
+        .cover
+            background-image: url(../images/cover_default_large.png)
+            background-size: 200px
+            width: 200px
+            height: 200px
+            border-radius: 2px
+            +text-shadow(rgba(black, .8) 0px 1px 1px)
+        .info
+            font-family: 'Open Sans', sans-serif
+            text-align: center
+            padding: 4px
+            margin-left: 3px
+            +text-shadow(rgba(black, .8) 0px 1px 1px)
+            .title
+                height: 16px
+                font-weight: 700
+                font-size: 14px
+                color: #ddd
+                overflow: hidden !important
+                white-space: nowrap
+                text-overflow: ellipsis
+            .artist
+                height: 14px
+                font-weight: 400
+                font-size: 13px
+                margin-top: 5px
+                color: #999
+                overflow: hidden !important
+                white-space: nowrap
+                text-overflow: ellipsis
+
+        &.playingXXX
+            background: #18b0ff
+            &:hover
+                cursor: default
+                background: #18b0ff

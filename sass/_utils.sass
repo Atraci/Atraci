@@ -1,0 +1,32 @@
+=scrollable
+    overflow-x: hidden
+    overflow-y: overlay
+    &::-webkit-scrollbar
+        background: none
+        width: 9px
+    &::-webkit-scrollbar-button
+        display: none
+    &::-webkit-scrollbar-track
+        display: none
+    &::-webkit-scrollbar-track-piece
+        display: none
+    &::-webkit-scrollbar-thumb
+        background: rgba(0, 0, 0, 0)
+        background-clip: content-box
+        border-radius: 10px
+        border: 2px solid transparent
+    &::-webkit-scrollbar-corner
+        display: none
+    &::-webkit-resizer
+        display: none
+    &:hover
+        &::-webkit-scrollbar-thumb
+            background: rgba(white, 0.05)
+            background-clip: content-box
+            border-radius: 10px
+            border: 1px solid transparent
+            &:hover
+                background: rgba(white, 0.2)
+                background-clip: content-box
+                border-radius: 10px
+                border: 1px solid transparent
