@@ -131,8 +131,6 @@ $('#PlayerContainer .info .track-info .action i').click ->
     else
         videojs('video_player').pause()
 
-
-
 videojs('video_player').ready ->
     @.on 'loadedmetadata', ->
         $('#PlayerContainer .duration').text(moment(@duration()*1000).format('m:ss'))
@@ -185,7 +183,6 @@ $('#PlayerContainer .volume-bg').on 'click', (e) ->
         $('#PlayerContainer .controls .volume-icon .action i.fa-volume-up').hide()
         $('#PlayerContainer .controls .volume-icon .action i.fa-volume-down').hide()
         $('#PlayerContainer .controls .volume-icon .action i.fa-volume-off').show()
-    console.log(percentage)
 
 $('#PlayerContainer .track-info #prev').on 'click', (e) ->
     PlayPrevious(__currentTrack.artist, __currentTrack.title)
