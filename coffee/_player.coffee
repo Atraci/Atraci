@@ -123,17 +123,13 @@ $(document).keydown (e) ->
     if e.keyCode is 37 and e.target.tagName != 'INPUT'
         PlayPrevious(__currentTrack.artist, __currentTrack.title)
     if e.keyCode is 39 and e.target.tagName != 'INPUT'
-    #    PlayNext(__currentTrack.artist, __currentTrack.title)
-     win.showDevTools()
-
+        PlayNext(__currentTrack.artist, __currentTrack.title)
      
 $('#player-container #info #track-info #action i').click ->
     if $(@).hasClass('play')
         videojs('video_player').play()
     else
         videojs('video_player').pause()
-
-
 
 videojs('video_player').ready ->
     @.on 'loadedmetadata', ->
