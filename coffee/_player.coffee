@@ -169,7 +169,7 @@ $('#player-container #progress-bg').on 'click', (e) ->
     percentage = (e.pageX - $(this).offset().left) / $(this).width()
     videojs('video_player').currentTime(percentage * videojs('video_player').duration())
     $('#player-container #progress-current').css({'width': (percentage) * 100 + '%'})
-    console.log("ok")
+
 $('#player-container #volume-bg').on 'click', (e) ->
     percentage = (e.pageX - $(this).offset().left) / $(this).width()
     videojs('video_player').volume(percentage)
@@ -192,13 +192,3 @@ $('#player-container #track-info #prev').on 'click', (e) ->
 
 $('#player-container #track-info #next').on 'click', (e) ->
     PlayNext(__currentTrack.artist, __currentTrack.title)
-
-$('#player-container #controls #volume-icon').on 'click', (e) ->
-    if videojs('video_player').muted() == true
-        videojs('video_player').muted(false)
-    else
-        videojs('video_player').muted(true)
-        $('#player-container #volume-current').css({'width': 0 + '%'})
-        $('#player-container #controls #volume-icon #action i.fa-volume-up').hide()
-        $('#player-container #controls #volume-icon #action i.fa-volume-down').hide()
-        $('#player-container #controls #volume-icon #action i.fa-volume-off').show()
