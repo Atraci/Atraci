@@ -1,121 +1,111 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="css/app.css">
-    </head>
-    <body>
+<!doctype html>
 
-        <!-- HEADER -->
-        <header id="header">
-            <nav id="search">
-                <input type="text" id="search-input" placeholder="Search...">
-            </nav>
-            <div id="logo"></div>
-            <div id="windowControls">
-                <div class="actionButton" id="ActionButtonClose"></div>
-                <div class="actionButton" id="ActionButtonExpand"></div>
-                <div class="actionButton" id="ActionButtonMinimize"></div>
-            </div>
-        </header>
-        <!---->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+</head>
+<body>
+<header>
+    <div id="Logo" class="HeaderItem FloatedLeft">ATRA<span class="red">CI</span></div>
+    <div id="Search" class="HeaderItem FloatedLeft">
+        <input class="searchInput" placeholder="Search..."/>
+    </div>
+    <div id="WindowButtons" class="HeaderItem FloatedRight">
+        <span class="Btn Close"></span>
+        <span class="Btn Expand"></span>
+        <span class="Btn Minimize"></span>
+    </div>
+</header>
 
-        <div id="main">
-            <table>
-                <tr>
-                    <td class="sidebar">
-                        <div id="sidebar-container">
-                            <ul></ul>
-                        </div>
-                    </td>
-                    <td>
-                        <div id="tracklist-container"></div>
-                    </td>
-                </tr>
-            </table>
+<section>
+    <div id="SideBar" class="FloatedLeft">
+        <ul>
+            <li class="active">Top Tracks</li>
+            <hr/>
+            <li>History</li>
+            <hr/>
+            <li>+ New Playlist</li>
+        </ul>
+    </div>
+    <div id="ContentWrapper" class="FloatedLeft">
+
+    </div>
+</section>
+<div id="video-container">
+    <video id="video_player" width="200" height="200" class="video-js"></video>
+</div>
+<footer id="PlayerContainer">
+    <div class="cover">
+        <div id="LoadingOverlay"></div>
+    </div>
+    <div class="info">
+        <div class="info-text">
+            <span class="track-info">
+                <span class="action">
+                    <i class="backward fa fa-backward"></i>
+                </span>
+                <span class="action">
+                    <i class="pause fa fa-pause"></i>
+                    <i class="play fa fa-play"></i>
+                </span>
+                <span class="action">
+                    <i class="forward fa fa-forward"></i>
+                </span>
+                <span class="artist"></span> <span class="title"></span>
+            </span>
+            <span class="video-info"></span>
         </div>
-
-
-        <div id="player-container">
-            <div id="cover">
-                <div id="loading-overlay"></div>
-            </div>
-            <div id="info">
-                <div id="info-text">
-                    <span id="track-info">
-                        <span id="prev">
-                            <i class="play fa fa-backward"></i>
-                        </span>
-                        <span id="action">
-                            <i class="pause fa fa-pause"></i>
-                            <i class="play fa fa-play"></i>
-                        </span>
-                        <span id="next">
-                            <i class="play fa fa-forward"></i>
-                        </span>
-                        <span id="artist"></span> <span id="title"></span>
-                    </span>
-                    <span id="video-info"></span>
-                </div>
-                <div id="controls">
-                    <div id="current-time">0:00</div>
-                    <div id="progress-bg-container">
-                        <div id="progress-bg">
-                            <div id="progress-current"></div>
-                        </div>
-                    </div>
-                    <div id="duration">0:00</div>
-
-                    <div id="volume-icon">
-                        <span id="action">
-                            <i class="fa fa-volume-up"></i>
-                            <i class="fa fa-volume-down"></i>
-                            <i class="fa fa-volume-off"></i>
-                        </span>
-                    </div>
-                    <div id="volume-bg-container">
-                        <div id="volume-bg">
-                            <div id="volume-current"></div>
-                        </div>
-                    </div>
-
+        <div class="controls">
+            <div class="current-time">0:00</div>
+            <div class="progress-bg-container">
+                <div class="progress-bg">
+                    <div class="progress-current"></div>
                 </div>
             </div>
-        </div>
+            <div class="duration">0:00</div>
 
-
-        <div id="video-container">
-            <video id="video_player" width="200" height="200" class="video-js"></video>
-        </div>
-
-
-        <!-- TEMPLATES -->
-        <script id="tmpl-tracklist" type="text/x-jquery-tmpl">
-            <div class="track-container">
-                <div class="cover" style="background-image: url(${cover_url_large})" data-cover_url_medium="${cover_url_medium}" data-cover_url_large="${cover_url_large}" title="${artist} - ${title}"></div>
-                <div class="info">
-                    <div class="title">${title}</div>
-                    <div class="artist">${artist}</div>
-                </div>
-                <div class="clear"></div>
+            <div class="volume-icon">
+                <i class="fa fa-volume-up"></i>
             </div>
-        </script>
+            <div class="volume-bg-container">
+                <div class="volume-bg">
+                    <div class="volume-current"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
 
 
-        <script id="tmpl-tracklist-error" type="text/x-jquery-tmpl">
-            <div class="tracklist-error">${message}</div>
-        </script>
-        <!---->
+
+<!-- TEMPLATES -->
+<script id="tmpl-tracklist" type="text/x-jquery-tmpl">
+    <div class="track-container">
+        <div class="cover" style="background-image: url(${cover_url_large})" data-cover_url_medium="${cover_url_medium}" data-cover_url_large="${cover_url_large}" title="${artist} - ${title}"></div>
+        <div class="info">
+            <div class="title">${title}</div>
+            <div class="artist">${artist}</div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</script>
 
 
-        <!-- SCRIPTS -->
-        <script src="js/vendor/jquery-2.1.1.min.js"></script>
-        <script src="js/vendor/spin.min.js"></script>
-        <script src="js/vendor/video-js/video.js"></script>
-        <script src="js/vendor/moment.min.js"></script>
-        <script src="js/vendor/jquery.tmpl.min.js"></script>
-        <script src="js/app.js"></script>
-        <!---->
-    </body>
+<script id="tmpl-tracklist-error" type="text/x-jquery-tmpl">
+    <div class="tracklist-error">${message}</div>
+</script>
+<!---->
+
+<!-- SCRIPTS -->
+<script src="js/vendor/jquery-2.1.1.min.js"></script>
+<script src="js/vendor/spin.min.js"></script>
+<script src="js/vendor/video-js/video.js"></script>
+<script src="js/vendor/moment.min.js"></script>
+<script src="js/vendor/jquery.tmpl.min.js"></script>
+<script src="js/app.js"></script>
+<!---->
+</body>
 </html>

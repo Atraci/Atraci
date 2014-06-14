@@ -1,10 +1,15 @@
-#sidebar-container
+#SideBar
+    padding: 10px
+    width: 180px
+    background: #fff
+    height: 100%
+    border-right: 1px solid #f0f0f0
     ul
         margin-bottom: 15px
         
         li
             padding: 7px 5px
-            color: rgba(white, .8)
+            color: rgba(black, .8)
             font-size: 13px
             font-weight: 400
             border-radius: 3px
@@ -16,20 +21,17 @@
 
             &:not(.sep):not(.active):hover
                 cursor: pointer
-                background: rgba(white, .05)
-                color: white
+                background: rgba(black, .05)
+                color: black
             &.sep
                 padding: 0
 
             &.active
-                background: rgba(white, .07)
+                background: rgba(black, .07)
                 border-radius: 3px
-                color: white
-
-            &.new
-                color: rgba(white, .4)
+                color: rgb(131, 131, 131)
 
             hr
                 border: 0
-                border-top: 1px solid rgba(white, .05)
+                border-top: 1px solid rgba(black, .05)
                 height: 0

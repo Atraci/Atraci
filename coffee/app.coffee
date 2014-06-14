@@ -50,11 +50,6 @@ spinner_cover_opts =
 ########################################################
 
 $ ->
-    
-    # Resize sidebar and tracklist heights when window is being resized
-    $(window).resize(->
-        $('#main #sidebar-container, #tracklist-container').height($(window).height() - ($('#header').outerHeight() + $('#player-container').outerHeight() + 20))
-    ).resize()
 
     Playlists.getAll((playlists) ->
         populateSidebar(playlists)
@@ -63,15 +58,15 @@ $ ->
     setTimeout (->
         History.countTracks((cnt) ->
             if cnt > 10
-                $('#sidebar-container li.history').click()
+                $('#SideBar li.history').click()
             else
-                $('#sidebar-container li.top').click()
+                $('#SideBar li.top').click()
         )
     ), 1
 
     $('#search-input').focus()
 
-    $("#ActionButtonExpand").click(()->
+    $("#WindowButtons .Expand").click(()->
       if !$(this).hasClass("maximized")
         $(this).addClass("maximized")
         win.maximize()
@@ -80,11 +75,11 @@ $ ->
         win.unmaximize()
     )
 
-    $("#ActionButtonClose").click(()->
+    $("#WindowButtons .Close").click(()->
       win.close()
     )
 
-    $("#ActionButtonMinimize").click(()->
+    $("#WindowButtons .Minimize").click(()->
       win.minimize()
     )
 

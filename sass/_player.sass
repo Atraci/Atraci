@@ -1,21 +1,21 @@
 #video-container
-    display: none
-    position: fixed
-    left: 0
-    top: 0
-    z-index: 2000
+    position: absolute
+    background: #f0f0f0
+    width: 200px
+    height: 200px
+    background-size: 80px auto
+    bottom: 81px
 
 #video_player
     video
         width: 200px
         height: 200px
-        background: #000
     .vjs-control-bar
         display: none
     .vjs-error-display
         display: none
 
-#player-container
+#PlayerContainer
     display: table
     position: fixed
     +box-sizing(border-box)
@@ -23,22 +23,22 @@
     z-index: 1000
     width: 100%
     bottom: 0
-    background-image: linear-gradient(to bottom, #282828, #1e1e1e)
-    border-top: 1px solid rgba(white, .1)
-    +box-shadow(rgba(black, .6) 0 -2px 11px 2px)
+    background-image: linear-gradient(to bottom, #fff, #fefefe)
+    border-top: 1px solid #f0f0f0
+    +box-shadow(rgba(black, .3) 0 0 23px 2px)
 
-    #cover, #info
+    .cover, .info
         display: table-cell
         vertical-align: top
 
-    #cover
+    .cover
         position: relative
-        background: #151515
+        background: #F0F0F0
         width: 80px
         height: 80px
         background-size: 80px auto
 
-        #loading-overlay
+        #LoadingOverlay
             display: none
             position: absolute
             background: black
@@ -46,99 +46,96 @@
             height: 100%
             opacity: .5
 
-    #info
+    .info
         padding: 16px
-        #info-text
+        .info-text
             height: 22px
             overflow: hidden
             text-overflow: ellipsis
-            #track-info
-
-                #next
+            .track-info
+                .next
                     margin-right: 6px
-                #action
+                .action
                     display: inline-block
                     width: 18px
                     i
                         cursor: pointer
-                        opacity: .75
+                        opacity: .25
                         &:hover
-                            opacity: 1
+                            opacity: .55
                     .pause
                         display: none
 
                 font-size: 20px
-                color: #fff
-                +text-shadow(rgba(black, .8) 0px 1px 1px)
+                color: #000
 
-                #artist
+                .artist
                     opacity: .5
                     font-weight: 200
-                #title
+                .title
                     font-weight: 200
 
-            #video-info
+            .video-info
                 display: none
                 font-size: 12px
-                color: #fff
+                color: #000
                 opacity: .3
-                +text-shadow(rgba(black, .8) 0px 1px 1px)
 
-        #controls
+        .controls
             margin-top: 13px
             display: table
             width: 100%
 
-            #current-time, #progress-bg-container, #duration
+            .current-time, .progress-bg-container, .duration
                 display: table-cell
                 vertical-align: middle
 
-            #current-time, #duration
+            .current-time, .duration
                 width: 30px
                 font-size: 11px
-                opacity: .5
-                +text-shadow(rgba(black, .8) 0px 1px 1px)
+                color: #000
 
-            #duration
+            .duration
                 text-align: right
 
-            #progress-bg-container
+            .progress-bg-container
                 display: table-cell
                 vertical-align: middle
 
-                #progress-bg, #progress-current
+                .progress-bg, .progress-current
                     border-radius: 3px
 
-                #progress-bg
-                    background: linear-gradient(to top, #282828 0%, #1e1e1e 100%)
+                .progress-bg
+                    background: #E0E0E0
                     cursor: pointer
 
-                    #progress-current
+                    .progress-current
                         height: 6px
-                        background: linear-gradient(to bottom, #18b0ff 0%, shade(#18b0ff, 30%) 100%)
+                        background: linear-gradient(to bottom, #eb2728 0%, shade(#eb2728, 30%) 100%)
                         width: 0
 
-            #volume-icon
+            .volume-icon
+                color: #000
                 display: table-cell
                 vertical-align: middle
                 width: 20px
                 padding-left: 18px
                 +opacity(0.4)
 
-            #volume-bg-container
+            .volume-bg-container
                 display: table-cell
                 vertical-align: middle
                 width: 80px
 
-                #volume-bg, #volume-current
+                .volume-bg, .volume-current
                     border-radius: 3px
 
-                #volume-bg
-                    background: linear-gradient(to top, #282828 0%, #1e1e1e 100%)
+                .volume-bg
+                    background: #E0E0E0
                     cursor: pointer
 
-                    #volume-current
+                    .volume-current
                         +opacity(0.75)
                         height: 6px
-                        background: linear-gradient(to bottom, #fff 0%, shade(#fff, 30%) 100%)
+                        background: linear-gradient(to bottom, #eb2728 0%, shade(#eb2728, 30%) 100%)
                         width: 100%

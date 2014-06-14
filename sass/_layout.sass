@@ -16,7 +16,7 @@ body
     margin-top: 48px
     width: 100%
 
-    #sidebar-container, #tracklist-container
+    #SideBar, #ContentWrapper
         @include scrollable()
 
     td
@@ -27,8 +27,12 @@ body
         background: #121212
         border-right: 1px solid black
 
-    #sidebar-container, #tracklist-container
+    #SideBar, #ContentWrapper
         padding: 12px
+
+section
+    height: calc(100% - 122px)
+    margin-top: 51px
 
 button
     outline: 0

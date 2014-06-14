@@ -1,35 +1,37 @@
-#header
+header
     +box-sizing(border-box)
+    font-family: 'Open Sans', sans-serif
     -webkit-app-region: drag
     z-index: 1001
     position: fixed
     padding: 10px
     top: 0
     width: 100%
-    background-image: linear-gradient(to bottom, #282828, #1e1e1e)
-    border-bottom: 1px solid #000
-    +box-shadow(rgba(black, .1) 0 2px 5px)
+    background: #fff
+    border-bottom: 1px solid #f0f0f0
 
-    #logo
-        position: fixed
-        top: 10px
-        right: 59px
-        background-image: url(../images/logo@2x.png)
-        background-size: 89px 32px
-        width: 89px
-        height: 32px
-
-
+    #Logo
+        text-align: center
+        font-size: 25px
+        line-height: 29px
+        font-weight: bold
+        color: #424242
+        width: 130px
+        margin-right: 10px
+        .red
+            background: #eb2728
+            font-weight: 700
+            color: #fff
+            border-radius: 20px
+            padding: 0 5px
 
     nav
         display: inline-block
 
-    #windowControls
-        position: fixed
-        right: 10px
-        top: 15px
+    #WindowButtons
+        -webkit-app-region: no-drag
 
-        .actionButton
+        span
             -webkit-app-region: no-drag
             height: 10px
             width: 10px
@@ -37,15 +39,15 @@
             background: #5b595c
             border-radius: 5em
             float: right
-            margin: 5px 2px
+            margin: 10px 2px
             -webkit-transition: 0.2s
             cursor: pointer
 
-            &#ActionButtonClose:hover
+            &.Close:hover
                 background: red
 
-            &#ActionButtonExpand:hover
+            &.Expand:hover
                 background: green
 
-            &#ActionButtonMinimize:hover
+            &.Minimize:hover
                 background: yellow

@@ -1,31 +1,31 @@
 populateSidebar = (playlists) ->
-    currentlyActive = $('#sidebar-container ul li.active').text()
-    $('#sidebar-container ul').empty()
+    currentlyActive = $('#SideBar ul li.active').text()
+    $('#SideBar ul').empty()
 
-    $('#sidebar-container ul').append('<li class="top">Top Tracks</li>')
-    $('#sidebar-container ul').append('<li class="sep"><hr></li>')
+    $('#SideBar ul').append('<li class="top">Top Tracks</li>')
+    $('#SideBar ul').append('<li class="sep"><hr></li>')
 
-    $('#sidebar-container ul').append('<li class="history">History</li>')
-    $('#sidebar-container ul').append('<li class="sep"><hr></li>')
+    $('#SideBar ul').append('<li class="history">History</li>')
+    $('#SideBar ul').append('<li class="sep"><hr></li>')
     
     for playlist in playlists
-        $('#sidebar-container ul').append('<li class="playlist">' + playlist.name + '</li>')
-    $('#sidebar-container ul').append('<li class="new">+ New playlist</li>')
+        $('#SideBar ul').append('<li class="playlist">' + playlist.name + '</li>')
+    $('#SideBar ul').append('<li class="new">+ New playlist</li>')
     
     # Re-active context after repopulating
-    $('#sidebar-container ul li').filter(->
+    $('#SideBar ul li').filter(->
         $(@).text() == currentlyActive
     ).addClass('active')
 
 $ ->
-    $('#sidebar-container').on 'click', 'li.history, li.playlist, li.top', ->
+    $('#SideBar').on 'click', 'li.history, li.playlist, li.top', ->
         $(@).siblings('.active').removeClass('active')
         $(@).addClass('active')
 
-    $('#sidebar-container').on 'click', 'li', ->
+    $('#SideBar').on 'click', 'li', ->
         if $(@).hasClass('top')
-            $('#tracklist-container').empty()
-            spinner = new Spinner(spinner_opts).spin($('#tracklist-container')[0])
+            $('#ContentWrapper').empty()
+            spinner = new Spinner(spinner_opts).spin($('#ContentWrapper')[0])
             TrackSource.topTracks((tracks) ->
                 spinner.stop()
                 PopulateTrackList(tracks)
@@ -39,7 +39,7 @@ $ ->
                 PopulateTrackList(tracks)
             ))
 
-    $('#sidebar-container ul').on 'click', 'li.new', ->
+    $('#SideBar ul').on 'click', 'li.new', ->
         new_playlist_name = prompt('Enter new playlist name:')
         if new_playlist_name
             Playlists.create(new_playlist_name)
@@ -48,7 +48,7 @@ $ ->
                 )
             userTracking.event("Playlist", "Create", new_playlist_name).send()
 
-    $('#sidebar-container ul').on 'contextmenu', 'li.playlist', (e) ->
+    $('#SideBar ul').on 'contextmenu', 'li.playlist', (e) ->
         playlist_name = $(@).text()
         e.stopPropagation()
         menu = new gui.Menu()

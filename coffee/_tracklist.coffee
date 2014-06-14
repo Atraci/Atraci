@@ -6,16 +6,16 @@ currentContextTrack = null
 __currentTracklist = []
 
 PopulateTrackList = (tracks) ->
-    $('#tracklist-container').empty().scrollTop()
+    $('#ContentWrapper').empty().scrollTop()
     if tracks.length > 0
-        $('#tmpl-tracklist').tmpl(tracks).appendTo('#tracklist-container')
+        $('#tmpl-tracklist').tmpl(tracks).appendTo('#ContentWrapper')
         __currentTracklist = tracks
     else
-        $('#tmpl-tracklist-error').tmpl({message: 'No tracks'}).appendTo('#tracklist-container')
+        $('#tmpl-tracklist-error').tmpl({message: 'No tracks'}).appendTo('#ContentWrapper')
 
 
 $ ->
-    $('#tracklist-container').on 'contextmenu', '.track-container', (e) ->
+    $('#ContentWrapper').on 'contextmenu', '.track-container', (e) ->
         _this = $(@)
         e.stopPropagation()
         menu = new gui.Menu()
@@ -33,9 +33,9 @@ $ ->
                     userTracking.event("Playlist", "Add Track to Playlist", playlist.name).send()
                 )
         
-        if $('#sidebar-container li.active').hasClass('playlist')
+        if $('#SideBar li.active').hasClass('playlist')
             menu.append new gui.MenuItem(type: 'separator')
-            playlist_name = $('#sidebar-container li.active').text()
+            playlist_name = $('#SideBar li.active').text()
             menu.append new gui.MenuItem(
                 label: 'Remove from ' + playlist_name,
                 click: ->

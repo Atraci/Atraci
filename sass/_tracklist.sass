@@ -1,4 +1,9 @@
-#tracklist-container
+#ContentWrapper
+    background: #f9f9f9
+    height: calc(100% - 30px)
+    width: calc(100% - 221px)
+    overflow-y: scroll
+    padding: 10px
     .tracklist-error
         text-align: center
         padding: 15px
@@ -30,18 +35,16 @@
             width: 200px
             height: 200px
             border-radius: 2px
-            +text-shadow(rgba(black, .8) 0px 1px 1px)
         .info
             font-family: 'Open Sans', sans-serif
             text-align: center
             padding: 4px
             margin-left: 3px
-            +text-shadow(rgba(black, .8) 0px 1px 1px)
             .title
                 height: 16px
                 font-weight: 700
                 font-size: 14px
-                color: #ddd
+                color: #919191
                 overflow: hidden !important
                 white-space: nowrap
                 text-overflow: ellipsis
