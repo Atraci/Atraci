@@ -2,15 +2,15 @@ populateSidebar = (playlists) ->
     currentlyActive = $('#SideBar ul li.active').text()
     $('#SideBar ul').empty()
 
-    $('#SideBar ul').append('<li class="top">Top Tracks</li>')
+    $('#SideBar ul').append('<li class="top"><i class="fa fa-th-large"></i>Top Tracks</li>')
     $('#SideBar ul').append('<li class="sep"><hr></li>')
 
-    $('#SideBar ul').append('<li class="history">History</li>')
+    $('#SideBar ul').append('<li class="history"><i class="fa fa-history"></i>History</li>')
     $('#SideBar ul').append('<li class="sep"><hr></li>')
-    
+
+    $('#SideBar ul').append('<li class="new"><i class="fa fa-plus-square"></i>New playlist</li>')
     for playlist in playlists
         $('#SideBar ul').append('<li class="playlist">' + playlist.name + '</li>')
-    $('#SideBar ul').append('<li class="new">+ New playlist</li>')
     
     # Re-active context after repopulating
     $('#SideBar ul li').filter(->

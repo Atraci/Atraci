@@ -56,15 +56,12 @@ $ ->
         )
 
     setTimeout (->
-        History.countTracks((cnt) ->
-            if cnt > 10
-                $('#SideBar li.history').click()
-            else
-                $('#SideBar li.top').click()
+        History.countTracks(() ->
+          $('#SideBar li.top').click()
         )
     ), 1
 
-    $('#search-input').focus()
+    $('#Search input').focus()
 
     $("#WindowButtons .Expand").click(()->
       if !$(this).hasClass("maximized")
