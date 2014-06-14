@@ -1,6 +1,6 @@
 #Atraci 
 
-![screenshot](http://i.imgur.com/qnz7qoo.jpg)
+![screenshot](http://i.imgur.com/BoZeCwD.jpg)
 
 ## How does it work?
 
