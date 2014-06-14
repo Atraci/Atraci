@@ -124,14 +124,12 @@ $(document).keydown (e) ->
         PlayPrevious(__currentTrack.artist, __currentTrack.title)
     if e.keyCode is 39 and e.target.tagName != 'INPUT'
         PlayNext(__currentTrack.artist, __currentTrack.title)
-
+     
 $('#player-container #info #track-info #action i').click ->
     if $(@).hasClass('play')
         videojs('video_player').play()
     else
         videojs('video_player').pause()
-
-
 
 videojs('video_player').ready ->
     @.on 'loadedmetadata', ->
@@ -188,7 +186,6 @@ $('#player-container #volume-bg').on 'click', (e) ->
         $('#player-container #controls #volume-icon #action i.fa-volume-up').hide()
         $('#player-container #controls #volume-icon #action i.fa-volume-down').hide()
         $('#player-container #controls #volume-icon #action i.fa-volume-off').show()
-    console.log(percentage)
 
 $('#player-container #track-info #prev').on 'click', (e) ->
     PlayPrevious(__currentTrack.artist, __currentTrack.title)
