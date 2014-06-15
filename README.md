@@ -1,6 +1,6 @@
 #Atraci [![Dependency Status](https://david-dm.org/Atraci/Atraci.svg?theme=shields.io)](https://david-dm.org/Atraci/Atraci)
 
-![screenshot](http://i.imgur.com/04Izvry.jpg)
+![screenshot](http://i.imgur.com/eaLNqYJ.jpg)
 
 ## Download (stable releases, prebuilt binaries)
 - [Windows](https://s3.amazonaws.com/Atraci/win+0.4.7/Install+Atraci+0.4.7.exe)
