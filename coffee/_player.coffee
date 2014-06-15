@@ -73,7 +73,7 @@ PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
         spinner_cover.stop()
 
     $('#PlayerContainer .info .video-info').html('► Loading...')
-    $('#PlayerContainer .info .track-info .artist, .title').empty()
+    $('#PlayerContainer .info .track-info .artist,#PlayerContainer .title').empty()
     $('#PlayerContainer .duration, .current-time').text('0:00')
     $('#PlayerContainer .cover').css({'background-image': 'url(' + cover_url_large + ')'})
 

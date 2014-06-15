@@ -16,7 +16,6 @@ $ ->
         PlayTrack($(@).find('.artist').text(), $(@).find('.title').text(), $(@).find('.cover').attr('data-cover_url_medium'), $(@).find('.cover').attr('data-cover_url_large'))
         $(@).siblings('.playing').removeClass('playing')
         $(@).addClass('playing')
-        console.log(videojs('video_player').paused())
       else if videojs('video_player').paused()
         videojs('video_player').play()
       else

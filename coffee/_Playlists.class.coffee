@@ -37,7 +37,7 @@ class Playlists
     @getAll = (success) ->
         playlists = []
         db.transaction (tx) ->
-            tx.executeSql 'SELECT * FROM playlists ORDER BY created ASC', [], (tx, results) ->
+            tx.executeSql 'SELECT * FROM playlists ORDER BY created DESC', [], (tx, results) ->
                 i = 0
                 while i < results.rows.length
                     playlists.push results.rows.item(i)
@@ -48,7 +48,7 @@ class Playlists
     @getTracksForPlaylist = (playlist, success) ->
         tracks = []
         db.transaction (tx) ->
-            tx.executeSql 'SELECT * FROM playlist_tracks WHERE playlist = ? ORDER BY added DESC', [playlist], (tx, results) ->
+            tx.executeSql 'SELECT * FROM playlist_tracks WHERE playlist = ? ORDER BY added ASC', [playlist], (tx, results) ->
                 i = 0
                 while i < results.rows.length
                     tracks.push results.rows.item(i)
