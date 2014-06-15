@@ -1,6 +1,6 @@
 ; Installer Variables
 #define AppName "Atraci"
-#define AppVersion "0.4.6"
+#define AppVersion "0.4.7"
 #define AppPublisher "Atraci Team"
 #define AppURL "http://getatraci.net"
 #define AppExeName "run.bat"
@@ -66,7 +66,10 @@ Source: "..\..\css\*"; DestDir: "{app}\app\css\"; Flags: ignoreversion recursesu
 Source: "..\..\fonts\*"; DestDir: "{app}\app\fonts\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\js\*"; DestDir: "{app}\app\js\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\images\*"; DestDir: "{app}\app\images\"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\..\node_modules\*"; DestDir: "{app}\app\node_modules\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\node_modules\node-uuid\*"; DestDir: "{app}\app\node_modules\node-uuid\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\node_modules\request\*"; DestDir: "{app}\app\node_modules\request\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\node_modules\universal-analytics\*"; DestDir: "{app}\app\node_modules\universal-analytics\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\node_modules\ytdl\*"; DestDir: "{app}\app\node_modules\ytdl\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node-webkit\win\*"; DestDir: "{app}\node-webkit\"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
