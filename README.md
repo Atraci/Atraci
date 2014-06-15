@@ -40,6 +40,8 @@ Run node-webkit from the build/cache directory (--debug always on). Note that gr
 
 ## Build
 
+(for mac build, us grunt build-mac)
+
 Build with:
 
     $ grunt build
