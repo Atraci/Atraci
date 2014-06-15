@@ -1,6 +1,6 @@
-#Atraci 
+#Atraci [![Dependency Status](https://david-dm.org/Atraci/Atraci.svg?theme=shields.io)](https://david-dm.org/Atraci/Atraci)
 
-![screenshot](http://i.imgur.com/BoZeCwD.jpg)
+![screenshot](http://i.imgur.com/04Izvry.jpg)
 
 ## How does it work?
 
