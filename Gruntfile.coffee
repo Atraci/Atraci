@@ -36,15 +36,11 @@ module.exports = (grunt) ->
             runnw:
                 options:
                     stdout: true
-                command: [
-                    './build/cache/mac/0.9.2/node-webkit.app/Contents/MacOS/node-webkit . --debug'
-                ,
-                    '.\\build\\cache\\win\\0.9.2\\nw.exe . --debug'
-                ].join('&')
+                command: [ '/build/cache/mac/0\.9\.2/node-webkit.app/Contents/MacOS/node-webkit --debug' , '\\build\\cache\\win\\0\.9\.2\\nw.exe --debug' ].join('&')
             create_dmg:
                 options:
                     stdout: true
-                command: './dist/mac/yoursway-create-dmg/create-dmg --volname "Atraci ' + _VERSION + '" --background ./dist/mac/background.png --window-size 480 540 --icon-size 128 --app-drop-link 240 370 --icon "Atraci" 240 110 ./build/releases/Atraci/mac/Atraci-' + _VERSION + '.dmg ./build/releases/Atraci/mac/'
+                command: '/dist/mac/yoursway-create-dmg/create-dmg --volname "Atraci ' + _VERSION + '" --background ./dist/mac/background.png --window-size 480 540 --icon-size 128 --app-drop-link 240 370 --icon "Atraci" 240 110 /build/releases/Atraci/mac/Atraci-' + _VERSION + '.dmg ./build/releases/Atraci/mac/'
 
         'regex-replace':
             windows_installer:
