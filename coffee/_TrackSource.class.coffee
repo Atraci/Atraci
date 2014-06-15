@@ -3,19 +3,24 @@ request = require('request')
 class TrackSource
 
     @search: (keywords, success) ->
-        tracks_all = {}
+        tracks_all = {
+          "itunes": []
+          "lastfm": []
+          "soundcloud": []
+        }
 
         mashTracks = ->
-            tracks_all = tracks_all['itunes'].concat tracks_all['lastfm']
+            tracks_allconcat = tracks_all['itunes'].concat tracks_all['lastfm'], tracks_all['soundcloud']
             
             tracks_deduplicated = []
             tracks_hash = []
-            $.each tracks_all, (i, track) ->
-                if track.artist and track.title
-                    track_hash = track.artist.toLowerCase() + '___' + track.title.toLowerCase()
-                    if track_hash not in tracks_hash
-                        tracks_deduplicated.push(track)
-                        tracks_hash.push(track_hash)
+            $.each tracks_allconcat, (i, track) ->
+                if track
+                    if track.artist and track.title
+                        track_hash = track.artist.toLowerCase() + '___' + track.title.toLowerCase()
+                        if track_hash not in tracks_hash
+                            tracks_deduplicated.push(track)
+                            tracks_hash.push(track_hash)
             success? tracks_deduplicated
 
         # itunes
@@ -33,7 +38,7 @@ class TrackSource
                             cover_url_medium: track.artworkUrl60
                             cover_url_large: track.artworkUrl100
                 tracks_all['itunes'] = tracks
-                if Object.keys(tracks_all).length == 2
+                if Object.keys(tracks_all).length > 1
                     mashTracks()
 
         # last.fm
@@ -60,8 +65,30 @@ class TrackSource
                             cover_url_medium: cover_url_medium
                             cover_url_large: cover_url_large
                 tracks_all['lastfm'] = tracks
-                if Object.keys(tracks_all).length == 2
+                if Object.keys(tracks_all).length > 1
                     mashTracks()
+
+        # Soundcloud
+        request
+            url: 'https://api.soundcloud.com/tracks.json?client_id=dead160b6295b98e4078ea51d07d4ed2&q=' + encodeURIComponent(keywords)
+            json: true
+        , (error, response, data) ->
+            tracks = []
+            $.each data, (i, track) ->
+                if track
+                    trackNameExploded = track.title.split(" - ")
+                    coverPhoto = track.artwork_url
+                    coverPhoto = 'images/cover_default_large.png' if !track.artwork_url
+                    console.log(trackNameExploded);
+                    tracks.push
+                        title: trackNameExploded[0]
+                        artist: trackNameExploded[1]
+                        cover_url_medium: coverPhoto
+                        cover_url_large: coverPhoto
+
+            tracks_all['soundcloud'] = tracks
+            if Object.keys(tracks_all).length > 1
+              mashTracks()
 
 
     @topTracks: (success) ->
