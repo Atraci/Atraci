@@ -125,7 +125,7 @@ $(document).keydown (e) ->
     if e.keyCode is 39 and e.target.tagName != 'INPUT'
         PlayNext(__currentTrack.artist, __currentTrack.title)
 
-$('#PlayerContainer .info .track-info .action i').click ->
+$('#PlayerContainer .info .track-info .action .play, #PlayerContainer .info .track-info .action .pause').click ->
     if $(@).hasClass('play')
         videojs('video_player').play()
     else
@@ -141,7 +141,11 @@ videojs('video_player').ready ->
         $('#PlayerContainer .current-time').text(moment(this.currentTime()*1000).format('m:ss'))
 
     @.on 'ended', ->
-        PlayNext(__currentTrack.artist, __currentTrack.title)
+        if $('#PlayerContainer .repeat').closest(".action").hasClass("active")
+          videojs('video_player').currentTime(0)
+          videojs('video_player').play()
+        else
+          PlayNext(__currentTrack.artist, __currentTrack.title)
 
     @.on 'play', ->
         if spinner_cover
@@ -189,3 +193,6 @@ $('#PlayerContainer .track-info .backward').on 'click', (e) ->
 
 $('#PlayerContainer .track-info .forward').on 'click', (e) ->
     PlayNext(__currentTrack.artist, __currentTrack.title)
+
+$('#PlayerContainer .track-info .repeat').on 'click', (e) ->
+    $(@).closest(".action").toggleClass("active")
