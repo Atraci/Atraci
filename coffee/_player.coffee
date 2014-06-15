@@ -184,8 +184,8 @@ $('#PlayerContainer .volume-bg').on 'click', (e) ->
         $('#PlayerContainer .controls .volume-icon .action i.fa-volume-down').hide()
         $('#PlayerContainer .controls .volume-icon .action i.fa-volume-off').show()
 
-$('#PlayerContainer .track-info #prev').on 'click', (e) ->
+$('#PlayerContainer .track-info .backward').on 'click', (e) ->
     PlayPrevious(__currentTrack.artist, __currentTrack.title)
 
-$('#PlayerContainer .track-info #next').on 'click', (e) ->
+$('#PlayerContainer .track-info .forward').on 'click', (e) ->
     PlayNext(__currentTrack.artist, __currentTrack.title)
