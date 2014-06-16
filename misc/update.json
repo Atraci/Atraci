@@ -2,15 +2,15 @@
     "updateUrl": "http://getatraci.net/update.json",
     "downloadUrl": "http://getatraci.net",
     "windows": {
-        "version": "0.4.6",
-        "description": "- Faster playback, volume slider & many bugfixes"
+        "version": "0.4.7",
+        "description": "- Complete redesigned and rebuilt"
     },
     "mac": {
-        "version": "0.4.6",
-        "description": "- Faster playback, volume slider & many bugfixes"
+        "version": "0.4.7",
+        "description": "- Complete redesigned and rebuilt"
     },
     "linux": {
-        "version": "0.4.6",
-        "description": "- Faster playback, volume slider & many bugfixes"
+        "version": "0.4.7",
+        "description": "- Complete redesigned and rebuilt"
     }
 }
