@@ -3,7 +3,7 @@
 ![screenshot](http://i.imgur.com/eaLNqYJ.jpg)
 
 ## Download (stable releases, prebuilt binaries)
-- [Windows](https://s3.amazonaws.com/Atraci/win+0.4.7/Atraci.rar)
+- [Windows](https://s3.amazonaws.com/Atraci/win+0.4.7/Atraci.exe)
 - [Mac OSX](https://s3.amazonaws.com/Atraci/mac+0.4.7/Atraci.zip)
 - [Linux 32](https://s3.amazonaws.com/Atraci/linux32+0.4.7/Atraci-0.4.7.tgz)
 - [Linux 64](https://s3.amazonaws.com/Atraci/linux64+0.4.7/Atraci-0.4.7.tgz)
