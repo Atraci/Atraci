@@ -4,7 +4,7 @@
 
 ## Download (stable releases, prebuilt binaries)
 - [Windows](https://s3.amazonaws.com/Atraci/win+0.4.7/Install+Atraci+0.4.7.exe)
-- [Mac OSX](https://s3.amazonaws.com/Atraci/mac+0.4.7/Atraci.rar)
+- [Mac OSX](https://s3.amazonaws.com/Atraci/mac+0.4.7/Atraci.zip)
 - [Linux 32](https://s3.amazonaws.com/Atraci/linux32+0.4.7/Atraci-0.4.7.tgz)
 - [Linux 64](https://s3.amazonaws.com/Atraci/linux64+0.4.7/Atraci-0.4.7.tgz)
 
@@ -39,8 +39,6 @@ Run node-webkit from the build/cache directory (--debug always on). Note that gr
     $ grunt run
 
 ## Build
-
-(for mac build, us grunt build-mac)
 
 Build with:
 
