@@ -144,6 +144,9 @@ videojs('video_player').ready ->
         if $('#PlayerContainer .repeat').closest(".action").hasClass("active")
           videojs('video_player').currentTime(0)
           videojs('video_player').play()
+        else if $('#PlayerContainer .random').closest(".action").hasClass("active")
+          t = __playerTracklist[Math.floor(Math.random() * __playerTracklist.length)]
+          PlayTrack(t.artist, t.title, t.cover_url_medium, t.cover_url_large)
         else
           PlayNext(__currentTrack.artist, __currentTrack.title)
 
@@ -196,3 +199,14 @@ $('#PlayerContainer .track-info .forward').on 'click', (e) ->
 
 $('#PlayerContainer .track-info .repeat').on 'click', (e) ->
     $(@).closest(".action").toggleClass("active")
+
+$('#PlayerContainer .track-info .random').on 'click', (e) ->
+    $(@).closest(".action").toggleClass("active")
+
+$('#PlayerContainer .volume-icon').on 'click', (e) ->
+    if(+$(@).attr("data-ismuted") == 1)
+      $(@).attr("data-ismuted", 0)
+      $(@).find("i").removeClass("fa-volume-off").addClass("fa fa-volume-up")
+    else
+      $(@).attr("data-ismuted", 1)
+      $(@).find("i").removeClass("fa-volume-up").addClass("fa fa-volume-off")
