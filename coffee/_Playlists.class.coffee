@@ -44,7 +44,7 @@ class Playlists
                     i++
                 __playlists = playlists
                 success? playlists
-
+                
     @getTracksForPlaylist = (playlist, success) ->
         tracks = []
         db.transaction (tx) ->
@@ -58,3 +58,12 @@ class Playlists
     @rename: (name, new_name) ->
         db.transaction (tx) ->
             tx.executeSql 'UPDATE playlists SET name = ? WHERE name = ?', [new_name, name]
+        Playlists.getTracksForPlaylist(name, ((tracks) ->
+            i = 0
+            while i < tracks.length
+                Playlists.addTrack(tracks[i].artist, tracks[i].title, tracks[i].cover_url_medium, tracks[i].cover_url_large, new_name)
+                console.log(tracks[i].artist)
+                i++
+            success? tracks
+        ))
+        Playlists.delete(name)
