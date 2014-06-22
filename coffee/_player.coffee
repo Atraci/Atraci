@@ -164,6 +164,7 @@ videojs('video_player').ready ->
         code = if e.target.error then e.target.error.code else e.code
         userTracking.event("Playback Error", video_error_codes[code], __currentTrack.artist + ' - ' + __currentTrack.title).send()
         alert 'Playback Error (' + video_error_codes[code] + ')'
+        PlayNext(__currentTrack.artist, __currentTrack.title)
 
 $('#PlayerContainer .volume-bg').ready ->
     $('#PlayerContainer .controls .volume-icon .action i.fa-volume-down').hide()
