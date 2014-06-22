@@ -1,13 +1,16 @@
-$ ->
-    doSearch = (searchVal) ->
-        userTracking.event("Search", "organic", searchVal).send()
-        $('#sidebar-container li.active').removeClass('active')
-        $('#tracklist-container').empty()
-        spinner = new Spinner(spinner_opts).spin($('#tracklist-container')[0])
-        TrackSource.search(searchVal, ((tracks) ->
+doSearch = (searchVal, getTracks, callback) ->
+    userTracking.event("Search", "organic", searchVal).send()
+    $('#sidebar-container li.active').removeClass('active')
+    $('#tracklist-container').empty()
+    spinner = new Spinner(spinner_opts).spin($('#tracklist-container')[0])
+    TrackSource.search(searchVal, ((tracks) ->
+        if(!getTracks)
             spinner.stop()
             PopulateTrackList(tracks)
-        ))
+        else
+            callback tracks
+    ))
+$ ->
 
     $('#Search input').autocomplete(
         delay: 100

@@ -79,7 +79,6 @@ class TrackSource
                     trackNameExploded = track.title.split(" - ")
                     coverPhoto = track.artwork_url
                     coverPhoto = 'images/cover_default_large.png' if !track.artwork_url
-                    console.log(trackNameExploded);
                     tracks.push
                         title: trackNameExploded[0]
                         artist: trackNameExploded[1]

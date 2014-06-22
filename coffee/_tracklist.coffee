@@ -5,8 +5,11 @@ currentContextTrack = null
 
 __currentTracklist = []
 
-PopulateTrackList = (tracks) ->
+PopulateTrackList = (tracks, artistObject) ->
     $('#ContentWrapper').empty().scrollTop()
+    if(artistObject)
+        $("#tmpl-artistPage").tmpl(artistObject).prependTo('#ContentWrapper')
+
     if tracks.length > 0
         $('#tmpl-tracklist').tmpl(tracks).appendTo('#ContentWrapper')
         __currentTracklist = tracks

@@ -3,6 +3,7 @@ populateSidebar = (playlists) ->
     $('#SideBar ul').empty()
 
     $('#SideBar ul').append('<li class="top"><i class="fa fa-th-large"></i>Top Tracks</li>')
+    $('#SideBar ul').append('<li class="featured"><i class="fa fa-music"></i>Featured Artist</li>')
     $('#SideBar ul').append('<li class="sep"><hr></li>')
 
     $('#SideBar ul').append('<li class="history"><i class="fa fa-history"></i>History</li>')
@@ -18,7 +19,7 @@ populateSidebar = (playlists) ->
     ).addClass('active')
 
 $ ->
-    $('#SideBar').on 'click', 'li.history, li.playlist, li.top', ->
+    $('#SideBar').on 'click', 'li.history, li.playlist, li.top, li.featured', ->
         $(@).siblings('.active').removeClass('active')
         $(@).addClass('active')
 
@@ -38,6 +39,8 @@ $ ->
             TrackSource.playlist($(@).text(), ((tracks) ->
                 PopulateTrackList(tracks)
             ))
+        else if $(@).hasClass('featured')
+            loadFeaturedArtistPage()
 
     $('#SideBar ul').on 'click', 'li.new', ->
         new_playlist_name = prompt('Enter new playlist name:')
@@ -45,7 +48,7 @@ $ ->
             Playlists.create(new_playlist_name)
             Playlists.getAll((playlists) ->
                 populateSidebar(playlists)
-                )
+            )
             userTracking.event("Playlist", "Create", new_playlist_name).send()
 
     $('#SideBar ul').on 'contextmenu', 'li.playlist', (e) ->
@@ -74,3 +77,10 @@ $ ->
             )
         menu.popup e.clientX, e.clientY
         false
+
+loadFeaturedArtistPage = ->
+    $.getJSON("http://getatraci.net/featured.json", (artistObject) ->
+        doSearch artistObject.value, true, (tracks) ->
+            PopulateTrackList(tracks, artistObject)
+    )
+    true
