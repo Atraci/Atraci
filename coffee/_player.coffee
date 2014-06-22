@@ -1,5 +1,7 @@
 request = require('request')
 ytdl = require('ytdl')
+playerContainer = $('#PlayerContainer');
+videoContainer = $('#video-container');
 
 itag_priorities = [ # http://en.wikipedia.org/wiki/YouTube > Comparison of YouTube media encoding options
     85,
@@ -69,21 +71,21 @@ PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
     History.addTrack(artist, title, cover_url_medium, cover_url_large)
 
     if spinner_cover
-        $('#PlayerContainer #cover #loading-overlay').hide()
+        playerContainer.find('#cover #loading-overlay').hide()
         spinner_cover.stop()
 
-    $('#PlayerContainer .info .video-info').html('► Loading...')
-    $('#PlayerContainer .info .track-info .artist,#PlayerContainer .title').empty()
-    $('#PlayerContainer .duration, .current-time').text('0:00')
-    $('#PlayerContainer .cover').css({'background-image': 'url(' + cover_url_large + ')'})
+    playerContainer.find('.info .video-info').html('► Loading...')
+    playerContainer.find('.info .track-info .artist,#PlayerContainer .title').empty()
+    playerContainer.find('.duration, .current-time').text('0:00')
+    playerContainer.find('.cover').css({'background-image': 'url(' + cover_url_large + ')'})
 
-    $('#PlayerContainer .cover #loading-overlay').show()
-    spinner_cover = new Spinner(spinner_cover_opts).spin($('#PlayerContainer .cover')[0])
+    playerContainer.find('.cover #loading-overlay').show()
+    spinner_cover = new Spinner(spinner_cover_opts).spin(playerContainer.find('.cover')[0])
 
-    $('#PlayerContainer .progress-current').css({'width': '0px'}) # not working ?
+    playerContainer.find('.progress-current').css({'width': '0px'}) # not working ?
 
-    $('#PlayerContainer .info .track-info .artist').html(artist)
-    $('#PlayerContainer .info .track-info .title').html(title)
+    playerContainer.find('.info .track-info .artist').html(artist)
+    playerContainer.find('.info .track-info .title').html(title)
 
     request
         url: 'http://gdata.youtube.com/feeds/api/videos?alt=json&max-results=1&q=' + encodeURIComponent(artist + ' - ' + title)
@@ -92,7 +94,7 @@ PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
         if not data.feed.entry # no results
             PlayNext(__currentTrack.artist, __currentTrack.title)
         else
-            $('#PlayerContainer #info #video-info').html('► ' + data.feed.entry[0].title['$t'] + ' (' + data.feed.entry[0].author[0].name['$t'] + ')')
+            playerContainer.find('#info #video-info').html('► ' + data.feed.entry[0].title['$t'] + ' (' + data.feed.entry[0].author[0].name['$t'] + ')')
 
             ytdl.getInfo data.feed.entry[0].link[0].href, {downloadURL: true}, (err, info) ->
                 if err
@@ -125,7 +127,7 @@ $(document).keydown (e) ->
     if e.keyCode is 39 and e.target.tagName != 'INPUT'
         PlayNext(__currentTrack.artist, __currentTrack.title)
 
-$('#PlayerContainer .info .track-info .action .play, #PlayerContainer .info .track-info .action .pause').click ->
+playerContainer.find('.info .track-info .action .play, .info .track-info .action .pause').click ->
     if $(@).hasClass('play')
         videojs('video_player').play()
     else
@@ -133,18 +135,18 @@ $('#PlayerContainer .info .track-info .action .play, #PlayerContainer .info .tra
 
 videojs('video_player').ready ->
     @.on 'loadedmetadata', ->
-        $('#PlayerContainer .duration').text(moment(@duration()*1000).format('m:ss'))
+        playerContainer.find('.duration').text(moment(@duration()*1000).format('m:ss'))
         videojs('video_player').play()
 
     @.on 'timeupdate', ->
-        $('#PlayerContainer .progress-current').css({'width': (this.currentTime() / this.duration()) * 100 + '%'})
-        $('#PlayerContainer .current-time').text(moment(this.currentTime()*1000).format('m:ss'))
+        playerContainer.find('.progress-current').css({'width': (this.currentTime() / this.duration()) * 100 + '%'})
+        playerContainer.find('.current-time').text(moment(this.currentTime()*1000).format('m:ss'))
 
     @.on 'ended', ->
-        if $('#PlayerContainer .repeat').closest(".action").hasClass("active")
+        if playerContainer.find('.repeat').closest(".action").hasClass("active")
           videojs('video_player').currentTime(0)
           videojs('video_player').play()
-        else if $('#PlayerContainer .random').closest(".action").hasClass("active")
+        else if playerContainer.find('.random').closest(".action").hasClass("active")
           t = __playerTracklist[Math.floor(Math.random() * __playerTracklist.length)]
           PlayTrack(t.artist, t.title, t.cover_url_medium, t.cover_url_large)
         else
@@ -152,13 +154,13 @@ videojs('video_player').ready ->
 
     @.on 'play', ->
         if spinner_cover
-            $('#PlayerContainer .cover #LoadingOverlay').hide()
+            playerContainer.find('.cover #LoadingOverlay').hide()
             spinner_cover.stop()
-        $('#PlayerContainer .info .track-info .action i.play').hide()
-        $('#PlayerContainer .info .track-info .action i.pause').show()
+        playerContainer.find('.info .track-info .action i.play').hide()
+        playerContainer.find('.info .track-info .action i.pause').show()
     @.on 'pause', ->
-        $('#PlayerContainer .info .track-info .action i.pause').hide()
-        $('#PlayerContainer .info .track-info .action i.play').show()
+        playerContainer.find('.info .track-info .action i.pause').hide()
+        playerContainer.find('.info .track-info .action i.play').show()
 
     @.on 'error', (e) ->
         code = if e.target.error then e.target.error.code else e.code
@@ -166,51 +168,44 @@ videojs('video_player').ready ->
         alert 'Playback Error (' + video_error_codes[code] + ')'
         PlayNext(__currentTrack.artist, __currentTrack.title)
 
-$('#PlayerContainer .volume-bg').ready ->
-    $('#PlayerContainer .controls .volume-icon .action i.fa-volume-down').hide()
-    $('#PlayerContainer .controls .volume-icon #action i.fa-volume-off').hide()
+playerContainer.find('.volume-bg').ready ->
+    playerContainer.find('.controls .volume-icon .action i.fa-volume-down').hide()
+    playerContainer.find('.controls .volume-icon #action i.fa-volume-off').hide()
 
-$('#PlayerContainer .progress-bg').on 'click', (e) ->
+playerContainer.find('.progress-bg').on 'click', (e) ->
     percentage = (e.pageX - $(this).offset().left) / $(this).width()
     videojs('video_player').currentTime(percentage * videojs('video_player').duration())
-    $('#PlayerContainer .progress-current').css({'width': (percentage) * 100 + '%'})
+    playerContainer.find('.progress-current').css({'width': (percentage) * 100 + '%'})
 
-$('#PlayerContainer .volume-bg').on 'click', (e) ->
+playerContainer.find('.volume-bg').on 'click', (e) ->
     percentage = (e.pageX - $(this).offset().left) / $(this).width()
+    playerContainer.attr("data-volume", percentage)
+    playerContainer.find('.volume-icon').attr("data-ismuted", 0)
+    playerContainer.find('.volume-icon').find("i").removeClass("fa-volume-off").addClass("fa fa-volume-up")
     videojs('video_player').volume(percentage)
-    $('#PlayerContainer .volume-current').css({'width': (percentage) * 100 + '%'})
-    if percentage > 0.5
-        $('#PlayerContainer .controls .volume-icon .action i.fa-volume-up').show()
-        $('#PlayerContainer .controls .volume-icon .action i.fa-volume-down').hide()
-        $('#PlayerContainer .controls .volume-icon .action i.fa-volume-off').hide()
-    else if percentage < 0.5 and percentage > 0.1
-        $('#PlayerContainer .controls .volume-icon .action i.fa-volume-up').hide()
-        $('#PlayerContainer .controls .volume-icon .action i.fa-volume-down').show()
-        $('#PlayerContainer .controls .volume-icon .action i.fa-volume-off').hide()
-    else
-        $('#PlayerContainer .controls .volume-icon .action i.fa-volume-up').hide()
-        $('#PlayerContainer .controls .volume-icon .action i.fa-volume-down').hide()
-        $('#PlayerContainer .controls .volume-icon .action i.fa-volume-off').show()
+    playerContainer.find('.volume-current').css({'width': (percentage) * 100 + '%'})
 
-$('#PlayerContainer .track-info .backward').on 'click', (e) ->
+playerContainer.find('.track-info .backward').on 'click', (e) ->
     PlayPrevious(__currentTrack.artist, __currentTrack.title)
 
-$('#PlayerContainer .track-info .forward').on 'click', (e) ->
+playerContainer.find('.track-info .forward').on 'click', (e) ->
     PlayNext(__currentTrack.artist, __currentTrack.title)
 
-$('#PlayerContainer .track-info .repeat').on 'click', (e) ->
+playerContainer.find('.track-info .repeat').on 'click', (e) ->
     $(@).closest(".action").toggleClass("active")
 
-$('#PlayerContainer .track-info .random').on 'click', (e) ->
+playerContainer.find('.track-info .random').on 'click', (e) ->
     $(@).closest(".action").toggleClass("active")
 
-$('#PlayerContainer .volume-icon').on 'click', (e) ->
+playerContainer.find('.volume-icon').on 'click', (e) ->
     if(+$(@).attr("data-ismuted") == 1)
       $(@).attr("data-ismuted", 0)
       $(@).find("i").removeClass("fa-volume-off").addClass("fa fa-volume-up")
+      videojs('video_player').volume(playerContainer.attr("data-volume"))
     else
       $(@).attr("data-ismuted", 1)
       $(@).find("i").removeClass("fa-volume-up").addClass("fa fa-volume-off")
+      videojs('video_player').volume(0)
 
-$("#video-container .ExpandButton").on "click", (e) ->
+videoContainer.find(".ExpandButton").on "click", (e) ->
       $("#video-container").toggleClass "expanded"
