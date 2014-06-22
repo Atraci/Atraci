@@ -210,3 +210,6 @@ $('#PlayerContainer .volume-icon').on 'click', (e) ->
     else
       $(@).attr("data-ismuted", 1)
       $(@).find("i").removeClass("fa-volume-up").addClass("fa fa-volume-off")
+
+$("#video-container .ExpandButton").on "click", (e) ->
+      $("#video-container").toggleClass "expanded"
