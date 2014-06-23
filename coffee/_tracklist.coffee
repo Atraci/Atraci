@@ -16,6 +16,8 @@ PopulateTrackList = (tracks, artistObject) ->
     else
         $('#tmpl-tracklist-error').tmpl({message: 'No tracks'}).appendTo('#ContentWrapper')
 
+    sortTracklist()
+
 
 $ ->
     $('#ContentWrapper').on 'contextmenu', '.track-container', (e) ->
@@ -54,7 +56,13 @@ $ ->
         menu.popup e.clientX, e.clientY
         false
 
-
+    $(".trackListToolbar i").click ->
+        $(".trackListToolbar i").removeClass("active");
+        $(@).addClass("active")
+        if($(@).hasClass("fa-th"))
+            $('#ContentWrapper').removeClass("smallRows");
+        else
+            $('#ContentWrapper').addClass("smallRows");
 
     # Add to Favorites
     track_menu.items[0].click = ->
