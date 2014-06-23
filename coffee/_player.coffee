@@ -209,3 +209,21 @@ playerContainer.find('.volume-icon').on 'click', (e) ->
 
 videoContainer.find(".ExpandButton").on "click", (e) ->
       $("#video-container").toggleClass "expanded"
+      
+$('#PlayerContainer .progress-bg').on 'mousemove', (e) ->
+    if videojs('video_player').currentTime() != 0
+        percentage = ((e.pageX - $(this).offset().left) / $(this).width())
+        time = percentage*videojs('video_player').duration()
+        minutes = parseInt(time / 60) % 60
+        seconds = parseInt(time % 60)
+        if seconds < 10
+            time = minutes + ":0" + seconds
+        else
+            time = minutes + ":" + seconds
+        $('#PlayerContainer .mouse-time').show()
+        $('#PlayerContainer .mouse-time').text(time)
+        margin = e.pageX - 135
+        $('#PlayerContainer .mouse-time').css({'margin-left': (margin) + 'px'})
+
+$('#PlayerContainer .progress-bg').on 'mouseout', (e) ->
+    $('#PlayerContainer .mouse-time').hide()
