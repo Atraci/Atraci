@@ -1,6 +1,6 @@
 #ContentWrapper
     background: #f9f9f9
-    height: calc(100% - 30px)
+    height: calc(100% - 55px)
     width: calc(100% - 220px)
     overflow-y: scroll
     padding: 10px
@@ -18,6 +18,7 @@
         height: 200px
         overflow: hidden
         margin-right: 3px
+        transition: width 0.5s, height 0.5s
         &:hover
             cursor: pointer
             background: rgba(black, .1)
@@ -63,3 +64,18 @@
             &:hover
                 cursor: default
                 background: #18b0ff
+
+    &.smallRows
+        .track-container
+            width: 207px
+            height: 60px
+            .cover
+                background-size: 60px
+                width: 60px
+                height: 60px
+                float: left
+            .info
+                text-align: left
+                margin-left: 5px
+                float: left
+                width: calc(100% - 73px)

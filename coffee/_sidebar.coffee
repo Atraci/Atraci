@@ -2,8 +2,8 @@ populateSidebar = (playlists) ->
     currentlyActive = $('#SideBar ul li.active').text()
     $('#SideBar ul').empty()
 
-    $('#SideBar ul').append('<li class="top"><i class="fa fa-th-large"></i>Top Tracks</li>')
-    $('#SideBar ul').append('<li class="featured"><i class="fa fa-music"></i>Featured Artist</li>')
+    $('#SideBar ul').append('<li class="top"><i class="fa fa-music"></i>Top Tracks</li>')
+    $('#SideBar ul').append('<li class="featured"><i class="fa fa-users"></i>Featured Artist</li>')
     $('#SideBar ul').append('<li class="sep"><hr></li>')
 
     $('#SideBar ul').append('<li class="history"><i class="fa fa-history"></i>History</li>')
