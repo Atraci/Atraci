@@ -51,6 +51,9 @@ spinner_cover_opts =
 
 $ ->
 
+    $("#tracklistSorter").change ->
+        sortTracklist()
+
     Playlists.getAll((playlists) ->
         populateSidebar(playlists)
         )
@@ -82,3 +85,21 @@ $ ->
 
     true
 
+
+sortTracklist = ->
+    savedElements = null
+    if $("#ContentWrapper .artist-container").length
+        savedElements = $("#ContentWrapper .artist-container").clone()
+
+    switch $("#tracklistSorter :selected").attr("value")
+        when "SongsName"
+            orderByTrack = $(".track-container").sort (a, b) ->
+                $(a).find(".title").text().localeCompare($(b).find(".title").text())
+            $("#ContentWrapper").html(orderByTrack)
+
+        when "ArtistName"
+            orderByArtist = $(".track-container").sort (a, b) ->
+                $(a).find(".artist").text().localeCompare($(b).find(".artist").text())
+            $("#ContentWrapper").html(orderByArtist)
+
+    $("#ContentWrapper").prepend savedElements

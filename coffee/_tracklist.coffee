@@ -16,6 +16,8 @@ PopulateTrackList = (tracks, artistObject) ->
     else
         $('#tmpl-tracklist-error').tmpl({message: 'No tracks'}).appendTo('#ContentWrapper')
 
+    sortTracklist()
+
 
 $ ->
     $('#ContentWrapper').on 'contextmenu', '.track-container', (e) ->
