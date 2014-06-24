@@ -83,6 +83,7 @@ module.exports = (grunt) ->
                     dest: 'build/cache/linux64/<%= nodewebkit.options.version %>/libffmpegsumo.so'
                     flatten: true
                 ]
+
         compress:
             linux32:
                 options:

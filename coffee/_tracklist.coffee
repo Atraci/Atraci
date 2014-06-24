@@ -4,19 +4,23 @@ track_menu.append new gui.MenuItem(label: 'Add to Favorites')
 currentContextTrack = null
 
 __currentTracklist = []
+__artistObject = {}
 
 PopulateTrackList = (tracks, artistObject) ->
+    tracks = sortTracklist tracks
     $('#ContentWrapper').empty().scrollTop()
+
     if(artistObject)
-        $("#tmpl-artistPage").tmpl(artistObject).prependTo('#ContentWrapper')
+        __artistObject = artistObject
+
+    if(__artistObject && $("#SideBar .active").hasClass("featured"))
+        $("#tmpl-artistPage").tmpl(__artistObject).prependTo('#ContentWrapper')
 
     if tracks.length > 0
         $('#tmpl-tracklist').tmpl(tracks).appendTo('#ContentWrapper')
         __currentTracklist = tracks
     else
         $('#tmpl-tracklist-error').tmpl({message: 'No tracks'}).appendTo('#ContentWrapper')
-
-    sortTracklist()
 
 
 $ ->

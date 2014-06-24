@@ -1,4 +1,5 @@
 #Atraci [![Dependency Status](https://david-dm.org/Atraci/Atraci.svg?theme=shields.io)](https://david-dm.org/Atraci/Atraci)
+Atraci is an application for Windows, Mac and Linux that lets you listen instantly to more than 60 million songs (way more than iTunes's 26 million). It requires no sign up, displays no ads and is 100% safe. 
 
 ![screenshot](http://i.imgur.com/eaLNqYJ.jpg)
 
