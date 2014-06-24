@@ -175,7 +175,7 @@ playerContainer.find('.volume-bg').ready ->
 playerContainer.find('.progress-bg').on 'click', (e) ->
     percentage = (e.pageX - $(this).offset().left) / $(this).width()
     videojs('video_player').currentTime(percentage * videojs('video_player').duration())
-    playerContainer.find('.progress-current').css({'width': (percentage) * 100 + '%'})
+    playerContainer.find('.progress-current').animate({'width': (percentage) * 100 + '%'})
 
 playerContainer.find('.volume-bg').on 'click', (e) ->
     percentage = (e.pageX - $(this).offset().left) / $(this).width()
@@ -183,7 +183,7 @@ playerContainer.find('.volume-bg').on 'click', (e) ->
     playerContainer.find('.volume-icon').attr("data-ismuted", 0)
     playerContainer.find('.volume-icon').find("i").removeClass("fa-volume-off").addClass("fa fa-volume-up")
     videojs('video_player').volume(percentage)
-    playerContainer.find('.volume-current').css({'width': (percentage) * 100 + '%'})
+    playerContainer.find('.volume-current').animate({'width': (percentage) * 100 + '%'})
 
 playerContainer.find('.track-info .backward').on 'click', (e) ->
     PlayPrevious(__currentTrack.artist, __currentTrack.title)
