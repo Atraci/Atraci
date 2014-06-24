@@ -3,11 +3,11 @@ Atraci is an application for Windows, Mac and Linux that lets you listen instant
 
 ![screenshot](http://i.imgur.com/eaLNqYJ.jpg)
 
-## Download (stable releases, prebuilt binaries)
-- [Windows](https://s3.amazonaws.com/Atraci/win+0.4.7/Atraci.exe)
-- [Mac OSX](https://s3.amazonaws.com/Atraci/mac+0.4.7/Atraci.zip)
-- [Linux 32](https://s3.amazonaws.com/Atraci/linux32+0.4.7/Atraci-0.4.7.tgz)
-- [Linux 64](https://s3.amazonaws.com/Atraci/linux64+0.4.7/Atraci-0.4.7.tgz)
+## Download v0.5.0 (stable releases, prebuilt binaries)
+- [Windows](https://s3.amazonaws.com/Atraci/win/Atraci.exe)
+- [Mac OSX](https://s3.amazonaws.com/Atraci/mac/Atraci.zip)
+- [Linux 32](https://s3.amazonaws.com/Atraci/linux32/Atraci.tgz)
+- [Linux 64](https://s3.amazonaws.com/Atraci/linux64/Atraci.tgz)
 
 ## How does it work?
 
