@@ -25,7 +25,6 @@ WindowResizable=no
 ; Don't ask for a install folder (it goes into \Users\Username\AppData\Roaming\Atraci\, which doesn't require admin privileges)
 UsePreviousAppDir=no
 DefaultDirName={userappdata}\Atraci
-DisableDirPage=yes
 
 ; No Start Menu Folder picker (It's always created)
 DefaultGroupName={#AppName}
