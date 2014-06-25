@@ -11,7 +11,7 @@ populateSidebar = (playlists) ->
 
     $('#SideBar ul').append('<li class="new"><i class="fa fa-plus-square"></i>New playlist</li>')
     for playlist in playlists
-        $('#SideBar ul').append('<li class="playlist">' + playlist.name + '</li>')
+        $('#SideBar ul').append('<li class="playlist" data-name="' + playlist.name + '">' + playlist.name + '</li>')
     
     # Re-active context after repopulating
     $('#SideBar ul li').filter(->
@@ -43,13 +43,17 @@ $ ->
             loadFeaturedArtistPage()
 
     $('#SideBar ul').on 'click', 'li.new', ->
-        new_playlist_name = prompt('Enter new playlist name:')
-        if new_playlist_name
-            Playlists.create(new_playlist_name)
-            Playlists.getAll((playlists) ->
+        alertify.prompt 'Enter new playlist name:', (e, str) ->
+            if !e
+                return;
+            else
+              if !str
+                  return;
+              Playlists.create(str)
+              Playlists.getAll((playlists) ->
                 populateSidebar(playlists)
-            )
-            userTracking.event("Playlist", "Create", new_playlist_name).send()
+              )
+              userTracking.event("Playlist", "Create", str).send()
 
     $('#SideBar ul').on 'contextmenu', 'li.playlist', (e) ->
         playlist_name = $(@).text()
@@ -58,22 +62,26 @@ $ ->
         menu.append new gui.MenuItem(
             label: 'Delete ' + $(@).text(),
             click: ->
+                $("#SideBar [data-name=" + playlist_name + "]").remove()
                 Playlists.delete(playlist_name)
                 Playlists.getAll((playlists) ->
                     populateSidebar(playlists)
-                    )
+                )
                 userTracking.event("Playlist", "Delete", playlist_name).send()
             )
         menu.append new gui.MenuItem(
             label: 'Rename ' + $(@).text(),
             click: ->
-                playlist_new_name = prompt("Set a new name", playlist_name)
-                if playlist_new_name
-                    Playlists.rename(playlist_name, playlist_new_name)
-                    Playlists.getAll((playlists) ->
-                        populateSidebar(playlists)
-                    )
-                    userTracking.event("Playlist", "Rename", playlist_name).send()
+                alertify.prompt "Set a new name", (e, str) ->
+                    if e && str
+                        Playlists.rename(playlist_name, str)
+                        Playlists.getAll((playlists) ->
+                            populateSidebar(playlists)
+                        )
+                        userTracking.event("Playlist", "Rename", str).send()
+                    else
+                        return;
+                , playlist_name
             )
         menu.popup e.clientX, e.clientY
         false

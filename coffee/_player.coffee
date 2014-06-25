@@ -165,7 +165,7 @@ videojs('video_player').ready ->
     @.on 'error', (e) ->
         code = if e.target.error then e.target.error.code else e.code
         userTracking.event("Playback Error", video_error_codes[code], __currentTrack.artist + ' - ' + __currentTrack.title).send()
-        alert 'Playback Error (' + video_error_codes[code] + ')'
+        alertify.alert 'Playback Error (' + video_error_codes[code] + ')'
         PlayNext(__currentTrack.artist, __currentTrack.title)
 
 playerContainer.find('.volume-bg').ready ->

@@ -9,8 +9,10 @@ request
             Settings.set('updateUrl', data.updateUrl)
         if data[getOperatingSystem()]
             if versionCompare(data[getOperatingSystem()].version, gui.App.manifest.version) == 1
-                if confirm('A new version of Atraci is available (' + data[getOperatingSystem()].version + ') !\n\nBy pressing OK, you will be redirected to the website where you can download the latest version.\n\nWhat\'s New:\n' + data[getOperatingSystem()].description)
-                    gui.Shell.openExternal(data.downloadUrl)
+                alertify.confirm('A new version of Atraci is available (' + data[getOperatingSystem()].version + ') !\n\nBy pressing OK, you will be redirected to the website where you can download the latest version.\n\nWhat\'s New:\n' + data[getOperatingSystem()].description, (e)->
+                    if e
+                        gui.Shell.openExternal(data.downloadUrl)
+                )
 
 
 versionCompare = (left, right) ->
