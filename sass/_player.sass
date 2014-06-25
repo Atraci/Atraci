@@ -81,9 +81,16 @@
             .track-info
                 .next
                     margin-right: 6px
+                .currentHolder
+                    width: calc(100% - 128px)
+                    overflow: hidden
+                    height: 22px
+                    float: left
+                    text-overflow: ellipsis
                 .action
-                    display: inline-block
                     width: 18px
+                    float: left
+                    margin-right: 5px
                     i
                         cursor: pointer
                         opacity: .25
@@ -102,9 +109,11 @@
                     opacity: .5
                     font-weight: 400
                     font-family: 'Open Sans', Arial
+                    text-overflow: ellipsis
                 .title
                     font-weight: 700
                     font-family: 'Open Sans', Arial
+                    text-overflow: ellipsis
 
             .video-info
                 display: none
