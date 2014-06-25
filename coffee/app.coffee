@@ -52,7 +52,7 @@ spinner_cover_opts =
 $ ->
 
     $("#tracklistSorter").change ->
-        PopulateTrackList __currentTracklist
+        PopulateTrackList __currentTracklist, null, true
 
     Playlists.getAll((playlists) ->
         populateSidebar(playlists)
@@ -87,6 +87,7 @@ $ ->
 
 
 sortTracklist = (tracks)->
+    tmpTracks = []
     switch $("#tracklistSorter :selected").attr("value")
         when "SongsName"
             tmpTracks = tracks.sort (a, b) ->
@@ -95,4 +96,9 @@ sortTracklist = (tracks)->
         when "ArtistName"
             tmpTracks = tracks.sort (a, b) ->
                 a.artist.localeCompare(b.artist)
+
+        when "Default"
+            for y in tracks
+                tmpTracks[y.id] = y
+
     tmpTracks

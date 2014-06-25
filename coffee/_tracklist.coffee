@@ -6,7 +6,11 @@ currentContextTrack = null
 __currentTracklist = []
 __artistObject = {}
 
-PopulateTrackList = (tracks, artistObject) ->
+PopulateTrackList = (tracks, artistObject, fromSort) ->
+    if tracks.length > 0 && !fromSort
+        for x of tracks
+            tracks[x].id = x
+
     tracks = sortTracklist tracks
     $('#ContentWrapper').empty().scrollTop()
 
