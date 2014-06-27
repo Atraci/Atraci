@@ -54,7 +54,7 @@ module.exports = (grunt) ->
                 win: buildPlatforms.win
                 linux32: buildPlatforms.linux32
                 linux64: buildPlatforms.linux64
-            src: ['./css/**', './fonts/**', './images/**', './js/**', './node_modules/**', '!./node_modules/grunt*/**', './index.html', './package.json']
+            src: ['./css/**', './fonts/**', './images/**', './js/**', './l10n/**', './node_modules/**', '!./node_modules/grunt*/**', './index.html', './package.json']
 
         copy:
             main:
