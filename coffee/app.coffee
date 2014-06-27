@@ -50,6 +50,7 @@ spinner_cover_opts =
 ########################################################
 
 $ ->
+    window.l10n = new L10n
 
     $("#tracklistSorter").change ->
         PopulateTrackList __currentTracklist, null, true
