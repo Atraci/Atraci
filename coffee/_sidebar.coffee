@@ -2,14 +2,14 @@ populateSidebar = (playlists) ->
     currentlyActive = $('#SideBar ul li.active').text()
     $('#SideBar ul').empty()
 
-    $('#SideBar ul').append('<li class="top"><i class="fa fa-music"></i>Top Tracks</li>')
-    $('#SideBar ul').append('<li class="featured"><i class="fa fa-users"></i>Featured Artist</li>')
+    $('#SideBar ul').append('<li class="top"><i class="fa fa-music"></i><span data-l10n-id="top_track">Top Tracks</span></li>')
+    $('#SideBar ul').append('<li class="featured"><i class="fa fa-users"></i><span data-l10n-id="featured_artist">Featured Artist</span></li>')
     $('#SideBar ul').append('<li class="sep"><hr></li>')
 
-    $('#SideBar ul').append('<li class="history"><i class="fa fa-history"></i>History</li>')
+    $('#SideBar ul').append('<li class="history"><i class="fa fa-history"></i><span data-l10n-id="history">History</span></li>')
     $('#SideBar ul').append('<li class="sep"><hr></li>')
 
-    $('#SideBar ul').append('<li class="new"><i class="fa fa-plus-square"></i>New playlist</li>')
+    $('#SideBar ul').append('<li class="new"><i class="fa fa-plus-square"></i><span data-l10n-id="new_playlist">New playlist</span></li>')
     for playlist in playlists
         $('#SideBar ul').append('<li class="playlist" data-name="' + playlist.name + '">' + playlist.name + '</li>')
     
@@ -43,7 +43,7 @@ $ ->
             loadFeaturedArtistPage()
 
     $('#SideBar ul').on 'click', 'li.new', ->
-        alertify.prompt 'Enter new playlist name:', (e, str) ->
+        alertify.prompt l10n.get('create_playlist_popup'), (e, str) ->
             if !e
                 return;
             else
@@ -72,7 +72,7 @@ $ ->
         menu.append new gui.MenuItem(
             label: 'Rename ' + $(@).text(),
             click: ->
-                alertify.prompt "Set a new name", (e, str) ->
+                alertify.prompt l10n.get('rename_playlist_popup'), (e, str) ->
                     if e && str
                         Playlists.rename(playlist_name, str)
                         Playlists.getAll((playlists) ->
