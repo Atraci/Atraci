@@ -63,17 +63,13 @@ class L10n
       return translatedString
     
   changeLang: (lang) ->
-    console.log 'changed lang' + lang
     @currentLang = lang
     @fetchIniData(() =>
-      console.log('xxxx')
       $elements = $('[data-l10n-id]')
       $elements.each((index, ele) =>
         $ele = $(ele)
         l10nId = $ele.data('l10n-id')
         params = $ele.data('l10n-params')
-        console.log($ele)
-        console.log(l10nId)
         $ele.text(@get(l10nId, params))
       )
     )
