@@ -22,6 +22,10 @@ No downloads, No torrents, completely decentralized and Legal!
 - [Build](https://github.com/Atraci/Atraci/wiki/Build)
 - [Release](https://github.com/Atraci/Atraci/wiki/Release)
 
+
+## Donations
+want to donate to Atraci? [click me](https://github.com/Atraci/Atraci/wiki/Donations)
+
 ## Contribute
 
 - Join us on IRC at `#Atraciapp` on freenode ([web access](http://webchat.freenode.net/?channels=Atraciapp))
