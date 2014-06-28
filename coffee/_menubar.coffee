@@ -16,7 +16,7 @@ changeLang = (menuItem, lang) ->
 [
     { label: 'English', lang: 'en' },
     { label: '繁體中文', lang: 'zh-TW' },
-    { label: 'מְדִינַת יִשְׂרָאֵל', lang: 'he-IL' },
+    { label: 'עברית', lang: 'he-IL' },
     { label: 'Esperanto', lang: 'eo' },
     { label: 'Italiano', lang: 'it' },
     { label: 'slovenščina', lang: 'sl-SI' },
