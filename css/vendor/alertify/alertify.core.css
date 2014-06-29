@@ -96,6 +96,12 @@
 		}
 		.alertify-inner {
 			text-align: center;
+			font-size: 16px;
+		}
+		.alertify-message {
+			color: #000000;
+			font-size: 22px;
+			padding: .3cm;
 		}
 		.alertify-text {
 			margin-bottom: 15px;
