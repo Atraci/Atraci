@@ -2,7 +2,7 @@ menu = new gui.Menu(type: 'menubar')
 
 # Language menu
 l10nMenu = new gui.MenuItem(
-    label: 'Language'
+    label: 'Languages'
     submenu: new gui.Menu()
 )
 
@@ -14,23 +14,34 @@ changeLang = (menuItem, lang) ->
     window.l10n.changeLang(lang)
 
 [
-    { label: 'English', lang: 'en' },
+    { label: 'English', lang: 'en', default: true },
     { label: '繁體中文', lang: 'zh-TW' },
     { label: 'עברית', lang: 'he-IL' },
     { label: 'Esperanto', lang: 'eo' },
     { label: 'Italiano', lang: 'it' },
     { label: 'slovenščina', lang: 'sl-SI' },
     { label: 'Español', lang: 'es-419' },
-    { label: '日本語', lang: 'ja' }
+    { label: '日本語', lang: 'ja' },
+    { label: 'Deutsche', lang: 'de' },
+    { label: 'Afrikaans', lang: 'af-ZA' },
+    { label: 'Bosanci', lang: 'bs-BA' },
+    { label: 'Croatian', lang: 'hr-HR' },
+    { label: 'Serbian', lang: 'sr' }
 ].forEach((item) ->
   label = item.label
   lang = item.lang
-  l10nMenu.submenu.append new gui.MenuItem(
+  menuItem = new gui.MenuItem(
       label: label
       type: 'checkbox'
       click: ->
           changeLang(this, lang)
   )
+
+  # select on the default one
+  if item.default
+      menuItem.checked = true
+
+  l10nMenu.submenu.append menuItem
 )
 
 menu.append l10nMenu
