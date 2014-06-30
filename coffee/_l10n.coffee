@@ -5,7 +5,7 @@ class L10n
     @currentLang = defaultLang or 'en'
     @folder = 'l10n/'
     @l10nFileSuffix = '.ini'
-    @changeLang(@currentLang)
+    @callbacks = []
 
   fetchIniData: (cb) ->
     if @cachedStrings[@currentLang]
@@ -58,18 +58,26 @@ class L10n
     translate() while matched = reBracket.exec(translatedString)
 
     if not translatedString
-      throw new Error('You are accessing non-existent l10nId :' + l10nId)
+      throw new Error('You are accessing non-existent l10nId : ' + l10nId)
     else
       return translatedString
+
+  addEventListener: (eventName, callback) ->
+    if eventName is 'localizationchange'
+        @callbacks.push callback
+
+  removeEventListener: (eventName, callback) ->
+    if eventName is 'localizationchange'
+        callbackIndex = @callbacks.indexOf(callback)
+        if callbackIndex >= 0
+            @callbacks.splice(callbackIndex, 1)
     
   changeLang: (lang) ->
-    @currentLang = lang
+    if lang
+        @currentLang = lang
+
     @fetchIniData(() =>
-      $elements = $('[data-l10n-id]')
-      $elements.each((index, ele) =>
-        $ele = $(ele)
-        l10nId = $ele.data('l10n-id')
-        params = $ele.data('l10n-params')
-        $ele.text(@get(l10nId, params))
-      )
+        @callbacks.forEach((callback) ->
+            callback()
+        )
     )

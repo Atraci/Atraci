@@ -55,6 +55,22 @@ spinner_cover_opts =
 $ ->
     window.l10n = new L10n
 
+    # Make sure we would update strings when localization event is emitted
+    l10n.addEventListener 'localizationchange', () ->
+        $elements = $('[data-l10n-id]')
+        $elements.each((index, ele) =>
+          $ele = $(ele)
+          l10nId = $ele.data('l10n-id')
+          params = $ele.data('l10n-params')
+
+          if $ele.attr('title') isnt undefined
+              $ele.attr('title', l10n.get(l10nId, params))
+          else
+              $ele.text(l10n.get(l10nId, params))
+        )
+
+    l10n.changeLang()
+
     $("#tracklistSorter").change ->
         PopulateTrackList __currentTracklist, null, true
 
