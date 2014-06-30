@@ -82,7 +82,11 @@ $ ->
         doSearch(searchVal)
 
     $('#ContentWrapper').on 'click', '.track-container', ->
-      if videojs('video_player').paused() != true && videojs('video_player').currentTime() == 0 && !$(@).find('.artist').text() || $(@).find('.artist').text() != __currentTrack.artist && !$(@).find('.title').text() || $(@).find('.title').text() != __currentTrack.title
+      if videojs('video_player').paused() != true && videojs('video_player').currentTime() == 0 
+        PlayTrack($(@).find('.artist').text(), $(@).find('.title').text(), $(@).find('.cover').attr('data-cover_url_medium'), $(@).find('.cover').attr('data-cover_url_large'))
+        $(@).siblings('.playing').removeClass('playing')
+        $(@).addClass('playing')
+      if $(@).find('.artist').text() != __currentTrack.artist || $(@).find('.title').text() != __currentTrack.title
         PlayTrack($(@).find('.artist').text(), $(@).find('.title').text(), $(@).find('.cover').attr('data-cover_url_medium'), $(@).find('.cover').attr('data-cover_url_large'))
         $(@).siblings('.playing').removeClass('playing')
         $(@).addClass('playing')

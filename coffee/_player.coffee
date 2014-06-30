@@ -209,6 +209,9 @@ playerContainer.find('.volume-icon').on 'click', (e) ->
 
 videoContainer.find(".ExpandButton").on "click", (e) ->
       $("#video-container").toggleClass "expanded"
+
+videoContainer.find("#video_player").on "dblclick", (e) ->
+      $("#video-container").toggleClass "expanded"
       
 $('#PlayerContainer .progress-bg').on 'mousemove', (e) ->
     if videojs('video_player').currentTime() != 0
