@@ -23,6 +23,7 @@ PopulateTrackList = (tracks, artistObject, fromSort) ->
     if tracks.length > 0
         $('#tmpl-tracklist').tmpl(tracks).appendTo('#ContentWrapper')
         __currentTracklist = tracks
+        calculateDivsInRow()
     else
         $('#tmpl-tracklist-error').tmpl({message: 'No tracks'}).appendTo('#ContentWrapper')
 
@@ -81,3 +82,28 @@ $ ->
             currentContextTrack.find('.cover').attr('data-cover_url_large'),
             'Favorites'
             )
+
+
+calculateDivsInRow = ->
+  $(".ghost").remove()
+  divsInRow = 0
+  $("#ContentWrapper .track-container").each ->
+    if $(this).prev().length > 0
+      return false  unless $(this).position().top is $(this).prev().position().top
+      divsInRow++
+    else
+      divsInRow++
+    return
+
+  divsInLastRow = $("#ContentWrapper .track-container").length % divsInRow
+  divsInLastRow = divsInRow  if divsInLastRow is 0
+  to_add = divsInRow - divsInLastRow
+  while to_add > 0
+    $("#ContentWrapper").append $("<div/>").addClass("track-container ghost")
+    to_add--
+  return
+
+window.onresize = ->
+  clearTimeout addghost
+  addghost = setTimeout(calculateDivsInRow, 100)
+  return
