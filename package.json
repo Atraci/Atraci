@@ -22,8 +22,8 @@
     "single-instance": true,
     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36",
     "dependencies": {
-        "request": "~2.36.0",
-        "ytdl": "~0.2.8",
+        "request": "~2.37.0",
+        "ytdl": "~0.3.1",
         "universal-analytics": "~0.3.4",
         "node-uuid": "~1.4.1"
     },
