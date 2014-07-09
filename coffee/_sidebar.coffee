@@ -62,7 +62,7 @@ $ ->
         menu.append new gui.MenuItem(
             label: 'Delete ' + $(@).text(),
             click: ->
-                alertify.confirm('Do you want delete this playlist?', (e) ->
+                alertify.confirm l10n.get('delete_playlist_popup'), (e) ->
                     if e
                         $("#SideBar [data-name=" + playlist_name + "]").remove()
                         Playlists["delete"] playlist_name
@@ -70,8 +70,6 @@ $ ->
                             populateSidebar playlists
                         
                         userTracking.event("Playlist", "Delete", playlist_name).send()
-                )
-
             )
             
         menu.append new gui.MenuItem(
