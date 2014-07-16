@@ -1,0 +1,280 @@
+@import url("http://fonts.googleapis.com/css?family=Roboto:400,500,700,300");
+/* line 17, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 1, ../sass/_download.sass */
+.button {
+  display: inline-block;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: #0c587f 0 2px 0, rgba(0, 0, 0, 0.35) 0 15px 20px;
+  -moz-box-shadow: #0c587f 0 2px 0, rgba(0, 0, 0, 0.35) 0 15px 20px;
+  box-shadow: #0c587f 0 2px 0, rgba(0, 0, 0, 0.35) 0 15px 20px;
+  -webkit-transition: -webkit-box-shadow 0.1s ease-in-out;
+  -moz-transition: -moz-box-shadow 0.1s ease-in-out;
+  -o-transition: -o-box-shadow 0.1s ease-in-out;
+  transition: box-shadow 0.1s ease-in-out;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+}
+/* line 12, ../sass/_download.sass */
+.button span {
+  display: inline-block;
+  padding: 16px 23px;
+  background: linear-gradient(to bottom, #18b0ff 0%, #107bb2 100%);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0px inset;
+  box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0px inset;
+  line-height: 1;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+  -webkit-transition: background-color 0.2s ease-in-out, -webkit-transform 0.1s ease-in-out;
+  -moz-transition: background-color 0.2s ease-in-out, -moz-transform 0.1s ease-in-out;
+  -o-transition: background-color 0.2s ease-in-out, -o-transform 0.1s ease-in-out;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+/* line 24, ../sass/_download.sass */
+.button:hover span {
+  background: linear-gradient(to bottom, #32b9ff 0%, #138ccc 100%);
+}
+/* line 26, ../sass/_download.sass */
+.button:active span {
+  -webkit-transform: translate(0, 1px);
+  -moz-transform: translate(0, 1px);
+  -ms-transform: translate(0, 1px);
+  -o-transform: translate(0, 1px);
+  transform: translate(0, 1px);
+}
+
+/* line 14, ../sass/main.sass */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "roboto", helvetica, arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+}
+/* line 21, ../sass/main.sass */
+html #header-container,
+body #header-container {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  height: 58px;
+  background-image: linear-gradient(to bottom, #282828, #1e1e1e);
+  border-bottom: 1px solid black;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 5px 5px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 5px 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 5px 5px;
+}
+/* line 30, ../sass/main.sass */
+html #header-container #header,
+body #header-container #header {
+  width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 35, ../sass/main.sass */
+html #header-container #header #logo,
+body #header-container #header #logo {
+  float: left;
+  margin-top: 16px;
+  margin-left: 20px;
+  width: 93px;
+  height: 31px;
+  background-size: 100%;
+  background-image: url(../images/atraci.png);
+}
+/* line 44, ../sass/main.sass */
+html #header-container #header #share_buttons,
+body #header-container #header #share_buttons {
+  margin-top: 16px;
+  float: right;
+}
+/* line 48, ../sass/main.sass */
+html #big-container,
+body #big-container {
+  padding-top: 59px;
+  height: 500px;
+  background-color: #181817;
+  background-image: url(../images/tagline_background_4.jpg);
+  background-size: 100% auto;
+}
+/* line 55, ../sass/main.sass */
+html #big-container #tagline-container,
+body #big-container #tagline-container {
+  width: 900px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 70px 0;
+}
+/* line 62, ../sass/main.sass */
+html #big-container #tagline-container #tagline1,
+body #big-container #tagline-container #tagline1 {
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+}
+/* line 67, ../sass/main.sass */
+html #big-container #tagline-container #tagline2,
+body #big-container #tagline-container #tagline2 {
+  color: white;
+  font-size: 30px;
+  margin-top: 20px;
+}
+/* line 72, ../sass/main.sass */
+html #big-container #tagline-container #download,
+body #big-container #tagline-container #download {
+  margin-top: 30px;
+}
+/* line 75, ../sass/main.sass */
+html #big-container #tagline-container #download #version_info,
+body #big-container #tagline-container #download #version_info {
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 15px;
+  font-size: 14px;
+}
+/* line 80, ../sass/main.sass */
+html #big-container #screenshot,
+body #big-container #screenshot {
+  width: 900px;
+  height: 569px;
+  margin-bottom: 90px;
+  background-image: url(../images/screenshot.png);
+  -webkit-box-shadow: black 0 15px 80px;
+  -moz-box-shadow: black 0 15px 80px;
+  box-shadow: black 0 15px 80px;
+  background-size: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* line 90, ../sass/main.sass */
+html #description,
+body #description {
+  width: 900px;
+  padding: 0 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 22px;
+  font-weight: 100;
+  line-height: 34px;
+  color: #888888;
+  margin-bottom: 140px;
+}
+/* line 102, ../sass/main.sass */
+html #description a,
+body #description a {
+  color: #888888;
+  text-decoration: none;
+}
+/* line 105, ../sass/main.sass */
+html #description a:hover,
+body #description a:hover {
+  text-decoration: underline;
+}
+
+.SocialIconsContainer
+{
+    height: 30px;
+    width: 200px;
+    float: left;
+    margin-top: 12px;
+}
+
+.SocialIconsContainer .icon
+{
+    background: url('../images/social_sprite.png') no-repeat;
+    background-size: 90px;
+    width: 30px;
+    height: 30px;
+    display: block;
+    float: left;
+    margin-right: 10px;
+    opacity: 0.7;
+}
+
+.SocialIconsContainer .icon:hover
+{
+    opacity: 1;
+}
+
+.SocialIconsContainer .icon.github { background-position: -60px 0; }
+.SocialIconsContainer .icon.twitter { background-position: -30px 0; }
+.SocialIconsContainer .icon.facebook { background-position: 0 0; }
