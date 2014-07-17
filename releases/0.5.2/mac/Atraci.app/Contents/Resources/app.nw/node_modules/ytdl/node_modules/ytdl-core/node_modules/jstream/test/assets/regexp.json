@@ -1,0 +1,7 @@
+{ "name": "energy sword"
+, "type": "melee"
+, "color": "white"
+, "_attack": 500
+, "_cooldown": 2000
+, "_lunge": true
+}

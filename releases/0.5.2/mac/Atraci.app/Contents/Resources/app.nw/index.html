@@ -1,0 +1,151 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/vendor/jquery-ui/jquery-ui-1.10.4.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/alertify/alertify.core.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/alertify/alertify.default.css">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+</head>
+<body>
+<header>
+    <div id="Logo" class="HeaderItem FloatedLeft">ATRA<span class="red">CI</span></div>
+    <div id="Search" class="HeaderItem FloatedLeft">
+        <input class="searchInput" placeholder="Search..."/>
+    </div>
+    <div id="WindowButtons" class="HeaderItem FloatedRight">
+        <span class="Btn Close" data-l10n-id="hint_close_window" title></span>
+        <span class="Btn Expand" data-l10n-id="hint_expand_window" title></span>
+        <span class="Btn Minimize" data-l10n-id="hint_minimize_window" title></span>
+    </div>
+</header>
+
+<section class="mainSection">
+    <div id="SideBar" class="FloatedLeft">
+        <ul>
+            <li class="active">Top Tracks</li>
+            <hr/>
+            <li>History</li>
+            <hr/>
+            <li>+ New Playlist</li>
+        </ul>
+    </div>
+    <div class="trackListToolbar">
+        <i class="fa fa-list"></i>
+        <i class="fa fa-th active"></i>
+        <div class="inputWrapper">
+            <label class="label" for="tracklistSorter">Sort by: </label>
+            <select id="tracklistSorter">
+                <option value="Default" data-l10n-id="sort_by_default">Default</option>
+                <option value="ArtistName" data-l10n-id="sort_by_artist">Artist</option>
+                <option value="SongsName" data-l10n-id="sort_by_track">Track</option>
+            </select>
+        </div>
+    </div>
+    <div id="ContentWrapper" class="FloatedLeft">
+
+    </div>
+</section>
+<div id="video-container">
+    <div class="ExpandButton">
+        <i class="fa fa-arrows-alt" data-l10n-id="hint_full_screen" title></i>
+    </div>
+    <video id="video_player" width="200" height="200" class="video-js"></video>
+</div>
+<footer id="PlayerContainer">
+    <div class="cover">
+        <div id="LoadingOverlay"></div>
+    </div>
+    <div class="info">
+        <div class="info-text">
+            <span class="track-info">
+                <span class="action">
+                    <i class="backward fa fa-backward" data-l10n-id="hint_previous_song" title></i>
+                </span>
+                <span class="action">
+                    <i class="pause fa fa-pause" data-l10n-id="hint_pause" title></i>
+                    <i class="play fa fa-play" data-l10n-id="hint_play" title></i>
+                </span>
+                <span class="action">
+                    <i class="forward fa fa-forward" data-l10n-id="hint_next_song" title></i>
+                </span>
+                <span class="currentHolder">
+                    <span class="artist"></span> <span class="title"></span>
+                </span>
+                <span class="action FloatedRight MarginedLeft10">
+                    <i class="repeat fa fa-repeat" data-l10n-id="hint_repeat" title></i>
+                </span>
+                <span class="action FloatedRight">
+                    <i class="random fa fa-random" data-l10n-id="hint_shuffle" title></i>
+                </span>
+            </span>
+            <span class="video-info"></span>
+        </div>
+        <div class="controls">
+            <div class="current-time">0:00</div>
+            <div class="progress-bg-container">
+                <div class="mouse-time"></div>
+                <div class="progress-bg">
+                    <div class="progress-current"></div>
+                </div>
+            </div>
+            <div class="duration">0:00</div>
+
+            <div class="volume-icon">
+                <i class="fa fa-volume-up"></i>
+            </div>
+            <div class="volume-bg-container">
+                <div class="volume-bg">
+                    <div class="volume-current"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+
+
+<!-- TEMPLATES -->
+<script id="tmpl-tracklist" type="text/x-jquery-tmpl">
+    <div class="track-container" data-id="${id}">
+        <div class="cover" style="background-image: url(${cover_url_large})" data-cover_url_medium="${cover_url_medium}" data-cover_url_large="${cover_url_large}" title="${artist} - ${title}"></div>
+        <div class="info">
+            <div class="title">${title}</div>
+            <div class="artist">${artist}</div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</script>
+
+<script id="tmpl-artistPage" type="text/x-jquery-tmpl">
+    <div class="artist-container">
+        <div class="photo"><img src="${photo}"/></div>
+        <div class="infoWrapper">
+            <div class="name">${name}</div>
+            <div class="genre">Genre: <span class="bold">${genre}</span></div>
+            <div class="bio">${biography}</div>
+        </div>
+    </div>
+</script>
+
+
+<script id="tmpl-tracklist-error" type="text/x-jquery-tmpl">
+    <div class="tracklist-error">${message}</div>
+</script>
+<!---->
+
+<!-- SCRIPTS -->
+<script src="js/vendor/jquery-2.1.1.min.js"></script>
+<script src="js/vendor/jquery-ui/jquery-ui-1.10.4.min.js"></script>
+<script src="js/vendor/spin.min.js"></script>
+<script src="js/vendor/video-js/video.js"></script>
+<script src="js/vendor/moment.min.js"></script>
+<script src="js/vendor/jquery.tmpl.min.js"></script>
+<script src="js/vendor/alertify.min.js"></script>
+<script src="js/app.js"></script>
+<!---->
+</body>
+</html>

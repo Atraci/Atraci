@@ -1,0 +1,7 @@
+{ "date": "today"
+, "name": "foo"
+, "value": "hi there" }
+
+{ "date": "tomorrow"
+, "name": "bar"
+, "value": "hello world"}

@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>clarinet.js</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="css/mocha.css" />
+    <script src="lib/jquery.js" type="text/javascript"></script>
+    <script src="lib/mocha.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/fast-list.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <script>
+      // warning uncommenting this makes things slower, pick your tests
+
+      // uncommented for
+      // turn on console.log. debug for everychar, info for every emit
+      //window.CDEBUG = 'debug';
+
+      // uncomment for
+      // turn off testing and record instead, excepted results
+      // are console logged on end
+      //window.CRECORD  = true;
+    </script>
+    <script src="../clarinet.js"></script>
+    <script src="clarinet.js"></script>
+    <script>
+      onload = function(){
+        var runner = mocha.run();
+        runner.on('test end', function(test){
+          console.log(test.fullTitle());
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <div id="mocha"></div>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{ "statusCode": "200"
+, "same": { "helo": "dawg" }
+, "results": [42, { "more": "results" }, 23]
+, "a": { "b": 2 }
+, "c": []
+, "something": "long"
+}
+{ "statusCode": "200"
+, "same": { "helo": "dawg" }
+, "results": [42, { "more": "results" }, 23]
+, "a": { "b": 2 }
+, "c": []
+, "something": "long"
+}
