@@ -51,7 +51,7 @@ $ ->
                  Playlists.getAll((playlists) ->
                     populateSidebar(playlists)
                 )
-                  userTracking.event("Playlist", "Create", str).send()
+                 userTracking.event("Playlist", "Create", str).send()
 
     $('#SideBar ul').on 'contextmenu', 'li.playlist', (e) ->
         playlist_name = $(@).text()
