@@ -29,7 +29,10 @@ changeLang = (menuItem, lang) ->
     { label: 'Serbian', lang: 'sr' },
     { label: 'Français', lang: 'fr' },
     { label: 'Polski', lang: 'pl-PL' },
-    { label: 'Português', lang: 'pt-BR' }
+    { label: 'Português', lang: 'pt-BR' },
+    { label: 'Български', lang: 'bg' },
+    { label: 'Nederlands', lang: 'nl' },
+    { label: 'العربية', lang: 'ar' }
 ].forEach((item) ->
   label = item.label
   lang = item.lang
