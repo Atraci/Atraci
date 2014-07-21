@@ -21,7 +21,7 @@ No downloads, No torrents, completely decentralized and Legal!
 - [Running & Debugging](https://github.com/Atraci/Atraci/wiki/Running-&-Debugging)
 - [Build](https://github.com/Atraci/Atraci/wiki/Build)
 - [Release](https://github.com/Atraci/Atraci/wiki/Release)
-
+- [Localization](https://github.com/Atraci/Atraci/wiki/Localization)
 
 ## Donations
 want to donate to Atraci? [click me](https://github.com/Atraci/Atraci/wiki/Donations)
