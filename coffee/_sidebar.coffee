@@ -47,13 +47,11 @@ $ ->
             if !e
                 return;
             else
-              if !str
-                  return;
-              Playlists.create(str)
-              Playlists.getAll((playlists) ->
-                populateSidebar(playlists)
-              )
-              userTracking.event("Playlist", "Create", str).send()
+                 Playlists.create(str)
+                 Playlists.getAll((playlists) ->
+                    populateSidebar(playlists)
+                )
+                  userTracking.event("Playlist", "Create", str).send()
 
     $('#SideBar ul').on 'contextmenu', 'li.playlist', (e) ->
         playlist_name = $(@).text()
