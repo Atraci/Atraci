@@ -48,6 +48,7 @@ module.exports = (grunt) ->
 
         nodewebkit:
             options:
+                version: '0.10.0'
                 build_dir: './build'
                 mac_icns: './images/icon.icns'
                 mac: buildPlatforms.mac
