@@ -4,6 +4,9 @@ gui = require('nw.gui')
 # Get window object (!= $(window))
 win = gui.Window.get()
 
+#Use system clipboard
+clipboard = gui.Clipboard.get()
+
 # Debug flag
 isDebug = true
 

@@ -10,7 +10,7 @@
     "title": "Atraci",
     "icon": "images/icon.png",
     "toolbar": false,
-    "frame": false,
+    "frame": true,
     "width": 890,
     "height": 600,
     "min_width": 890,
