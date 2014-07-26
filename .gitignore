@@ -1,0 +1,6 @@
+.sass-cache
+node_modules
+build
+./js
+./css
+*.swp
