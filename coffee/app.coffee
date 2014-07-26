@@ -79,6 +79,7 @@ $ ->
     populateSidebar(playlists)
   )
 
+  # We will show top tracks when bootup
   setTimeout ( ->
     History.countTracks(() ->
       $('#SideBar li.top').click()

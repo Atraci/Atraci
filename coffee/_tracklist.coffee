@@ -19,7 +19,7 @@ PopulateTrackList = (tracks, artistObject, fromSort) ->
   if artistObject
     __artistObject = artistObject
 
-  if __artistObject && $("#SideBar .active").hasClass("featured")
+  if __artistObject && $("#SideBar .active").hasClass("featured-artist")
     $("#tmpl-artistPage")
       .tmpl(__artistObject)
       .prependTo('#ContentWrapper')
