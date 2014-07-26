@@ -10,7 +10,7 @@ class L10n
   fetchIniData: (cb) ->
     if @cachedStrings[@currentLang]
       cb()
-    else 
+    else
       $.ajax(
         url: @folder + @currentLang + @l10nFileSuffix,
       ).done((iniData) =>
@@ -26,7 +26,7 @@ class L10n
 
       if eachLine.length == 0
         return
-      
+
       if eachLine.charAt(0) == '#' || eachLine.charAt(0) == ';'
         return
 
@@ -52,7 +52,7 @@ class L10n
       if matchedBracketSubject and matchedParamKey
         replaced = params[matchedParamKey]
         if replaced
-          translatedString = 
+          translatedString =
             translatedString.replace(matchedBracketSubject, replaced)
 
     translate() while matched = reBracket.exec(translatedString)
@@ -64,20 +64,20 @@ class L10n
 
   addEventListener: (eventName, callback) ->
     if eventName is 'localizationchange'
-        @callbacks.push callback
+      @callbacks.push callback
 
   removeEventListener: (eventName, callback) ->
     if eventName is 'localizationchange'
-        callbackIndex = @callbacks.indexOf(callback)
-        if callbackIndex >= 0
-            @callbacks.splice(callbackIndex, 1)
-    
+      callbackIndex = @callbacks.indexOf(callback)
+      if callbackIndex >= 0
+        @callbacks.splice(callbackIndex, 1)
+
   changeLang: (lang) ->
     if lang
-        @currentLang = lang
+      @currentLang = lang
 
     @fetchIniData(() =>
-        @callbacks.forEach((callback) ->
-            callback()
-        )
+      @callbacks.forEach((callback) ->
+        callback()
+      )
     )
