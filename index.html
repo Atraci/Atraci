@@ -14,7 +14,7 @@
         <meta property="og:ttl" content="3600" />
 
 
-        <link href="css/main.css" rel="stylesheet">
+        <link href="public/css/main.css" rel="stylesheet">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     </head>
 
@@ -82,26 +82,28 @@
 
     <script>
         jQuery(document).ready(function() {
+            // TODO
+            // make this with github API later
+            var version = '0.5.2';
             var userAgent = navigator.platform;
             var mac = /Mac/,
                 win = /Win/,
                 lin = /Lin/,
                 lin64 = /x86_64/;
 
-
             if (mac.test(userAgent)) {
-                $('#download a').attr('href', 'https://s3.amazonaws.com/Atraci/mac/Atraci.zip');
-                $('#download #version_info').text('Version 0.5.1 for Mac');
+                $('#download a').attr('href', 'https://github.com/Atraci/Atraci/blob/gh-pages/releases/' + version + '/mac/Atraci.zip?raw=true');
+                $('#download #version_info').text('Version ' + version +' for Mac');
             } else if (win.test(userAgent)) {
-                $('#download a').attr('href', 'https://s3.amazonaws.com/Atraci/win/Atraci.exe');
-                $('#download #version_info').text('Version 0.5.1 for Windows');
+                $('#download a').attr('href', 'https://github.com/Atraci/Atraci/blob/gh-pages/releases/' + version + ' /win/Atraci.exe?raw=true');
+                $('#download #version_info').text('Version ' + version + ' for Windows');
             } else if (lin.test(userAgent)) {
                 if (lin64.test(userAgent)) {
-                    $('#download a').attr('href', 'https://s3.amazonaws.com/Atraci/linux64/Atraci.tgz');
-                    $('#download #version_info').text('Version 0.5.1 for 64-bit Linux');
+                    $('#download a').attr('href', 'https://github.com/Atraci/Atraci/blob/gh-pages/releases/' + version + '/linux64/Atraci.tgz?raw=true');
+                    $('#download #version_info').text('Version ' + version + ' for 64-bit Linux');
                 } else {
-                    $('#download a').attr('href', 'https://s3.amazonaws.com/Atraci/linux32/Atraci.tgz');
-                    $('#download #version_info').text('Version 0.5.1 for 32-bit Linux');
+                    $('#download a').attr('href', 'https://github.com/Atraci/Atraci/blob/gh-pages/releases/' + version + '/linux32/Atraci.tgz?raw=true');
+                    $('#download #version_info').text('Version ' + version + ' for 32-bit Linux');
                 }
             }
         });
