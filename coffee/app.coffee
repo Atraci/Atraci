@@ -22,11 +22,12 @@ db = openDatabase('AtraciDB', '1.0', '', 10 * 1024 * 1024)
 
 # Cancel all new windows (Middle clicks / New Tab)
 win.on "new-win-policy", (frame, url, policy) ->
-    policy.ignore()
+  policy.ignore()
 
 # Prevent dragging/dropping files into/outside the window
 preventDefault = (e) ->
-    e.preventDefault()
+  e.preventDefault()
+
 window.addEventListener "dragover", preventDefault, false
 window.addEventListener "drop", preventDefault, false
 window.addEventListener "dragstart", preventDefault, false
@@ -34,92 +35,91 @@ window.addEventListener "dragstart", preventDefault, false
 # Spinner options (should go in config file).
 # Should replace spinner by rotating svg later
 spinner_opts =
-    lines: 10 # The number of lines to draw
-    length: 8 # The length of each line
-    width: 3 # The line thickness
-    radius: 8 # The radius of the inner circle
-    color: '#aaa' # #rgb or #rrggbb or array of colors
-    speed: 2 # Rounds per second
+  lines: 10 # The number of lines to draw
+  length: 8 # The length of each line
+  width: 3 # The line thickness
+  radius: 8 # The radius of the inner circle
+  color: '#aaa' # #rgb or #rrggbb or array of colors
+  speed: 2 # Rounds per second
 
 spinner_cover_opts =
-    lines: 8 # The number of lines to draw
-    length: 5 # The length of each line
-    width: 2 # The line thickness
-    radius: 6 # The radius of the inner circle
-    color: '#fff' # #rgb or #rrggbb or array of colors
-    speed: 2 # Rounds per second
+  lines: 8 # The number of lines to draw
+  length: 5 # The length of each line
+  width: 2 # The line thickness
+  radius: 6 # The radius of the inner circle
+  color: '#fff' # #rgb or #rrggbb or array of colors
+  speed: 2 # Rounds per second
 
 
 ########################################################
 
 $ ->
-    window.l10n = new L10n
+  window.l10n = new L10n
 
-    # Make sure we would update strings when localization event is emitted
-    l10n.addEventListener 'localizationchange', () ->
-        $elements = $('[data-l10n-id]')
-        $elements.each((index, ele) =>
-          $ele = $(ele)
-          l10nId = $ele.data('l10n-id')
-          params = $ele.data('l10n-params')
+  # Make sure we would update strings when localization event is emitted
+  l10n.addEventListener 'localizationchange', () ->
+    $elements = $('[data-l10n-id]')
+    $elements.each((index, ele) ->
+      $ele = $(ele)
+      l10nId = $ele.data('l10n-id')
+      params = $ele.data('l10n-params')
 
-          if $ele.attr('title') isnt undefined
-              $ele.attr('title', l10n.get(l10nId, params))
-          else
-              $ele.text(l10n.get(l10nId, params))
-        )
-
-    l10n.changeLang()
-
-    $("#tracklistSorter").change ->
-        PopulateTrackList __currentTracklist, null, true
-
-    Playlists.getAll((playlists) ->
-        populateSidebar(playlists)
-        )
-
-    setTimeout (->
-        History.countTracks(() ->
-          $('#SideBar li.top').click()
-        )
-    ), 1
-
-    $('#Search input').focus()
-
-    $("#WindowButtons .Expand").click(()->
-      if !$(this).hasClass("maximized")
-        $(this).addClass("maximized")
-        win.maximize()
+      if $ele.attr('title') isnt undefined
+        $ele.attr('title', l10n.get(l10nId, params))
       else
-        $(this).removeClass("maximized")
-        win.unmaximize()
+        $ele.text(l10n.get(l10nId, params))
     )
 
-    $("#WindowButtons .Close").click(()->
-      win.close()
+  l10n.changeLang()
+
+  $("#tracklistSorter").change ->
+    PopulateTrackList __currentTracklist, null, true
+
+  Playlists.getAll((playlists) ->
+    populateSidebar(playlists)
+  )
+
+  setTimeout ( ->
+    History.countTracks(() ->
+      $('#SideBar li.top').click()
     )
+  ), 1
 
-    $("#WindowButtons .Minimize").click(()->
-      win.minimize()
-    )
+  $('#Search input').focus()
 
-    true
+  $("#WindowButtons .Expand").click(() ->
+    if !$(this).hasClass("maximized")
+      $(this).addClass("maximized")
+      win.maximize()
+    else
+      $(this).removeClass("maximized")
+      win.unmaximize()
+  )
+
+  $("#WindowButtons .Close").click(() ->
+    win.close()
+  )
+
+  $("#WindowButtons .Minimize").click(() ->
+    win.minimize()
+  )
+
+  true
 
 
-sortTracklist = (tracks)->
-    tmpTracks = []
-    switch $("#tracklistSorter :selected").attr("value")
-        when "SongsName"
-            tmpTracks = tracks.sort (a, b) ->
-                a.title.localeCompare(b.title)
+sortTracklist = (tracks) ->
+  tmpTracks = []
+  switch $("#tracklistSorter :selected").attr("value")
+    when "SongsName"
+      tmpTracks = tracks.sort (a, b) ->
+        a.title.localeCompare(b.title)
 
-        when "ArtistName"
-            tmpTracks = tracks.sort (a, b) ->
-                a.artist.localeCompare(b.artist)
+    when "ArtistName"
+      tmpTracks = tracks.sort (a, b) ->
+        a.artist.localeCompare(b.artist)
 
-        when "Default"
-            for y in tracks
-                tmpTracks[y.id] = y
+    when "Default"
+      for y in tracks
+        tmpTracks[y.id] = y
 
-    tmpTracks
-
+  tmpTracks
