@@ -67,9 +67,8 @@ populateSidebar = (playlists) ->
 
   # We will lazily append featured-music into sidebar
   User.getInfo((userInfo) ->
-    countryCode = userInfo.countryCode
-
-    $.getJSON('featured-music/' + countryCode + '.json').done((data) ->
+    country = userInfo.country
+    $.getJSON('featured-music/' + country + '.json').done((data) ->
       playlists = data.playlists
       $.each playlists, (index, playlist) ->
         # We have to insert them below 'featured Artist'
@@ -82,7 +81,7 @@ populateSidebar = (playlists) ->
           "
         )
     ).fail(->
-      console.log 'failed to fetch ' + countryCode + '.json'
+      console.log 'failed to fetch ' + country + '.json'
     )
   )
 
