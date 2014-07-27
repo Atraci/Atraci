@@ -100,6 +100,9 @@ module.exports = (grunt) ->
         src: '**'
 
     coffeelint:
+      options:
+          max_line_length:
+            level: "ignore"
       app: ['coffee/*.coffee']
 
   grunt.loadNpmTasks 'grunt-contrib-clean'
