@@ -10,6 +10,7 @@ js/*
 !js/vendor
 
 node_modules/
+cache/
 
 build/
 

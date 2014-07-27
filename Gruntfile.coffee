@@ -1,7 +1,8 @@
 module.exports = (grunt) ->
   buildPlatforms = parseBuildPlatforms(grunt.option('platforms'))
   packageJson = grunt.file.readJSON('package.json')
-  _VERSION = packageJson.version
+
+  ataciVersion = packageJson.version
   grunt.log.writeln 'Building ' + packageJson.version
 
   grunt.initConfig
@@ -35,7 +36,12 @@ module.exports = (grunt) ->
       runnw:
         options:
           stdout: true
-        command: [ './build/cache/mac/0.9.2/node-webkit.app/Contents/MacOS/node-webkit . --debug' , '\\build\\cache\\win\\0\.9\.2\\nw.exe --debug', './build/releases/Atraci/linux64/Atraci/Atraci --debug', './build/releases/Atraci/linux32/Atraci/Atraci --debug' ].join('&')
+        command: [
+          '.\\cache\\0\.10\.1\\win\\nw.exe . --debug',
+          './cache/0.10.1/osx/node-webkit.app/Contents/MacOS/node-webkit . --debug',
+          './cache/0.10.1/linux32/nw . --debug',
+          './cache/0.10.1/linux64/nw . --debug'
+        ].join('&')
 
     'regex-replace':
       windows_installer:
@@ -43,10 +49,11 @@ module.exports = (grunt) ->
         actions:
           name: 'version'
           search: '#define AppVersion "[\.0-9]+"'
-          replace: '#define AppVersion "' + _VERSION + '"'
+          replace: '#define AppVersion "' + ataciVersion + '"'
 
     nodewebkit:
       options:
+        version: '0.10.1'
         build_dir: './build'
         mac_icns: './images/icon.icns'
         mac: buildPlatforms.mac
@@ -103,14 +110,14 @@ module.exports = (grunt) ->
       linux32:
         options:
           mode: 'tgz'
-          archive: 'build/releases/Atraci/linux32/Atraci-' + _VERSION + '.tgz'
+          archive: 'build/releases/Atraci/linux32/Atraci-' + ataciVersion + '.tgz'
         expand: true
         cwd: 'build/releases/Atraci/linux32/'
         src: '**'
       linux64:
         options:
           mode: 'tgz'
-          archive: 'build/releases/Atraci/linux64/Atraci-' + _VERSION + '.tgz'
+          archive: 'build/releases/Atraci/linux64/Atraci-' + ataciVersion + '.tgz'
         expand: true
         cwd: 'build/releases/Atraci/linux64/'
         src: '**'
