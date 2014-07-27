@@ -13,7 +13,7 @@ populateSidebar = (playlists) ->
 
   $('#SideBar ul').append(
     "
-      <li class='featured'>
+      <li class='featured-artist'>
         <i class='fa fa-users'></i>
         <span data-l10n-id='featured_artist'>Featured Artist</span>
       </li>
@@ -65,29 +65,62 @@ populateSidebar = (playlists) ->
     $(@).text() == currentlyActive
   ).addClass('active')
 
+  # We will lazily append featured-music into sidebar
+  User.getInfo((userInfo) ->
+    countryCode = userInfo.countryCode
+
+    $.getJSON('featured-music/' + countryCode + '.json').done((data) ->
+      playlists = data.playlists
+      $.each playlists, (index, playlist) ->
+        # We have to insert them below 'featured Artist'
+        $('#SideBar ul li:eq(1)').after(
+          "
+          <li class='featured-music' data-id='#{playlist.id}'>
+            <i class='fa fa-music'></i>
+            <span>#{playlist.name}</span>
+          </li>
+          "
+        )
+    ).fail(->
+      console.log 'failed to fetch ' + countryCode + '.json'
+    )
+  )
+
 $ ->
-  $('#SideBar').on 'click', 'li.history, li.playlist, li.top, li.featured', ->
-    $(@).siblings('.active').removeClass('active')
-    $(@).addClass('active')
+  $('#SideBar').on(
+    'click',
+    'li.history, li.playlist, li.top, li.featured-artist, li.featured-music', ->
+      $(@).siblings('.active').removeClass('active')
+      $(@).addClass('active')
+  )
 
   $('#SideBar').on 'click', 'li', ->
+    $('#ContentWrapper').empty()
+    spinner = new Spinner(spinner_opts).spin($('#ContentWrapper')[0])
     if $(@).hasClass('top')
-      $('#ContentWrapper').empty()
-      spinner = new Spinner(spinner_opts).spin($('#ContentWrapper')[0])
       TrackSource.topTracks((tracks) ->
         spinner.stop()
         PopulateTrackList(tracks)
       )
     else if $(@).hasClass('history')
       TrackSource.history((tracks) ->
+        spinner.stop()
         PopulateTrackList(tracks)
       )
     else if $(@).hasClass('playlist')
       TrackSource.playlist($(@).text(), ((tracks) ->
+        spinner.stop()
         PopulateTrackList(tracks)
       ))
-    else if $(@).hasClass('featured')
-      loadFeaturedArtistPage()
+    else if $(@).hasClass('featured-music')
+      TrackSource.featuredMusic($(@).data('id'), (tracks) ->
+        spinner.stop()
+        PopulateTrackList(tracks)
+      )
+    else if $(@).hasClass('featured-artist')
+      loadFeaturedArtistPage( ->
+        spinner.stop()
+      )
 
   $('#SideBar ul').on 'click', 'li.new', ->
     alertify.prompt l10n.get('create_playlist_popup'), (e, str) ->
@@ -135,9 +168,10 @@ $ ->
     menu.popup e.clientX, e.clientY
     false
 
-loadFeaturedArtistPage = ->
+loadFeaturedArtistPage = (callback) ->
   $.getJSON("http://getatraci.net/featured.json", (artistObject) ->
     doSearch artistObject.value, true, (tracks) ->
       PopulateTrackList(tracks, artistObject)
+      callback()
   )
   true

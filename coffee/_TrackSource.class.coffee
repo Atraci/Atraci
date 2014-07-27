@@ -101,24 +101,56 @@ class TrackSource
       if Object.keys(tracks_all).length > 1
         mashTracks()
 
-  @topTracks: (success) ->
-    request
-      url: 'http://itunes.apple.com/rss/topsongs/limit=100/explicit=true/json'
-      json: true
-    , (error, response, data) ->
-      if not error and response.statusCode is 200
+  # We will cache feature tracks in this object
+  @_cachedFeaturedMusic: {}
+  @featuredMusic: (playlistId, success) ->
+    if @_cachedFeaturedMusic[playlistId] isnt undefined
+      success? @_cachedFeaturedMusic[playlistId]
+    else
+      request
+        url:
+          'http://gdata.youtube.com/feeds/api/playlists/' + playlistId +
+          '?start-index=1&amp;max-results=25&amp;v=2&alt=json'
+        json: true
+      , (error, response, data) =>
         tracks = []
-        tracks_hash = []
-        $.each data.feed.entry, (i, track) ->
-          track_hash = track['im:artist'].label + '___' + track['im:name'].label
-          if track_hash not in tracks_hash
+        if not error and response.statusCode is 200
+          $.each(data.feed.entry, (i, track) ->
             tracks.push
-              title: track['im:name'].label
-              artist: track['im:artist'].label
-              cover_url_medium: track['im:image'][1].label
-              cover_url_large: track['im:image'][2].label
-            tracks_hash.push(track_hash)
-          success? tracks
+              title: track['media$group']['media$title']['$t']
+              artist: track['author'][0]['name']['$t']
+              cover_url_medium: track['media$group']['media$thumbnail'][1].url
+              cover_url_large: track['media$group']['media$thumbnail'][0].url
+          )
+        @_cachedFeaturedMusic[playlistId] = tracks
+        success? @_cachedFeaturedMusic[playlistId]
+
+  # We will cache feature tracks in this array
+  @_cachedTopTracks: []
+  @topTracks: (success) ->
+    if @_cachedTopTracks.length > 0
+      success? @_cachedTopTracks
+    else
+      request
+        url: 'http://itunes.apple.com/rss/topsongs/limit=100/explicit=true/json'
+        json: true
+      , (error, response, data) =>
+        if not error and response.statusCode is 200
+          tracks = []
+          tracks_hash = []
+          $.each data.feed.entry, (i, track) ->
+            track_hash =
+              track['im:artist'].label + '___' + track['im:name'].label
+            if track_hash not in tracks_hash
+              tracks.push
+                title: track['im:name'].label
+                artist: track['im:artist'].label
+                cover_url_medium: track['im:image'][1].label
+                cover_url_large: track['im:image'][2].label
+              tracks_hash.push(track_hash)
+
+          @_cachedTopTracks = tracks
+          success? @_cachedTopTracks
 
   @history: (success) ->
     History.getTracks((tracks) ->
