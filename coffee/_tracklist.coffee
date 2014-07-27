@@ -57,6 +57,22 @@ $ ->
             playlist.name
           ).send()
       )
+      
+      menu.append new gui.MenuItem(
+        label: 'Open in Youtube',
+        click: ->
+          artist = _this.find('.artist').text()
+          title = _this.find('.title').text()
+          request
+            url: 'http://gdata.youtube.com/feeds/api/videos?alt=json&max-results=1&q=' + encodeURIComponent(artist + ' - ' + title)
+            json: true
+            , (error, response, data) ->
+              if not data.feed.entry # no results
+                console.log('No results')
+              else
+                link = data.feed.entry[0].link[0].href
+                gui.Shell.openExternal(link)
+      )
     
     if $('#SideBar li.active').hasClass('playlist')
       menu.append new gui.MenuItem(type: 'separator')
