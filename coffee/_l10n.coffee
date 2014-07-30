@@ -40,8 +40,14 @@ class L10n
     )
     return result
 
-  get: (l10nId, params) ->
-    translatedString = @cachedStrings[@currentLang][l10nId]
+  get: (l10nId, params, fallbackToEn) ->
+    lang = @currentLang
+
+    # We may not find new-added string, so let's fallback to english
+    if fallbackToEn
+      lang = 'en'
+
+    translatedString = @cachedStrings[lang][l10nId]
 
     reBracket = /\{\{\s*(\w+)\s*\}\}/g
     matched = false
@@ -58,7 +64,10 @@ class L10n
     translate() while matched = reBracket.exec(translatedString)
 
     if not translatedString
-      throw new Error('You are accessing non-existent l10nId : ' + l10nId)
+      console.log("""
+        You are accessing non-existent l10nId : #{l10nId}, lang: #{@currentLang}
+      """)
+      return @get(l10nId, params, true)
     else
       return translatedString
 
