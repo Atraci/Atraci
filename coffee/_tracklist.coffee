@@ -79,7 +79,7 @@ $ ->
       )
       
     menu.append new gui.MenuItem(
-      label: l10n.get('open_in_youtube'),
+      label: 'Open in Youtube',
       click: ->
         artist = _this.find('.artist').text()
         title = _this.find('.title').text()
