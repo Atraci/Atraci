@@ -16,6 +16,7 @@ When searching, the app will use iTunes, Last.fm and SoundCloud to display song 
 No downloads, No torrents, completely decentralized and Legal!
 
 ## Developers Wiki
+- [How to help Atraci](https://github.com/Atraci/Atraci/wiki/How-to-help-Atraci-%3F)
 - [Dependencies](https://github.com/Atraci/Atraci/wiki/Dependencies)
 - [Running & Debugging](https://github.com/Atraci/Atraci/wiki/Running-&-Debugging)
 - [Build](https://github.com/Atraci/Atraci/wiki/Build)
