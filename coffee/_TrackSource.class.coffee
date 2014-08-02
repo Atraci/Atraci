@@ -100,9 +100,9 @@ class TrackSource
               artist: trackNameExploded[1]
               cover_url_medium: coverPhoto
               cover_url_large: coverPhoto
-      tracks_all['soundcloud'] = tracks
-      if Object.keys(tracks_all).length > 1
-        mashTracks()
+              tracks_all['soundcloud'] = tracks
+              if Object.keys(tracks_all).length > 1
+                mashTracks()
 
   # We will cache feature tracks in this object
   @_cachedFeaturedMusic: {}
