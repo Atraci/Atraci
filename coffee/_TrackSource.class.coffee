@@ -86,20 +86,24 @@ class TrackSource
       json: true
     , (error, response, data) ->
       tracks = []
-      $.each data, (i, track) ->
-        if track
-          trackNameExploded = track.title.split(" - ")
-          coverPhoto = track.artwork_url
-          coverPhoto = 'images/cover_default_large.png' if !track.artwork_url
-          tracks.push
-            title: trackNameExploded[0]
-            artist: trackNameExploded[1]
-            cover_url_medium: coverPhoto
-            cover_url_large: coverPhoto
+      if error
+        alertify.alert('Connectivity Error :
+        (' + error + ')')
+      else
+        $.each data, (i, track) ->
+          if track
+            trackNameExploded = track.title.split(" - ")
+            coverPhoto = track.artwork_url
+            coverPhoto = 'images/cover_default_large.png' if !track.artwork_url
+            tracks.push
+              title: trackNameExploded[0]
+              artist: trackNameExploded[1]
+              cover_url_medium: coverPhoto
+              cover_url_large: coverPhoto
 
-      tracks_all['soundcloud'] = tracks
-      if Object.keys(tracks_all).length > 1
-        mashTracks()
+        tracks_all['soundcloud'] = tracks
+        if Object.keys(tracks_all).length > 1
+          mashTracks()
 
   # We will cache feature tracks in this object
   @_cachedFeaturedMusic: {}
