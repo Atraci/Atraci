@@ -11,7 +11,7 @@ itag_priorities = [
   43, # video, VP8/Vorbis/128 (0.6 mbps total)
   82
 ]
-
+busy_buffering=0
 video_error_codes = {
   1: 'MEDIA_ERR_ABORTED',
   2: 'MEDIA_ERR_NETWORK',
@@ -126,6 +126,7 @@ PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
     if not data.feed.entry # no results
       PlayNext(__currentTrack.artist, __currentTrack.title)
     else
+      busy_buffering=1
       playerContainer
         .find('#info #video-info')
         .html(
@@ -150,6 +151,7 @@ PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
               if stream_urls[itag]
                 if __CurrentSelectedTrack == __LastSelectedTrack
                   videojs('video_player').src(stream_urls[itag]).play()
+                  busy_buffering=0
                   userTracking.event("Playback Info", "itag", itag).send()
                 return false
       )
@@ -174,10 +176,11 @@ $(document).keydown (e) ->
 playerContainer
   .find('.info .track-info .action .play, .info .track-info .action .pause')
   .click ->
-    if $(@).hasClass('play')
-      videojs('video_player').play()
-    else
-      videojs('video_player').pause()
+    if busy_buffering is 0
+      if $(@).hasClass('play')
+        videojs('video_player').play()
+      else
+        videojs('video_player').pause()
 
 videojs('video_player').ready ->
   @.on 'loadedmetadata', ->
@@ -326,7 +329,7 @@ videoContainer.find(".ExpandButton").on "click", (e) ->
 
 videoContainer.find("#video_player").on "dblclick", (e) ->
   $("#video-container").toggleClass "expanded"
-      
+
 $('#PlayerContainer .progress-bg').on 'mousemove', (e) ->
   if videojs('video_player').currentTime() != 0
     percentage = ((e.pageX - $(this).offset().left) / $(this).width())
