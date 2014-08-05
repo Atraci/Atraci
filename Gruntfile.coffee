@@ -81,6 +81,22 @@ module.exports = (grunt) ->
           src: 'libraries/linux64/libffmpegsumo.so'
           dest: 'build/cache/linux64/<%= nodewebkit.options.version %>/libffmpegsumo.so'
           flatten: true
+        ,
+          src: 'libraries/linux64/icudtl.dat'
+          dest: 'build/releases/Atraci/linux64/Atraci/icudtl.dat'
+          flatten: true
+        ,
+          src: 'libraries/linux32/libffmpegsumo.so'
+          dest: 'build/releases/Atraci/linux32/Atraci/libffmpegsumo.so'
+          flatten: true
+        ,
+          src: 'libraries/linux32/libffmpegsumo.so'
+          dest: 'build/cache/linux32/<%= nodewebkit.options.version %>/libffmpegsumo.so'
+          flatten: true
+        ,
+          src: 'libraries/linux32/icudtl.dat'
+          dest: 'build/releases/Atraci/linux32/Atraci/icudtl.dat'
+          flatten: true
         ]
 
     compress:
