@@ -1,5 +1,9 @@
 menu = new gui.Menu(type: 'menubar')
 
+# Show default menu (nw version >= 0.10) for mac
+if menu.createMacBuiltin
+  menu.createMacBuiltin('Atraci')
+
 # Language menu
 l10nMenu = new gui.MenuItem(
   label: 'Languages'
