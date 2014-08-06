@@ -1,6 +1,6 @@
 ; Installer Variables
 #define AppName "Atraci"
-#define AppVersion "0.5.2"
+#define AppVersion "0.6.0"
 #define AppPublisher "Atraci Team"
 #define AppURL "http://getatraci.net"
 #define AppExeName "run.bat"
