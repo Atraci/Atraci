@@ -120,11 +120,12 @@ class TrackSource
         tracks = []
         if not error and response.statusCode is 200
           $.each(data.feed.entry, (i, track) ->
-            tracks.push
-              title: track['media$group']['media$title']['$t']
-              artist: track['author'][0]['name']['$t']
-              cover_url_medium: track['media$group']['media$thumbnail'][1].url
-              cover_url_large: track['media$group']['media$thumbnail'][0].url
+            if track['media$group']['media$thumbnail']
+              tracks.push
+                title: track['media$group']['media$title']['$t']
+                artist: track['author'][0]['name']['$t']
+                cover_url_medium: track['media$group']['media$thumbnail'][1].url
+                cover_url_large: track['media$group']['media$thumbnail'][0].url
           )
         @_cachedFeaturedMusic[playlistId] = tracks
         success? @_cachedFeaturedMusic[playlistId]
