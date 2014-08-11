@@ -56,6 +56,21 @@ spinner_cover_opts =
 $ ->
   window.l10n = new L10n
 
+  window.settingsPanel = new SettingsPanel
+
+  #provide a resizeend event
+  timer = window.setTimeout ->
+    ,
+    0
+  $(window).on 'resize', ->
+    window.clearTimeout(timer)
+    timer =
+      window.setTimeout ->
+        settingsPanel.reposition()
+      ,100
+
+
+
   # Make sure we would update strings when localization event is emitted
   l10n.addEventListener 'localizationchange', () ->
     $elements = $('[data-l10n-id]')
