@@ -54,7 +54,7 @@ class SettingsPanel
           @close()
         ,
         'Save': =>
-          window.l10n.changeLang(@LanguageSelect.val())
+          window.l10n.changeLang(@languageSelect.val())
           @close()
 
   reposition: ->
