@@ -5,7 +5,19 @@ class L10n
     @currentLang = defaultLang or 'en'
     @folder = 'l10n/'
     @l10nFileSuffix = '.ini'
+    @metadataPath = 'metadata.json'
     @callbacks = []
+
+  getSupportedLanguages: (cb) ->
+    $.ajax(
+      url: @folder + @metadataPath,
+      dataType: 'json'
+    ).done((metadata) ->
+      cb(metadata)
+    ).fail((error) ->
+      console.error(error)
+      cb(null)
+    )
 
   fetchIniData: (cb) ->
     if @cachedStrings[@currentLang]
@@ -16,6 +28,8 @@ class L10n
       ).done((iniData) =>
         @cachedStrings[@currentLang] = @parseInI(iniData)
         cb()
+      ).fail((error) ->
+        console.error(error)
       )
 
   parseInI: (data) ->

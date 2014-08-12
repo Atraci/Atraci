@@ -1,3 +1,5 @@
+# global Playlists, History, win
+
 class SettingsPanel
   constructor: ->
     # Selectors
@@ -11,6 +13,7 @@ class SettingsPanel
 
     @bindEvents()
     @initDialog()
+    @initL10nOptions()
 
   bindEvents: ->
     @settingsBtn.on 'click', =>
@@ -56,6 +59,26 @@ class SettingsPanel
         'Save': =>
           window.l10n.changeLang(@languageSelect.val())
           @close()
+
+  initL10nOptions: ->
+    window.l10n.getSupportedLanguages((data) =>
+      if !data
+        return
+
+      options = []
+      languages = data.languages
+      languages.forEach((language) ->
+        option = $('<option>')
+        option.prop('value', language.lang)
+        option.text(language.label)
+
+        if language.default
+          option.prop('selected', true)
+
+        options.push(option)
+      )
+      @languageSelect.append(options)
+    )
 
   reposition: ->
     @settingsPanel.dialog('option', 'position',
