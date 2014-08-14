@@ -6,6 +6,7 @@
     "url": "http://github.com/Atraci/Atraci.git"
   },
   "main": "index.html",
+  "node-main": "js/node-main.js",
   "window": {
     "title": "Atraci",
     "icon": "images/icon.png",
