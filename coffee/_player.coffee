@@ -118,6 +118,24 @@ PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
     .find('.info .track-info .title')
     .html(title)
 
+  playerContainer
+    .find('.info .track-info .related')
+    .click ->
+      if isBusyBuffering is 0
+        artistRecommend =
+          playerContainer
+            .find('.info .track-info .artist')
+            .text()
+        titleRecommend =
+          playerContainer
+            .find('.info .track-info .title')
+            .text()
+        if artistRecommend and titleRecommend
+          TrackSource.recommendations(artistRecommend, titleRecommend)
+        else
+          alertify.log l10n.get('select_song_wait')
+      else
+        alertify.log l10n.get('load_song_wait')
   request
     url:
       'http://gdata.youtube.com/feeds/api/videos?alt=json&max-results=1&q=' +
