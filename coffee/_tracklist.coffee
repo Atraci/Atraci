@@ -57,8 +57,7 @@ $ ->
             playlist.name
           ).send()
       )
-      
-    
+
     if $('#SideBar li.active').hasClass('playlist')
       menu.append new gui.MenuItem(type: 'separator')
       playlist_name = $('#SideBar li.active').text()
@@ -77,26 +76,33 @@ $ ->
             playlist_name
           ).send()
       )
-      
+
     menu.append new gui.MenuItem(
-      label: 'Open in Youtube',
+      label: l10n.get('open_youtube'),
       click: ->
         artist = _this.find('.artist').text()
         title = _this.find('.title').text()
         request
-          # coffeelint: disable=max_line_length
-          url: 'http://gdata.youtube.com/feeds/api/videos?alt=json&max-results=1&q=' +
-          encodeURIComponent(artist + ' - ' + title)
-          # coffeelint: enable=max_line_length
-          json: true
-          , (error, response, data) ->
+          url:
+            'http://gdata.youtube.com/feeds/api/videos?alt=json&' +
+            'max-results=1&q=' + encodeURIComponent(artist + ' - ' + title)
+          json: true,
+          (error, response, data) ->
             if not data.feed.entry # no results
-              console.log('No results')
+              alertify.log l10n.get('link_not_found')
+              console.log l10n.get('link_not_found')
             else
               link = data.feed.entry[0].link[0].href
               gui.Shell.openExternal(link)
     )
-    
+    menu.append new gui.MenuItem(
+      label: l10n.get('find_more'),
+      click: ->
+        artist = _this.find('.artist').text()
+        title = _this.find('.title').text()
+        TrackSource.recommendations(artist, title)
+    )
+
     menu.popup e.clientX, e.clientY
     false
 

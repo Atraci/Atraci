@@ -8,7 +8,10 @@ doSearch = (searchVal, getTracks, callback) ->
   $('#tracklist-container').empty()
 
   spinner = new Spinner(spinner_opts).spin($('#tracklist-container')[0])
-  TrackSource.search(searchVal, ((tracks) ->
+  TrackSource.search({
+    keywords: searchVal,
+    type: 'default'
+  }, ((tracks) ->
     if(!getTracks)
       spinner.stop()
       PopulateTrackList(tracks)
