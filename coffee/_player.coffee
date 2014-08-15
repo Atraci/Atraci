@@ -159,21 +159,6 @@ PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
 
 videojs('video_player')
 
-# Keyboard control : space : play / pause arrows : previous / next
-$(document).keydown (e) ->
-  if e.keyCode is 32 and e.target.tagName != 'INPUT'
-    if videojs('video_player').paused()
-      videojs('video_player').play()
-    else
-      videojs('video_player').pause()
-    return false
-
-  if e.keyCode is 37 and e.target.tagName != 'INPUT'
-    PlayPrevious(__currentTrack.artist, __currentTrack.title)
-
-  if e.keyCode is 39 and e.target.tagName != 'INPUT'
-    PlayNext(__currentTrack.artist, __currentTrack.title)
-
 playerContainer
   .find('.info .track-info .action .play, .info .track-info .action .pause')
   .click ->

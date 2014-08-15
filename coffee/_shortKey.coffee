@@ -15,6 +15,7 @@
   $(document).keydown (e) ->
     # space
     if e.keyCode is 32 and e.target.tagName != 'INPUT'
+      e.preventDefault()
       toggleTrack()
 
     # left arrow
