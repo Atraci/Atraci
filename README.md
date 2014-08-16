@@ -30,3 +30,4 @@ want to donate to Atraci? [click me](https://github.com/Atraci/Atraci/wiki/Donat
 
 - Join us on IRC at `#Atraciapp` on freenode ([web access](http://webchat.freenode.net/?channels=Atraciapp))
 - Like us on our [Facebook page](https://www.facebook.com/GetAtraci)
+- Follow us on [Twitter](https://twitter.com/atraciapp)
