@@ -79,7 +79,7 @@ class L10n
 
     if not translatedString
       console.log("""
-        You are accessing non-existent l10nId : #{l10nId}, lang: #{@currentLang}
+        You are accessing non-existent l10nId : #{l10nId},lang: #{@currentLang}
       """)
       return @get(l10nId, params, true)
     else

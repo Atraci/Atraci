@@ -25,7 +25,7 @@ class Playlists
       )
       tx.executeSql(
         'INSERT INTO playlist_tracks ' +
-        '(artist, title, cover_url_medium, cover_url_large, playlist, added) ' +
+        '(artist, title, cover_url_medium, cover_url_large, playlist, added) '+
         'VALUES (?, ?, ?, ?, ?, ?)',
         [artist, title, cover_url_medium, cover_url_large,
         playlist, unix_timestamp]
