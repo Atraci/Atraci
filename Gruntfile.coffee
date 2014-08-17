@@ -13,7 +13,7 @@ module.exports = (grunt) ->
         options:
           bare: true
         files:
-          'js/app.js': ['coffee/-*.coffee', 'coffee/app.coffee', 'coffee/_*.coffee']
+          'js/app.js': ['coffee/app.coffee', 'coffee/_*.coffee']
 
     compass:
       dist:
