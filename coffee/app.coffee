@@ -32,6 +32,12 @@ window.addEventListener "dragover", preventDefault, false
 window.addEventListener "drop", preventDefault, false
 window.addEventListener "dragstart", preventDefault, false
 
+# For mac, add basic menu back
+if process.platform is 'darwin'
+  defaultMenu = new gui.Menu({ type: 'menubar' })
+  defaultMenu.createMacBuiltin(gui.App.manifest.name)
+  win.menu = defaultMenu
+
 # Spinner options (should go in config file).
 # Should replace spinner by rotating svg later
 spinner_opts =
