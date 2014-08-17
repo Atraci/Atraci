@@ -55,7 +55,7 @@ spinner_cover_opts =
 
 $ ->
   window.l10n = new L10n
-
+  window.windowManager = new WindowManager
   window.settingsPanel = new SettingsPanel
 
   #provide a resizeend event
@@ -103,25 +103,7 @@ $ ->
 
   $('#Search input').focus()
 
-  $("#WindowButtons .Expand").click(() ->
-    if !$(this).hasClass("maximized")
-      $(this).addClass("maximized")
-      win.maximize()
-    else
-      $(this).removeClass("maximized")
-      win.unmaximize()
-  )
-
-  $("#WindowButtons .Close").click(() ->
-    win.close()
-  )
-
-  $("#WindowButtons .Minimize").click(() ->
-    win.minimize()
-  )
-
   true
-
 
 sortTracklist = (tracks) ->
   tmpTracks = []
