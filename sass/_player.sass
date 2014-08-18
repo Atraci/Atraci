@@ -157,11 +157,18 @@
                 .progress-bg
                     background: #E0E0E0
                     cursor: pointer
+                    position: relative
+
+                    .loading-progress
+                        height: 6px
+                        background: linear-gradient(to bottom, #E4E4E4 0%, shade(#EEEEEE, 30%) 100%)
+                        width: 0
 
                     .progress-current
                         height: 6px
                         background: linear-gradient(to bottom, #eb2728 0%, shade(#eb2728, 30%) 100%)
                         width: 0
+                        position: absolute
 
             .volume-icon
                 color: #000
