@@ -1,0 +1,78 @@
+.darkTheme
+    header
+        border-bottom: 1px solid #585858
+        background: #292929
+        #Logo
+            color: #fff
+        #Search
+            input
+                background: #292929
+                color: #ADADAD
+                border-left: 1px solid #585858
+        #Settings
+            span
+                color: #ccc
+                &.settings:hover
+                    color: #aaa
+        #WindowButtons
+            span
+                background: #ccc
+
+    /** Main Section */
+    .mainSection
+        #SideBar
+            border-right: 1px solid #585858
+            background: #292929
+            ul
+                li
+                    color: #A0A0A0
+                    &.active,
+                    &:hover
+                        background: #616161
+                        color: #fff
+                    hr
+                        border-top: 1px solid #585858
+        .trackListToolbar
+            background: #292929
+            border-bottom: 1px solid #585858
+            .fa
+                color: #fff
+                &.active,
+                &:hover
+                    color: #8D8D8D
+            #tracklistSorter
+                background: #292929
+                color: #fff
+        #ContentWrapper
+            background: #3c3c3c
+            .track-container.playing
+                background: #cacaca
+                .info .title,
+                .info .artist
+                    color: #313131
+
+    #video-container
+        background: #181818
+        #video_player
+            background: #181818
+            border-top: 1px solid #585858
+
+    #PlayerContainer
+        background: #292929
+        border-top: 1px solid #585858
+        .info .info-text .track-info
+            color: #fff
+        .cover,
+        .info .controls .progress-bg-container .progress-bg,
+        .info .controls .volume-bg-container .volume-bg
+            background: #181818
+
+    .alertify
+        background: #1f1f1f
+        .alertify-message
+            color: #fff
+
+    ::-webkit-scrollbar-track
+        background-color: #292929 !important
+    ::-webkit-scrollbar-thumb
+        background-color: #020202 !important
