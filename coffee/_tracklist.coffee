@@ -94,6 +94,7 @@ $ ->
             else
               link = data.feed.entry[0].link[0].href
               gui.Shell.openExternal(link)
+              videojs('video_player').pause()
     )
     menu.append new gui.MenuItem(
       label: l10n.get('find_more'),
