@@ -240,6 +240,8 @@ videojs('video_player').ready ->
     playerContainer
       .find('.info .track-info .action i.pause')
       .show()
+    
+    notify.NowPlaying(__currentTrack.artist, __currentTrack.title)
 
   @.on 'pause', ->
     playerContainer
