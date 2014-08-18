@@ -22,6 +22,7 @@ No downloads, No torrents, completely decentralized and Legal!
 - [Build](https://github.com/Atraci/Atraci/wiki/Build)
 - [Localization](https://github.com/Atraci/Atraci/wiki/Localization)
 - [Donations](https://github.com/Atraci/Atraci/wiki/Donations)
+- [Handy hotkeys in Atraci](https://github.com/Atraci/Atraci/wiki/Handy-hotkeys-you-may-need-to-know)
 
 ## Donations
 want to donate to Atraci? [click me](https://github.com/Atraci/Atraci/wiki/Donations)
