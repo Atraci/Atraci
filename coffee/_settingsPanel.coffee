@@ -9,6 +9,7 @@ class SettingsPanel
     @clearCacheBtn = $('.clearCache')
     @resetDatabaseBtn = $('.resetDatabase')
     @languageSelect = $('#LanguageSelect')
+    @themeSelect = $('#ThemeSelect')
     @positionTarget = $('body')
 
     @bindEvents()
@@ -58,6 +59,7 @@ class SettingsPanel
         ,
         'Save': =>
           window.l10n.changeLang(@languageSelect.val())
+          window.theme.changeTheme(@themeSelect.val())
           @close()
 
   initL10nOptions: ->
