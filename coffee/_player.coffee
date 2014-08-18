@@ -28,6 +28,8 @@ spinner_cover = null
 
 isBusyBuffering = 0
 
+isRepeat = null
+
 PlayNext = (artist, title, success) ->
   $.each __playerTracklist, (i, track) ->
     if track.artist == artist and track.title == title
@@ -241,7 +243,13 @@ videojs('video_player').ready ->
       .find('.info .track-info .action i.pause')
       .show()
     
-    notify.NowPlaying(__currentTrack.artist, __currentTrack.title)
+    cover = playerContainer.find(".cover").css("background-image")
+
+    link = cover.replace(/.*\s?url\([\'\"]?/, "").replace(/[\'\"]?\).*/, "")
+
+    if isRepeat == false
+      notify.emit("Now Playing",
+        {body: __currentTrack.artist + ' - ' + __currentTrack.title,link: link})
 
   @.on 'pause', ->
     playerContainer
@@ -262,6 +270,7 @@ videojs('video_player').ready ->
     ).send()
 
     alertify.alert 'Playback Error (' + video_error_codes[code] + ')'
+    notify.emit("Playback Error: ", {body: video_error_codes[code]})
     PlayNext(__currentTrack.artist, __currentTrack.title)
 
 playerContainer.find('.volume-bg').ready ->
