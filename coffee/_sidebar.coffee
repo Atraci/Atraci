@@ -111,22 +111,22 @@ $ ->
     if $(@).hasClass('top')
       TrackSource.topTracks((tracks) ->
         spinner.stop()
-        PopulateTrackList(tracks)
+        window.tracklist.populate(tracks)
       )
     else if $(@).hasClass('history')
       TrackSource.history((tracks) ->
         spinner.stop()
-        PopulateTrackList(tracks)
+        window.tracklist.populate(tracks)
       )
     else if $(@).hasClass('playlist')
       TrackSource.playlist($(@).text(), ((tracks) ->
         spinner.stop()
-        PopulateTrackList(tracks)
+        window.tracklist.populate(tracks)
       ))
     else if $(@).hasClass('featured-music')
       TrackSource.featuredMusic($(@).data('id'), (tracks) ->
         spinner.stop()
-        PopulateTrackList(tracks)
+        window.tracklist.populate(tracks)
       )
     else if $(@).hasClass('featured-artist')
       loadFeaturedArtistPage( ->
@@ -187,7 +187,7 @@ $ ->
 loadFeaturedArtistPage = (callback) ->
   $.getJSON("http://getatraci.net/featured.json", (artistObject) ->
     doSearch artistObject.value, true, (tracks) ->
-      PopulateTrackList(tracks, artistObject)
+      window.tracklist.populate(tracks, artistObject)
       callback()
   )
   true

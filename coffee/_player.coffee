@@ -69,7 +69,7 @@ PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
     artist: artist
     title: title
 
-  __playerTracklist = __currentTracklist
+  __playerTracklist = window.tracklist.getCurrentTracklist()
 
   __CurrentSelectedTrack = Math.random()
   __LastSelectedTrack = __CurrentSelectedTrack
