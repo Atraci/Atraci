@@ -61,6 +61,7 @@ spinner_cover_opts =
 
 $ ->
   window.l10n = new L10n
+  window.theme = new Theme
   window.windowManager = new WindowManager
   window.settingsPanel = new SettingsPanel
 
