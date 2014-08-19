@@ -4,20 +4,19 @@ header
     -webkit-app-region: drag
     z-index: 1001
     position: fixed
-    padding: 10px
+    padding: 3px
     top: 0
     width: 100%
     background: #fff
     border-bottom: 1px solid #f0f0f0
 
     #Logo
-        text-align: center
-        font-size: 25px
+        font-size: 18px
         line-height: 29px
         font-weight: bold
         color: #424242
         width: 130px
-        margin-right: 10px
+        margin: 0 57px 0 9px
         .red
             background: #eb2728
             font-weight: 700
@@ -30,6 +29,9 @@ header
 
     #WindowButtons
         -webkit-app-region: no-drag
+        position: absolute
+        top: 12px
+        right: 5px
 
         span
             -webkit-app-region: no-drag
@@ -39,7 +41,7 @@ header
             background: #5b595c
             border-radius: 5em
             float: right
-            margin: 10px 2px
+            margin-right: 5px
             -webkit-transition: 0.2s
             cursor: pointer
 
@@ -54,14 +56,15 @@ header
 
     #Settings
         -webkit-app-region: no-drag
-        float:left
+        float: left
 
         span
+            margin-top: 5px
             -webkit-app-region: no-drag
             color: #5b595c
             display: block
             display: inline-block
-            font-size: 2.5em
+            font-size: 1.5em
             -webkit-font-smoothing: antialiased
             float: left
             -webkit-transition: 0.2s

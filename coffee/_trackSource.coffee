@@ -202,7 +202,7 @@ class TrackSource
       success? @_cachedTopTracks
     else
       request
-        url: 'http://itunes.apple.com/rss/topsongs/limit=100/explicit=true/json'
+        url:'http://itunes.apple.com/rss/topsongs/limit=100/explicit=true/json'
         json: true
       , (error, response, data) =>
         if not error and response.statusCode is 200

@@ -17,7 +17,7 @@ win.focus()
 win.show()
 
 # Open Web SQL Database
-# https://github.com/rogerwang/node-webkit/wiki/Save-persistent-data-in-app#wiki-web-sql-database
+# https://github.com/rogerwang/node-webkit/wiki/Save-persistent-data-in-app
 db = openDatabase('AtraciDB', '1.0', '', 10 * 1024 * 1024)
 
 # Cancel all new windows (Middle clicks / New Tab)

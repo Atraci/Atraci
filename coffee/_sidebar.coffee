@@ -88,7 +88,7 @@ populateSidebar = (playlists) ->
 $ ->
   $('#SideBar').on(
     'click',
-    'li.history, li.playlist, li.top, li.featured-artist, li.featured-music', ->
+    'li.history, li.playlist, li.top, li.featured-artist,li.featured-music', ->
       $(@).siblings('.active').removeClass('active')
       $(@).addClass('active')
   )
