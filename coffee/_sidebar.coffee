@@ -36,6 +36,16 @@ populateSidebar = (playlists) ->
       </li>
     "
   )
+
+  $('#SideBar ul').append(
+    "
+      <li class='donations no-page'>
+        <i class='fa fa-money'></i>
+        <span data-l10n-id='donations'>Dontae Us</span>
+      </li>
+    "
+  )
+
   $('#SideBar ul').append(
     "
       <li class='sep'>
@@ -94,8 +104,10 @@ $ ->
   )
 
   $('#SideBar').on 'click', 'li', ->
-    $('#ContentWrapper').empty()
-    spinner = new Spinner(spinner_opts).spin($('#ContentWrapper')[0])
+    if !$(@).hasClass('no-page')
+      $('#ContentWrapper').empty()
+      spinner = new Spinner(spinner_opts).spin($('#ContentWrapper')[0])
+
     if $(@).hasClass('top')
       TrackSource.topTracks((tracks) ->
         spinner.stop()
@@ -119,6 +131,11 @@ $ ->
     else if $(@).hasClass('featured-artist')
       loadFeaturedArtistPage( ->
         spinner.stop()
+      )
+    else if $(@).hasClass('donations')
+      gui.Shell.openExternal(
+        'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&' +
+        'hosted_button_id=Q9SDPBK7VMQ8N'
       )
 
   $('#SideBar ul').on 'click', 'li.new', ->
@@ -174,3 +191,4 @@ loadFeaturedArtistPage = (callback) ->
       callback()
   )
   true
+
