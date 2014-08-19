@@ -7,7 +7,6 @@ videoContainer = $('#video-container')
 # of YouTube media encoding options
 itag_priorities = [
   85,
-  84,
   43, # video, VP8/Vorbis/128 (0.6 mbps total)
   82
 ]
