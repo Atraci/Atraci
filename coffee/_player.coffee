@@ -202,7 +202,10 @@ videojs('video_player').ready ->
     playerContainer
       .find('.current-time')
       .text(moment(this.currentTime() * 1000).format('m:ss'))
-
+  @.on 'progress', ->
+    playerContainer
+      .find('.loading-progress')
+      .css({'width': videojs('video_player').bufferedPercent() * 100 + '%'})
   @.on 'ended', ->
     isRepeat = playerContainer
       .find('.repeat')
@@ -273,8 +276,9 @@ playerContainer.find('.volume-bg').ready ->
 
 playerContainer.find('.progress-bg').on 'click', (e) ->
   percentage = (e.pageX - $(this).offset().left) / $(this).width()
+  selectedTime = percentage * videojs('video_player').duration()
   videojs('video_player').currentTime(
-    percentage * videojs('video_player').duration()
+    selectedTime
   )
   playerContainer
     .find('.progress-current')
