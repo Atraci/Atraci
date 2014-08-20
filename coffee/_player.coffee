@@ -356,3 +356,21 @@ $('#PlayerContainer .progress-bg').on 'mousemove', (e) ->
 
 $('#PlayerContainer .progress-bg').on 'mouseout', (e) ->
   $('#PlayerContainer .mouse-time').hide()
+
+$(".currentHolder .artist"). on 'click', (e) ->
+  $('#Search input').val(__currentTrack.artist)
+  doSearch(__currentTrack.artist)
+
+$(".currentHolder .artist"). on 'mousemove', (e) ->
+  $(".currentHolder .curr-artist-search").show()
+  $(".currentHolder .curr-artist-search")
+  .text("Click to search for " + __currentTrack.artist)
+  $(".currentHolder .curr-artist-search")
+  .css({'background': 'rgba(0,0,0,.9)'})
+  .css({'box-shadow': '0 0 2px rgba(0,0,0,.5)'})
+
+$(".currentHolder .artist").on 'mouseout', (e) ->
+  $(".currentHolder .curr-artist-search").hide()
+  $(".currentHolder .curr-artist-search")
+  .css({'background': '0'})
+  .css({'box-shadow': '0'})
