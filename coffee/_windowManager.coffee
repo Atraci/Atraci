@@ -4,10 +4,13 @@ class WindowManager
     @expandBtn = $('#WindowButtons .Expand')
     @closeBtn = $('#WindowButtons .Close')
     @minimizeBtn = $('#WindowButtons .Minimize')
+    @toolbarBtns = $('.trackListToolbar i')
+    @contentWrapper = $('#ContentWrapper')
 
     @bindEvents()
 
   bindEvents: ->
+    self = @
     @expandBtn.on 'click', =>
       if !@isMaximized
         @isMaximized = true
@@ -21,6 +24,14 @@ class WindowManager
 
     @minimizeBtn.on 'click', =>
       @minimize()
+
+    @toolbarBtns.on 'click', ->
+      self.toolbarBtns.removeClass('active')
+      $(@).addClass('active')
+      if $(@).hasClass('fa-th')
+        self.contentWrapper.removeClass('smallRows')
+      else
+        self.contentWrapper.addClass('smallRows')
 
   minimize: ->
     win.minimize()

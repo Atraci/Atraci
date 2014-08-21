@@ -14,7 +14,7 @@ doSearch = (searchVal, getTracks, callback) ->
   }, ((tracks) ->
     if(!getTracks)
       spinner.stop()
-      PopulateTrackList(tracks)
+      window.tracklist.populate(tracks)
     else
       callback tracks
   ))

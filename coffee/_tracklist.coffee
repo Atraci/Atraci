@@ -1,87 +1,204 @@
-track_menu = new gui.Menu()
-track_menu.append new gui.MenuItem(label: 'Add to Favorites')
+# global TrackSource, l10n, Playlists, TrackSource, userTracking, jQuery
+class Tracklist
+  constructor: ->
+    @_currentTracklist = []
+    @_contentWrapper = $('#ContentWrapper')
+    @_artistPageTemplate = $('#tmpl-artistPage')
+    @_tracklistTemplate = $('#tmpl-tracklist')
+    @_tracklistErrorTemplate = $('#tmpl-tracklist-error')
+    @_tracklistSorter = $('#tracklistSorter')
+    @_trackContainerClass = '.track-container'
 
-currentContextTrack = null
+    @bindEvents()
 
-__currentTracklist = []
-__artistObject = {}
+  bindEvents: ->
+    self = @
 
-PopulateTrackList = (tracks, artistObject, fromSort) ->
-  if tracks.length > 0 && !fromSort
-    for x of tracks
-      tracks[x].id = x
+    @_contentWrapper.on 'contextmenu', @_trackContainerClass, (e) ->
+      currentTrackContainer = $(@)
 
-  tracks = sortTracklist tracks
-  $('#ContentWrapper')
-    .empty()
-    .scrollTop()
+      # this is an option used to create menuItem if needed
+      options =
+        playlistName: ''
+        artist: $(@).find('.artist').text()
+        title: $(@).find('.title').text()
+        coverMediumURL: $(@).find('.cover').attr('data-cover_url_medium')
+        coverLargURL: $(@).find('.cover').attr('data-cover_url_large')
 
-  if artistObject
-    __artistObject = artistObject
+      e.stopPropagation()
+      menu = new gui.Menu()
 
-  if __artistObject && $("#SideBar .active").hasClass("featured-artist")
-    $("#tmpl-artistPage")
-      .tmpl(__artistObject)
-      .prependTo('#ContentWrapper')
+      Playlists.getAll((playlists) ->
+        # create playlists
+        $.each playlists, (index, playlist) ->
 
-  if tracks.length > 0
-    $('#tmpl-tracklist')
-      .tmpl(tracks)
-      .appendTo('#ContentWrapper')
-    __currentTracklist = tracks
-    calculateDivsInRow()
-  else
-    $('#tmpl-tracklist-error')
-      .tmpl({message: 'No tracks'})
-      .appendTo('#ContentWrapper')
-$ ->
-  $('#ContentWrapper').on 'contextmenu', '.track-container', (e) ->
-    _this = $(@)
-    e.stopPropagation()
-    menu = new gui.Menu()
+          # Do nothing if we are in active playlist
+          if playlist.name is self._getActivePlaylistName()
+            return
 
-    $.each __playlists, (k, playlist) ->
-      menu.append new gui.MenuItem(
-        label: 'Add to ' + playlist.name,
-        click: ->
-          Playlists.addTrack(
-            _this.find('.artist').text(),
-            _this.find('.title').text(),
-            _this.find('.cover').attr('data-cover_url_medium'),
-            _this.find('.cover').attr('data-cover_url_large'),
-            playlist.name
-          )
-          userTracking.event(
-            "Playlist",
-            "Add Track to Playlist",
-            playlist.name
-          ).send()
+          options.playlistName = playlist.name
+          menu.append self._createPlaylistMenuItem(options)
+
+        if self._isActivePlaylist()
+          options.playlistName = self._getActivePlaylistName()
+          menu.append self._createRemoveFromPlaylistMenuItem(
+            currentTrackContainer, options)
+
+        # Add one more separator to make it look sexy
+        if playlists.length isnt 0
+          menu.append self._createSeparatorMenuItem()
+
+        menu.append self._createOpenYoutubeMenuItem(options)
+        menu.append self._createFindMoreMenuItem(options)
+
+        # show menu
+        menu.popup e.clientX, e.clientY
       )
 
-    if $('#SideBar li.active').hasClass('playlist')
-      menu.append new gui.MenuItem(type: 'separator')
-      playlist_name = $('#SideBar li.active').text()
-      menu.append new gui.MenuItem(
-        label: 'Remove from ' + playlist_name,
-        click: ->
-          Playlists.removeTrack(
-            _this.find('.artist').text(),
-            _this.find('.title').text(),
-            playlist_name
-          )
-          _this.remove()
-          userTracking.event(
-            "Playlist",
-            "Remove Track to Playlist",
-            playlist_name
-          ).send()
-      )
+  getCurrentTracklist: ->
+    return @_currentTracklist
 
-    menu.append new gui.MenuItem(
+  # XXX refactor this ...
+  populate: (tracks, artistObject, fromSort) ->
+    @_currentTracklist = []
+
+    if tracks.length > 0 && !fromSort
+      for x of tracks
+        tracks[x].id = x
+
+    tracks = @_sortTracklist tracks
+
+    @_contentWrapper
+      .empty()
+      .scrollTop()
+
+    # XXX access this from sideBar class later
+    if artistObject && $('#SideBar .active').hasClass('featured-artist')
+      @_artistPageTemplate
+        .tmpl(artistObject)
+        .prependTo(@_contentWrapper)
+
+    if tracks.length > 0
+      @_tracklistTemplate
+        .tmpl(tracks)
+        .appendTo(@_contentWrapper)
+      @_currentTracklist = tracks
+      @calculateDivsInRow()
+    else
+      @_tracklistErrorTemplate
+        .tmpl({message: 'No tracks'})
+        .appendTo(@_contentWrapper)
+
+  getSelectedSortBy: ->
+    return @_tracklistSorter.find(':selected').attr('value')
+
+  # XXX refactor this ...
+  _sortTracklist: (tracks) ->
+    tmpTracks = []
+    switch @getSelectedSortBy()
+      when 'SongsName'
+        tmpTracks = tracks.sort (a, b) ->
+          a.title.localeCompare(b.title)
+
+      when 'ArtistName'
+        tmpTracks = tracks.sort (a, b) ->
+          a.artist.localeCompare(b.artist)
+
+      when 'Default'
+        for y in tracks
+          tmpTracks[y.id] = y
+
+    tmpTracks
+
+  # XXX refactor this later
+  calculateDivsInRow: ->
+    $('.ghost').remove()
+    divsInRow = 0
+
+    @_contentWrapper.find(@_trackContainerClass).each ->
+      if $(@).prev().length > 0
+        if $(@).position().top isnt $(@).prev().position().top
+          return false
+        divsInRow++
+      else
+        divsInRow++
+      return
+
+    divsInLastRow = @_contentWrapper.find(
+      @_trackContainerClass).length % divsInRow
+
+    if divsInLastRow is 0
+      divsInLastRow = divsInRow
+
+    to_add = divsInRow - divsInLastRow
+
+    while to_add > 0
+      @_contentWrapper.append $('<div/>').addClass('track-container ghost')
+      to_add--
+    return
+
+  # XXX refactor tihs to playlist object
+  _isActivePlaylist: ->
+    return $('#SideBar li.active').hasClass('playlist')
+
+  # XXX refactor tihs to playlist object
+  _getActivePlaylistName: ->
+    return $('#SideBar li.active').text()
+
+  _createSeparatorMenuItem: () ->
+    return new gui.MenuItem(type: 'separator')
+
+  _createPlaylistMenuItem: (options) ->
+    playlistName = options.playlistName
+    artist = options.artist
+    title = options.title
+    coverMediumURL = options.coverMediumURL
+    coverLargURL = options.coverLargURL
+
+    return new gui.MenuItem(
+      label: 'Add to ' + playlistName,
+      click: ->
+        Playlists.addTrack(
+          artist,
+          title,
+          coverMediumURL,
+          coverLargURL,
+          playlistName
+        )
+        userTracking.event(
+          'Playlist',
+          'Add Track to Playlist',
+          playlistName
+        ).send()
+    )
+
+  _createRemoveFromPlaylistMenuItem: (currentTrackContainer, options) ->
+    playlistName = options.playlistName
+    artist = options.artist
+    title = options.title
+
+    return new gui.MenuItem(
+      label: 'Remove from ' + playlistName,
+      click: ->
+        Playlists.removeTrack(
+          artist,
+          title,
+          playlistName
+        )
+        currentTrackContainer.remove()
+        userTracking.event(
+          'Playlist',
+          'Remove Track to Playlist',
+          playlistName
+        ).send()
+    )
+
+  _createOpenYoutubeMenuItem: (options) ->
+    artist = options.artist
+    title = options.title
+    return new gui.MenuItem(
       label: l10n.get('open_youtube'),
       click: ->
-        artist = _this.find('.artist').text()
-        title = _this.find('.title').text()
         request
           url:
             'http://gdata.youtube.com/feeds/api/videos?alt=json&' +
@@ -95,61 +212,10 @@ $ ->
               link = data.feed.entry[0].link[0].href
               gui.Shell.openExternal(link)
     )
-    menu.append new gui.MenuItem(
+
+  _createFindMoreMenuItem: (options) ->
+    return new gui.MenuItem(
       label: l10n.get('find_more'),
       click: ->
-        artist = _this.find('.artist').text()
-        title = _this.find('.title').text()
-        TrackSource.recommendations(artist, title)
+        TrackSource.recommendations(options.artist, options.title)
     )
-
-    menu.popup e.clientX, e.clientY
-    false
-
-  $(".trackListToolbar i").click ->
-    $(".trackListToolbar i").removeClass("active")
-    $(@).addClass("active")
-    if $(@).hasClass("fa-th")
-      $('#ContentWrapper').removeClass("smallRows")
-    else
-      $('#ContentWrapper').addClass("smallRows")
-
-  # Add to Favorites
-  track_menu.items[0].click = ->
-    Playlists.addTrack(
-      currentContextTrack.find('.artist').text(),
-      currentContextTrack.find('.title').text(),
-      currentContextTrack.find('.cover').attr('data-cover_url_medium'),
-      currentContextTrack.find('.cover').attr('data-cover_url_large'),
-      'Favorites'
-    )
-
-
-calculateDivsInRow = ->
-  $(".ghost").remove()
-  divsInRow = 0
-  $("#ContentWrapper .track-container").each ->
-    if $(this).prev().length > 0
-      if $(this).position().top isnt $(this).prev().position().top
-        return false
-      divsInRow++
-    else
-      divsInRow++
-    return
-
-  divsInLastRow = $("#ContentWrapper .track-container").length % divsInRow
-
-  if divsInLastRow is 0
-    divsInLastRow = divsInRow
-
-  to_add = divsInRow - divsInLastRow
-
-  while to_add > 0
-    $("#ContentWrapper").append $("<div/>").addClass("track-container ghost")
-    to_add--
-  return
-
-window.onresize = ->
-  clearTimeout addghost
-  addghost = setTimeout(calculateDivsInRow, 100)
-  return

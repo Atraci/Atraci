@@ -162,7 +162,7 @@ class TrackSource
               type: 'recommendations',
               link: link
             }, ((tracks) ->
-              PopulateTrackList(tracks)
+              window.tracklist.populate(tracks)
               spinner.stop()
             ))
 

@@ -64,11 +64,13 @@ $ ->
   window.theme = new Theme
   window.windowManager = new WindowManager
   window.settingsPanel = new SettingsPanel
+  window.tracklist = new Tracklist
 
   #provide a resizeend event
   timer = window.setTimeout ->
     ,
     0
+
   $(window).on 'resize', ->
     window.clearTimeout(timer)
     timer =
@@ -76,7 +78,11 @@ $ ->
         settingsPanel.reposition()
       ,100
 
-
+  $(window).on 'resize', ->
+    clearTimeout addghost
+    addghost = setTimeout( ->
+      window.tracklist.calculateDivsInRow()
+    , 100)
 
   # Make sure we would update strings when localization event is emitted
   l10n.addEventListener 'localizationchange', () ->
@@ -95,7 +101,11 @@ $ ->
   l10n.changeLang()
 
   $("#tracklistSorter").change ->
-    PopulateTrackList __currentTracklist, null, true
+    window.tracklist.populate(
+      window.tracklist.getCurrentTracklist(),
+      null,
+      true
+    )
 
   Playlists.getAll((playlists) ->
     populateSidebar(playlists)
@@ -111,20 +121,3 @@ $ ->
   $('#Search input').focus()
 
   true
-
-sortTracklist = (tracks) ->
-  tmpTracks = []
-  switch $("#tracklistSorter :selected").attr("value")
-    when "SongsName"
-      tmpTracks = tracks.sort (a, b) ->
-        a.title.localeCompare(b.title)
-
-    when "ArtistName"
-      tmpTracks = tracks.sort (a, b) ->
-        a.artist.localeCompare(b.artist)
-
-    when "Default"
-      for y in tracks
-        tmpTracks[y.id] = y
-
-  tmpTracks
