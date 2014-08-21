@@ -41,7 +41,7 @@ populateSidebar = (playlists) ->
     "
       <li class='donations no-page'>
         <i class='fa fa-money'></i>
-        <span data-l10n-id='donations'>Donate Us</span>
+        <span data-l10n-id='donate_us'>Donate Us</span>
       </li>
     "
   )
