@@ -1,4 +1,5 @@
-# global TrackSource, l10n, Playlists, TrackSource, userTracking, jQuery
+# global TrackSource, l10n, Playlists, TrackSource, userTracking, jQuery,
+# sidebar
 class Tracklist
   constructor: ->
     @_currentTracklist = []
@@ -33,14 +34,14 @@ class Tracklist
         $.each playlists, (index, playlist) ->
 
           # Do nothing if we are in active playlist
-          if playlist.name is self._getActivePlaylistName()
+          if playlist.name is window.sidebar.getActivePlaylistName()
             return
 
           options.playlistName = playlist.name
           menu.append self._createPlaylistMenuItem(options)
 
-        if self._isActivePlaylist()
-          options.playlistName = self._getActivePlaylistName()
+        if window.sidebar.getActiveItem().hasClass('playlist')
+          options.playlistName = window.sidebar.getActivePlaylistName()
           menu.append self._createRemoveFromPlaylistMenuItem(
             currentTrackContainer, options)
 
@@ -136,14 +137,6 @@ class Tracklist
       @_contentWrapper.append $('<div/>').addClass('track-container ghost')
       to_add--
     return
-
-  # XXX refactor tihs to playlist object
-  _isActivePlaylist: ->
-    return $('#SideBar li.active').hasClass('playlist')
-
-  # XXX refactor tihs to playlist object
-  _getActivePlaylistName: ->
-    return $('#SideBar li.active').text()
 
   _createSeparatorMenuItem: () ->
     return new gui.MenuItem(type: 'separator')

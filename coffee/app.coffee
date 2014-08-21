@@ -65,6 +65,7 @@ $ ->
   window.windowManager = new WindowManager
   window.settingsPanel = new SettingsPanel
   window.tracklist = new Tracklist
+  window.sidebar = new Sidebar
 
   #provide a resizeend event
   timer = window.setTimeout ->
@@ -107,8 +108,10 @@ $ ->
       true
     )
 
+   # create sidebar related stuffs
+  sidebar.populateFeaturedMusic()
   Playlists.getAll((playlists) ->
-    populateSidebar(playlists)
+    sidebar.populatePlaylists(playlists)
   )
 
   # We will show top tracks when bootup
