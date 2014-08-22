@@ -30,7 +30,7 @@ unless getTrackingId()?
     exception: dummyMethod
     transaction: dummyMethod
 else
-  userTracking = window.userTracking = ua("UA-49098639-1", getTrackingId())
+  userTracking = window.userTracking = ua("UA-51954773-2", getTrackingId())
 
 # Detect the operating system of the user
 getOperatingSystem = ->
