@@ -67,7 +67,20 @@ $ ->
   window.tracklist = new Tracklist
   window.sidebar = new Sidebar
 
-  #provide a resizeend event
+  splash = gui.Window.open 'splash.html', {
+    position: 'center',
+    width: 600,
+    height: 300,
+    frame: false,
+    toolbar: false
+  }
+
+  setTimeout ->
+    $(".blackScreen").remove()
+    splash.close()
+  , 2000
+
+#provide a resizeend event
   timer = window.setTimeout ->
     ,
     0
