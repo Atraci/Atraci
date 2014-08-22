@@ -28,7 +28,7 @@ No downloads, No torrents, completely decentralized and Legal!
 want to donate to Atraci? [click me](https://github.com/Atraci/Atraci/wiki/Donations)
 
 ## Contribute
-
 - Join us on IRC at `#Atraciapp` on freenode ([web access](http://webchat.freenode.net/?channels=Atraciapp))
+- Or you can find us on our public chatting room in [gitter](https://gitter.im/Atraci/Atraci)
 - Like us on our [Facebook page](https://www.facebook.com/GetAtraci)
 - Follow us on [Twitter](https://twitter.com/atraciapp)
