@@ -60,6 +60,7 @@ Name: "en"; MessagesFile: ".\languages\English.isl"
 [Files]
 Source: ".\run.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\index.html"; DestDir: "{app}\app\"; Flags: ignoreversion
+Source: "..\..\splash.html"; DestDir: "{app}\app\"; Flags: ignoreversion
 Source: "..\..\package.json"; DestDir: "{app}\app\"; Flags: ignoreversion
 Source: "..\..\featured-music\*"; DestDir: "{app}\app\featured-music\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\l10n\*"; DestDir: "{app}\app\l10n\"; Flags: ignoreversion recursesubdirs createallsubdirs
