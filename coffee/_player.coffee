@@ -1,5 +1,3 @@
-request = require('request')
-ytdl = require('ytdl')
 playerContainer = $('#PlayerContainer')
 videoContainer = $('#video-container')
 
@@ -135,7 +133,8 @@ PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
           alertify.log l10n.get('select_song_wait')
       else
         alertify.log l10n.get('load_song_wait')
-  request
+
+  Requestor.get
     url:
       'http://gdata.youtube.com/feeds/api/videos?alt=json&max-results=1&q=' +
       encodeURIComponent(artist + ' - ' + title)
@@ -154,7 +153,7 @@ PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
           "
         )
 
-      ytdl.getInfo(
+      Requestor.getYoutubeInfo(
         data.feed.entry[0].link[0].href,
         {downloadURL: true},
         (err, info) ->
@@ -173,6 +172,7 @@ PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
                   isBusyBuffering = 0
                 return false
       )
+  false
 
 videojs('video_player')
 
