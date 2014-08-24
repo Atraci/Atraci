@@ -51,6 +51,7 @@ class Tracklist
 
         menu.append self._createOpenYoutubeMenuItem(options)
         menu.append self._createFindMoreMenuItem(options)
+        menu.append self._createCopyVideoUrlMenuItem(options)
 
         # show menu
         menu.popup e.clientX, e.clientY
@@ -211,4 +212,24 @@ class Tracklist
       label: l10n.get('find_more'),
       click: ->
         TrackSource.recommendations(options.artist, options.title)
+    )
+
+  _createCopyVideoUrlMenuItem : (options) ->
+    artist = options.artist
+    title = options.title
+    return new gui.MenuItem(
+      label: l10n.get('copy_video_url'),
+      click: ->
+        request
+          url: 'http://gdata.youtube.com/feeds/api/videos?alt=json&' +
+          'max-results=1&q=' + encodeURIComponent(artist + ' - ' + title)
+          json: true,
+          (error, response, data) ->
+            if not data.feed.entry # no results
+              alertify.log l10n.get('link_not_found')
+              console.log l10n.get('link_not_found')
+            else
+              link = data.feed.entry[0].link[0].href
+              clipboard = gui.Clipboard.get()
+              clipboard.set link, 'text'
     )
