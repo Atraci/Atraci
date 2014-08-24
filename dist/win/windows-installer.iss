@@ -51,7 +51,6 @@ SolidCompression=yes
 OutputBaseFilename=Install {#AppName} {#AppVersion}
 SetupIconFile=..\..\images\atraci.ico
 UninstallDisplayIcon=..\..\images\atraci.ico
-UninstallDisplayIcon=..\..\images\atraci.ico
 OutputDir=.\
 
 
