@@ -40,7 +40,7 @@ class SettingsPanel
   initDialog: ->
     @settingsPanel.dialog
       autoOpen: false,
-      height: 340,
+      height: 375,
       width: 350,
       position:
         of: @positionTarget
