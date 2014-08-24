@@ -1,4 +1,4 @@
-request = require('request')
+# global Requestor
 
 class TrackSource
   #Variables
@@ -27,7 +27,7 @@ class TrackSource
 
     if options.type is 'default'
       # itunes
-      request
+      Requestor.get
         url:
           'http://itunes.apple.com/search?media=music' +
           '&entity=song&limit=100&term=' + encodeURIComponent(options.keywords)
@@ -47,7 +47,7 @@ class TrackSource
             mashTracks()
 
       # last.fm
-      request
+      Requestor.get
         url:
           'http://ws.audioscrobbler.com/2.0/?method=track.search' +
           '&api_key=c513f3a2a2dad1d1a07021e181df1b1f&format=json&track=' +
@@ -81,7 +81,7 @@ class TrackSource
             mashTracks()
 
       # Soundcloud
-      request
+      Requestor.get
         url:
           'https://api.soundcloud.com/tracks.json?' +
           'client_id=dead160b6295b98e4078ea51d07d4ed2&q=' +
@@ -108,7 +108,7 @@ class TrackSource
           if Object.keys(tracks_all).length > 1
             mashTracks()
     else
-      request
+      Requestor.get
         url:
           'http://gdata.youtube.com/feeds/api/videos/' +
           options.link + '/related?alt=json'
@@ -143,7 +143,7 @@ class TrackSource
     if artist and title
       spinner = new Spinner(spinner_opts)
         .spin(playerContainer.find('.cover')[0])
-      request
+      Requestor.get
         url:
           'http://gdata.youtube.com/feeds/api/videos?alt=json&' +
           'max-results=1&q=' + encodeURIComponent(artist + ' - ' + title)
@@ -172,7 +172,7 @@ class TrackSource
     if @_cachedFeaturedMusic[playlistId] isnt undefined
       success? @_cachedFeaturedMusic[playlistId]
     else
-      request
+      Requestor.get
         url:
           'http://gdata.youtube.com/feeds/api/playlists/' + playlistId +
           '?start-index=1&amp;max-results=25&amp;v=2&alt=json'
@@ -201,7 +201,7 @@ class TrackSource
     if @_cachedTopTracks.length > 0
       success? @_cachedTopTracks
     else
-      request
+      Requestor.get
         url:'http://itunes.apple.com/rss/topsongs/limit=100/explicit=true/json'
         json: true
       , (error, response, data) =>
