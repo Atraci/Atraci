@@ -1,4 +1,4 @@
-# global Requestor
+# global Requestor, History, Playlists
 
 class TrackSource
   #Variables
