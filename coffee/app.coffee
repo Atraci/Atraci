@@ -108,6 +108,8 @@ $ ->
 
       if $ele.attr('title') isnt undefined
         $ele.attr('title', l10n.get(l10nId, params))
+      else if $ele.attr('placeholder') isnt undefined
+        $ele.attr('placeholder', l10n.get(l10nId, params))
       else
         $ele.text(l10n.get(l10nId, params))
     )
