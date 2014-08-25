@@ -95,6 +95,7 @@ $ ->
     searchVal = $(@).val()
     if e.which is 13 and $(@).val() != ''
       doSearch(searchVal)
+      $(@).autocomplete('close')
 
   $('#ContentWrapper').on 'click', '.track-container', ->
     if videojs('video_player').paused() != true and
