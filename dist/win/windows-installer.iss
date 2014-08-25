@@ -44,7 +44,7 @@ UninstallFilesDir={app}
 ShowLanguageDialog=no
 
 ; Compress the files nicely
-Compression=lzma2
+Compression=lzma2/ultra
 SolidCompression=yes
 
 ; Final Installer
