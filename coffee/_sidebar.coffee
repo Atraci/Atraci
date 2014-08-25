@@ -66,6 +66,7 @@ class Sidebar
         if !e or !str
           return
         else
+          str = Utils.filterSymbols(str)
           Playlists.create(str)
           Playlists.getAll((playlists) ->
             self.populatePlaylists(playlists)
@@ -169,13 +170,14 @@ class Sidebar
     return new gui.MenuItem(
       label: 'Rename ' + $(@).text(),
       click: ->
-        alertify.prompt l10n.get('rename_playlist_popup'), (e, str) ->
-          if e && str
-            Playlists.rename(oldPlaylistName, str)
+        alertify.prompt l10n.get('rename_playlist_popup'), (e, newName) ->
+          if e && newName
+            newName = Utils.filterSymbols(newName)
+            Playlists.rename(oldPlaylistName, newName)
             Playlists.getAll((playlists) ->
               self.populatePlaylists(playlists)
             )
-            userTracking.event("Playlist", "Rename", str).send()
+            userTracking.event("Playlist", "Rename", newName).send()
           else
             return
         , oldPlaylistName
