@@ -2,7 +2,7 @@
 [![GitHub version](https://badge.fury.io/gh/atraci%2Fatraci.svg)](https://github.com/Atraci/Atraci/releases)
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
 [![devDependency Status](https://david-dm.org/Atraci/Atraci/dev-status.svg?theme=shields.io)](https://david-dm.org/Atraci/Atraci#info=devDependencies)
-[![Dependency Status](https://david-dm.org/Atraci/Atraci.svg?theme=shields.io)](https://david-dm.org/Atraci/Atraci)
+[![Dependency Status](https://david-dm.org/Atraci/Atraci.svg?theme=shields.io&v=1)](https://david-dm.org/Atraci/Atraci)
 [![Bountysource](https://www.bountysource.com/badge/team?team_id=929&style=raised)](https://www.bountysource.com/teams/atraci)
 
 Atraci is an application for Windows, Mac and Linux that lets you listen instantly to more than 60 million songs (way more than iTunes's 26 million).
