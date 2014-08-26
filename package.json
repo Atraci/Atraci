@@ -23,23 +23,23 @@
   "single-instance": true,
   "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36",
   "dependencies": {
-    "request": "~2.37.0",
+    "request": "~2.40.0",
     "ytdl": "~0.3.3",
     "universal-analytics": "~0.3.4",
     "node-uuid": "~1.4.1"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-coffee": "~0.10.1",
-    "grunt-contrib-compass": "0.9.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-coffee": "~0.11.1",
+    "grunt-contrib-compass": "0.9.1",
     "grunt-contrib-compress": "0.10.0",
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-cssmin": "0.10.0",
-    "grunt-contrib-uglify": "0.5.0",
-    "grunt-node-webkit-builder": "~0.2.1",
+    "grunt-contrib-uglify": "0.5.1",
+    "grunt-node-webkit-builder": "~0.2.2",
     "grunt-regex-replace": "~0.2.6",
-    "grunt-shell": "~0.7.0",
-    "grunt-coffeelint": "0.0.10"
+    "grunt-shell": "~1.0.1",
+    "grunt-coffeelint": "0.0.13"
   }
 }
