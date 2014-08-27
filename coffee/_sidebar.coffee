@@ -30,7 +30,15 @@ class Sidebar
         self.contentWrapper.empty()
         spinner = new Spinner(spinner_opts).spin(self.contentWrapper[0])
 
-      if $(@).hasClass('top')
+      # This should be put at the top
+      # because featured-music and playlist with data-id would
+      # render songs from online platforms
+      if $(@).data('id')
+        TrackSource.platformMusic($(@).data('id'), (tracks) ->
+          spinner.stop()
+          window.tracklist.populate(tracks)
+        )
+      else if $(@).hasClass('top')
         TrackSource.topTracks((tracks) ->
           spinner.stop()
           window.tracklist.populate(tracks)
@@ -41,15 +49,10 @@ class Sidebar
           window.tracklist.populate(tracks)
         )
       else if $(@).hasClass('playlist')
-        TrackSource.playlist($(@).text(), ((tracks) ->
+        TrackSource.playlist($(@).data('name'), ((tracks) ->
           spinner.stop()
           window.tracklist.populate(tracks)
         ))
-      else if $(@).hasClass('featured-music')
-        TrackSource.featuredMusic($(@).data('id'), (tracks) ->
-          spinner.stop()
-          window.tracklist.populate(tracks)
-        )
       else if $(@).hasClass('featured-artist')
         self._loadFeaturedArtistPage( ->
           spinner.stop()
@@ -66,16 +69,27 @@ class Sidebar
         if !e or !str
           return
         else
-          str = Utils.filterSymbols(str)
-          Playlists.create(str)
-          Playlists.getAll((playlists) ->
-            self.populatePlaylists(playlists)
-          )
-          userTracking.event("Playlist", "Create", str).send()
+          youtubePlaylistId = Utils.getYoutubePlaylistId(str)
+          # We can support other platform's video here
+          if youtubePlaylistId
+            playlistName =
+              l10n.get('playlist') + '-' + youtubePlaylistId.substr(0, 5)
+            Playlists.create(playlistName, youtubePlaylistId)
+            Playlists.getAll((playlists) ->
+              self.populatePlaylists(playlists)
+            )
+            userTracking.event('Playlist', 'Create', youtubePlaylistId).send()
+          else
+            playlistName = Utils.filterSymbols(str)
+            Playlists.create(playlistName)
+            Playlists.getAll((playlists) ->
+              self.populatePlaylists(playlists)
+            )
+            userTracking.event("Playlist", "Create", playlistName).send()
 
     @bottomSidebar.on 'contextmenu', 'li.playlist', (e) ->
       e.stopPropagation()
-      playlistName = $(@).text()
+      playlistName = Utils.filterSymbols($(@).data('name'))
       menu = new gui.Menu()
       menu.append self._createDeleteMenuItem(playlistName)
       menu.append self._createRenameMenuItem(playlistName)
@@ -114,16 +128,30 @@ class Sidebar
 
     for playlist in playlists
       @bottomSidebar.append(
-        @_createPlaylistItem(playlist.name)
+        @_createPlaylistItem(playlist.name, playlist.platform_id)
       )
 
     # Re-active context after repopulating
     @_reactivePlaylistItem(@getActivePlaylistName())
 
-  _createPlaylistItem: (playlistName) ->
-    return $("
-      <li class='playlist' data-name='#{playlistName}'>#{playlistName}</li>
-    ")
+  _createPlaylistItem: (playlistName, platformId) ->
+    if platformId
+      # if this is youtube playlist or some other platforms' platlist
+      playlistItem = $("""
+        <li class='playlist' data-name='#{playlistName}'
+          data-id='#{platformId}'>
+            <i class='fa fa-youtube'></i>
+            <span>#{playlistName}</span>
+        </li>
+      """)
+    else
+      playlistItem = $("
+        <li class='playlist' data-name='#{playlistName}'>
+          #{playlistName}
+        </li>
+      ")
+
+    return playlistItem
 
   _reactivePlaylistItem: (activePlaylistName) ->
     @sidebarContainer.find('ul li').filter( ->

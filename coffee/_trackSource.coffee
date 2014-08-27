@@ -167,10 +167,10 @@ class TrackSource
             ))
 
   # We will cache feature tracks in this object
-  @_cachedFeaturedMusic: {}
-  @featuredMusic: (playlistId, success) ->
-    if @_cachedFeaturedMusic[playlistId] isnt undefined
-      success? @_cachedFeaturedMusic[playlistId]
+  @_cachedPlatformMusic: {}
+  @platformMusic: (playlistId, success) ->
+    if @_cachedPlatformMusic[playlistId] isnt undefined
+      success? @_cachedPlatformMusic[playlistId]
     else
       Requestor.get
         url:
@@ -192,8 +192,8 @@ class TrackSource
               cover_url_medium: coverImageMedium
               cover_url_large: coverImageLarge
           )
-        @_cachedFeaturedMusic[playlistId] = tracks
-        success? @_cachedFeaturedMusic[playlistId]
+        @_cachedPlatformMusic[playlistId] = tracks
+        success? @_cachedPlatformMusic[playlistId]
 
   # We will cache feature tracks in this array
   @_cachedTopTracks: []

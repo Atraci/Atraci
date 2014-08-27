@@ -1,6 +1,12 @@
 # Init preparation (should be improved later)
 db.transaction (tx) ->
-  tx.executeSql 'CREATE TABLE IF NOT EXISTS playlists (name, created)'
+  tx.executeSql(
+    'CREATE TABLE IF NOT EXISTS playlists (name, platform_id, created)'
+  )
+  # XXX: migration code
+  tx.executeSql(
+    'ALTER TABLE playlists ADD platform_id DEFAULT ""'
+  )
 
 __playlists = []
 
@@ -38,13 +44,13 @@ class Playlists
         'artist = ? and title = ? and playlist = ?', [artist, title, playlist]
       )
 
-  @create: (name) ->
+  @create: (name, platform_id = '') ->
     unix_timestamp = Math.round((new Date()).getTime() / 1000)
     db.transaction (tx) ->
       tx.executeSql 'DELETE FROM playlists WHERE name = ?', [name]
       tx.executeSql(
-        'INSERT INTO playlists (name, created) VALUES (?, ?)',
-        [name, unix_timestamp]
+        'INSERT INTO playlists (name, platform_id, created) VALUES (?, ?, ?)',
+        [name, platform_id, unix_timestamp]
       )
 
   @delete: (name) ->
