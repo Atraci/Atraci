@@ -23,6 +23,10 @@ Atraci will then try to find the best match for this song on Youtube and stream 
 
 No downloads, no torrents, completely decentralized and legal!
 
+## Users Wiki
+- [FAQ](https://github.com/Atraci/Atraci/wiki/FAQ)
+- [Reviews](https://github.com/Atraci/Atraci/wiki/Testimonials-(Reviews))
+
 
 ## Developers Wiki
 - [How to help Atraci](https://github.com/Atraci/Atraci/wiki/How-to-help-Atraci-%3F)
