@@ -48,4 +48,12 @@
   gui.App.registerGlobalHotKey(toggleTrackKey)
   gui.App.registerGlobalHotKey(playNextTrackKey)
   gui.App.registerGlobalHotKey(playPrevTrackKey)
+
+  if process.platform is 'darwin'
+    openSettingsKey = new gui.Shortcut({
+      key: 'Ctrl+Comma'
+      active: ->
+        window.settingsPanel.toggle()
+    })
+    gui.App.registerGlobalHotKey(openSettingsKey)
 )()
