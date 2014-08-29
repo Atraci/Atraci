@@ -1,6 +1,11 @@
 # Load native UI library
 gui = require('nw.gui')
 
+# Get auto update libraries
+pkg = require('../package.json')
+updater = require('node-webkit-updater')
+upd = new updater(pkg)
+
 # Get window object (!= $(window))
 win = gui.Window.get()
 
@@ -138,4 +143,36 @@ $ ->
 
   $('#Search input').focus()
 
+  # Check for version update
+  # Linux and Windows only so far. Mac coming up soon
+  if getOperatingSystem() is "windows" or "linux"
+    upd.checkNewVersion (error, manifest) ->
+      if error is null
+        alertify.confirm l10n.get('confirm_update'), (e) ->
+          if e
+            alertify.log l10n.get('downloading')
+            upgradeNow manifest, (filename) ->
+              console.log "Done"
+              if getOperatingSystem() is "windows"
+                setTimeout ->
+                  upd.run(filename)
+                , 400
+              if getOperatingSystem() is "linux"
+                tarball = require('tarball-extract')
+                tarball.extractTarball(filename, upd.getAppPath() + "/latest"
+                , (error) ->
+                  if error?
+                    console.log "path" + error
+                  else
+                    alertify.log l10n.get('linux_complete')
+                )
+
+    upgradeNow = (newManifest, cb) ->
+      newVersion = upd.download (error, filename) ->
+        console.log "Saved to : " + filename
+        if error is null
+          console.log "Current app in: " + upd.getAppPath() +
+          "on " + getOperatingSystem()
+          cb filename
+      , newManifest
   true
