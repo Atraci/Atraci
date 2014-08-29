@@ -92,3 +92,10 @@ class SettingsPanel
 
   show: ->
     @settingsPanel.dialog 'open'
+
+  toggle: ->
+    isOpen = @settingsPanel.dialog 'isOpen'
+    if isOpen
+      @close()
+    else
+      @show()
