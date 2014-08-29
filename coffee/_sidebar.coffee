@@ -51,8 +51,10 @@ class Sidebar
           window.tracklist.populate(tracks)
         )
       else if $(@).hasClass('featured-artist')
-        self._loadFeaturedArtistPage( ->
-          spinner.stop()
+        TrackSource.featuredArtist((artist)->
+          doSearch artist.value, true, (tracks) ->
+            window.tracklist.populate(tracks, artist)
+            spinner.stop()
         )
       else if $(@).hasClass('donations')
         gui.Shell.openExternal(
@@ -140,14 +142,6 @@ class Sidebar
         <span>#{playlistName}</span>
       </li>
     ")
-
-  # XXX this should be put to another class
-  _loadFeaturedArtistPage: (callback) ->
-    $.getJSON("http://getatraci.net/featured.json", (artistObject) ->
-      doSearch artistObject.value, true, (tracks) ->
-        window.tracklist.populate(tracks, artistObject)
-        callback()
-    )
 
   _createDeleteMenuItem: (playlistName) ->
     self = @

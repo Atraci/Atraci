@@ -195,6 +195,21 @@ class TrackSource
         @_cachedFeaturedMusic[playlistId] = tracks
         success? @_cachedFeaturedMusic[playlistId]
 
+  @_cachedFeaturedArtist: {}
+  @featuredArtist: (success) ->
+    # XXX : we would support multiple artists in the future
+    if @_cachedFeaturedArtist['default'] isnt undefined
+      success? @_cachedFeaturedArtist['default']
+    else
+      # XXX: Let's use rawgit's cdn version later if stable
+      Requestor.get
+        url: 'https://rawgit.com/Atraci/Atraci/master/featured.json'
+        json: true
+      , (error, response, data) =>
+        if not error and response.statusCode is 200
+          @_cachedFeaturedArtist['default'] = data
+          success? @_cachedFeaturedArtist['default']
+
   # We will cache feature tracks in this array
   @_cachedTopTracks: []
   @topTracks: (success) ->
