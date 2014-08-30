@@ -2,7 +2,7 @@
 class L10n
   constructor: (defaultLang) ->
     @cachedStrings = {}
-    @currentLang = defaultLang or 'en'
+    @currentLang = Settings.get("lang") or defaultLang or 'en'
     @folder = 'l10n/'
     @l10nFileSuffix = '.ini'
     @metadataPath = 'metadata.json'
@@ -98,6 +98,7 @@ class L10n
   changeLang: (lang) ->
     if lang
       @currentLang = lang
+      Settings.set("lang", lang);
 
     @fetchIniData(() =>
       @callbacks.forEach((callback) ->
