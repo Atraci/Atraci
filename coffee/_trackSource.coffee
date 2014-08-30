@@ -1,9 +1,9 @@
 # global Requestor, History, Playlists
 
 class TrackSource
-  #Variables
-  imageCoverLarge = 'images/cover_default_large.png'
+  @_defaultImageCover: 'images/cover_default_large.png'
   @search: (options, success) ->
+    self = @
     tracks_all = {
       "itunes": []
       "lastfm": []
@@ -94,10 +94,9 @@ class TrackSource
         else
           $.each data, (i, track) ->
             if track
+              console.log track
               trackNameExploded = track.title.split(" - ")
-              coverPhoto = track.artwork_url
-              coverPhoto =
-                @imageCoverLarge if !track.artwork_url
+              coverPhoto = track.artwork_url || self._defaultImageCover
               tracks.push
                 title: trackNameExploded[0]
                 artist: trackNameExploded[1]
@@ -118,7 +117,7 @@ class TrackSource
         if not error and response.statusCode is 200
           $.each(data.feed.entry, (i, track) ->
             if !track['media$group']['media$thumbnail']
-              coverImageMedium = coverImageLarge = imageCoverLarge
+              coverImageMedium = coverImageLarge = self._defaultImageCover
             else
               coverImageMedium = track['media$group']['media$thumbnail'][1].url
               coverImageLarge = track['media$group']['media$thumbnail'][0].url
@@ -182,7 +181,7 @@ class TrackSource
         if not error and response.statusCode is 200
           $.each(data.feed.entry, (i, track) ->
             if !track['media$group']['media$thumbnail']
-              coverImageMedium = coverImageLarge = imageCoverLarge
+              coverImageMedium = coverImageLarge = self._defaultImageCover
             else
               coverImageMedium = track['media$group']['media$thumbnail'][1].url
               coverImageLarge = track['media$group']['media$thumbnail'][0].url
