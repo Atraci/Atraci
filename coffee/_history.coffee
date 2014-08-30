@@ -30,6 +30,12 @@ class History
         [artist, title, cover_url_medium, cover_url_large, unix_timestamp]
       )
 
+  @removeTrack: (artist, title) ->
+    db.transaction (tx) ->
+      tx.executeSql(
+        'DELETE FROM history WHERE artist = ? and title = ?', [artist, title]
+      )
+
   @getTracks: (success) ->
     tracks = []
     db.transaction (tx) ->

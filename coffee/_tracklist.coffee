@@ -29,6 +29,10 @@ class Tracklist
       e.stopPropagation()
       menu = new gui.Menu()
 
+      if window.sidebar.getActiveItem().hasClass('history')
+        menu.append self._createRemoveFromHistoryMenuItem(
+          currentTrackContainer, options)
+
       Playlists.getAll((playlists) ->
         # create playlists
         $.each playlists, (index, playlist) ->
@@ -186,6 +190,25 @@ class Tracklist
           playlistName
         ).send()
     )
+
+  _createRemoveFromHistoryMenuItem: (currentTrackContainer, options) ->
+    artist = options.artist
+    title = options.title
+
+    return new gui.MenuItem(
+      label: 'Remove from History',
+      click: ->
+        History.removeTrack(
+          artist,
+          title
+        )
+        currentTrackContainer.remove()
+        userTracking.event(
+          'History',
+          'Remove Track from History'
+        ).send()
+    )
+
 
   _createOpenYoutubeMenuItem: (options) ->
     artist = options.artist
