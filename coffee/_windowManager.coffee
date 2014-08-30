@@ -20,6 +20,7 @@ class WindowManager
         @unmaximize()
 
     @closeBtn.on 'click', =>
+      @saveWindowLocationOnScreen()
       @close()
 
     @minimizeBtn.on 'click', =>
@@ -44,3 +45,11 @@ class WindowManager
 
   close: ->
     win.close()
+
+  saveWindowLocationOnScreen: ->
+    Settings.set("windowLocationX", gui.Window.get().x)
+    Settings.set("windowLocationY", gui.Window.get().y)
+
+  setWindowLocationOnScreen: ->
+    gui.Window.get().x = Settings.get("windowLocationX")
+    gui.Window.get().y = Settings.get("windowLocationY")

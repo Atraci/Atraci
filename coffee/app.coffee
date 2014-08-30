@@ -80,6 +80,8 @@ $ ->
     toolbar: false
   }
 
+  windowManager.setWindowLocationOnScreen()
+
   setTimeout ->
     $(".blackScreen").remove()
     splash.close()
