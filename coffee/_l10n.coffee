@@ -98,7 +98,7 @@ class L10n
   changeLang: (lang) ->
     if lang
       @currentLang = lang
-      Settings.set("lang", lang);
+      Settings.set("lang", lang)
 
     @fetchIniData(() =>
       @callbacks.forEach((callback) ->
