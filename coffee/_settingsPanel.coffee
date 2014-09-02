@@ -11,6 +11,7 @@ class SettingsPanel
     @languageSelect = $('#LanguageSelect')
     @themeSelect = $('#ThemeSelect')
     @positionTarget = $('body')
+    @checkboxSettings = @settingsPanel.find('.checkbox-settings')
 
     @bindEvents()
     @initDialog()
@@ -37,6 +38,12 @@ class SettingsPanel
         History.clear ->
           win.reloadIgnoringCache()
 
+  initCheckboxes: ->
+    @checkboxSettings.each((index, checkbox)->
+      settingsKey = $(checkbox).prop('name')
+      $(checkbox).prop('checked', Settings.get(settingsKey) is "true")
+    )
+
   initDialog: ->
     @settingsPanel.dialog
       autoOpen: false,
@@ -60,6 +67,7 @@ class SettingsPanel
         'Save': =>
           window.l10n.changeLang(@languageSelect.val())
           window.theme.changeTheme(@themeSelect.val())
+          @saveCheckboxes()
           @close()
 
   initL10nOptions: ->
@@ -82,6 +90,12 @@ class SettingsPanel
       @languageSelect.append(options)
     )
 
+  saveCheckboxes: ->
+    @checkboxSettings.each((index, checkbox) ->
+      settingsKey = $(checkbox).prop('name')
+      Settings.set(settingsKey, checkbox.checked)
+    )
+
   reposition: ->
     @settingsPanel.dialog('option', 'position',
       of: @positionTarget
@@ -91,6 +105,7 @@ class SettingsPanel
     @settingsPanel.dialog 'close'
 
   show: ->
+    @initCheckboxes()
     @settingsPanel.dialog 'open'
 
   toggle: ->
