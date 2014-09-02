@@ -61,6 +61,12 @@ PlayPrevious = (artist, title, success) ->
 
 PlayTrack = (artist, title, cover_url_medium, cover_url_large) ->
 
+  Notifier.show({
+    title: title
+    body: artist
+    icon: cover_url_large
+  })
+
   userTracking.event("Player", "Play", artist + ' - ' + title).send()
 
   __currentTrack =
