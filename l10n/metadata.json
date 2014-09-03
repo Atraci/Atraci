@@ -6,7 +6,6 @@
     { "label": "Esperanto", "lang": "eo" },
     { "label": "Italiano", "lang": "it" },
     { "label": "slovenščina", "lang": "sl-SI" },
-    { "label": "Español", "lang": "es-419" },
     { "label": "日本語", "lang": "ja" },
     { "label": "Deutsch", "lang": "de" },
     { "label": "Afrikaans", "lang": "af-ZA" },
@@ -24,6 +23,8 @@
     { "label": "українська", "lang": "uk" },
     { "label": "Македонски", "lang": "mk" },
     { "label": "Cymraeg", "lang": "cy" },
-    { "label": "Bahasa Indonesia", "lang": "id" }
+    { "label": "Bahasa Indonesia", "lang": "id" },
+    { "label": "Español", "lang": "es-419" },
+    { "label": "Español (España)", "lang": "es" }
   ]
 }
