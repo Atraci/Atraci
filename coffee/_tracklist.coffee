@@ -37,8 +37,12 @@ class Tracklist
         # create playlists
         $.each playlists, (index, playlist) ->
 
-          # Do nothing if we are in active playlist
-          if playlist.name is window.sidebar.getActivePlaylistName()
+          isPlatformPlaylist = playlist.platform_id isnt ''
+          isActivePlaylist =
+            playlist.name is window.sidebar.getActivePlaylistName()
+
+          # Do nothing
+          if isActivePlaylist || isPlatformPlaylist
             return
 
           options.playlistName = playlist.name
