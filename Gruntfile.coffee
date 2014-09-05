@@ -39,8 +39,8 @@ module.exports = (grunt) ->
         command: [
           '.\\cache\\0\.10\.1\\win\\nw.exe . --debug',
           './cache/0.10.1/osx/node-webkit.app/Contents/MacOS/node-webkit . --debug',
-          './cache/0.10.1/linux32/nw . --debug',
-          './cache/0.10.1/linux64/nw . --debug'
+          './cache/0.10.1/linux32/nw . --debug --ignore-gpu-blacklist',
+          './cache/0.10.1/linux64/nw . --debug --ignore-gpu-blacklist'
         ].join('&')
 
     'regex-replace':
