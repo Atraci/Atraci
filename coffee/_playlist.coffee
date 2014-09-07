@@ -1,11 +1,12 @@
 # Init preparation (should be improved later)
 db.transaction (tx) ->
   tx.executeSql(
-    'CREATE TABLE IF NOT EXISTS playlists (name, platform_id, created)'
+    'CREATE TABLE IF NOT EXISTS playlists' +
+    '(name, platform_id, created, position)'
   )
-  # XXX: migration code
+
   tx.executeSql(
-    'ALTER TABLE playlists ADD platform_id DEFAULT ""'
+    'ALTER TABLE playlists ADD position DEFAULT 1'
   )
 
 __playlists = []
@@ -37,6 +38,13 @@ class Playlists
         playlist, unix_timestamp]
       )
 
+  @updatePlaylistPos: (playlistName, position) ->
+    db.transaction (tx) ->
+      tx.executeSql(
+        'update playlists set ' +
+        'position = ? WHERE name = ?', [position, playlistName]
+      )
+
   @removeTrack: (artist, title, playlist) ->
     db.transaction (tx) ->
       tx.executeSql(
@@ -49,7 +57,8 @@ class Playlists
     db.transaction (tx) ->
       tx.executeSql 'DELETE FROM playlists WHERE name = ?', [name]
       tx.executeSql(
-        'INSERT INTO playlists (name, platform_id, created) VALUES (?, ?, ?)',
+        'INSERT INTO playlists (name, platform_id, created, position)' +
+        'VALUES (?, ?, ?, 0)',
         [name, platform_id, unix_timestamp]
       )
 
@@ -62,7 +71,7 @@ class Playlists
     playlists = []
     db.transaction (tx) ->
       tx.executeSql(
-        'SELECT * FROM playlists ORDER BY created DESC', [], (tx, results) ->
+        'SELECT * FROM playlists ORDER BY position ASC', [], (tx, results) ->
           i = 0
           while i < results.rows.length
             playlists.push results.rows.item(i)

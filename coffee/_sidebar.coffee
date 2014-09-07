@@ -126,6 +126,7 @@ class Sidebar
     )
 
   populatePlaylists: (playlists) ->
+    self = @
     @bottomSidebar.find('li.playlist').remove()
 
     for playlist in playlists
@@ -135,6 +136,20 @@ class Sidebar
 
     # Re-active context after repopulating
     @_reactivePlaylistItem(@getActivePlaylistName())
+    @bottomSidebar.sortable({
+      placeholder: "ui-state-highlight",
+      items: "li:not(.new)",
+      update: (event, ui) ->
+        self._updatePlaylistPos()
+    })
+
+  _updatePlaylistPos: () ->
+    sideBarItems = @bottomSidebar.find("li:not(.new)")
+
+    sideBarItems.each () ->
+      console.log $(@)
+      Playlists.updatePlaylistPos($(@).attr("data-name"), $(@).index())
+
 
   _createPlaylistItem: (playlistName, platformId) ->
     if platformId
@@ -143,13 +158,15 @@ class Sidebar
         <li class='playlist' data-name='#{playlistName}'
           data-id='#{platformId}'>
             <i class='fa fa-youtube'></i>
+            <i class='fa fa-align-justify'></i>
             <span>#{playlistName}</span>
         </li>
       """)
     else
       playlistItem = $("
         <li class='playlist' data-name='#{playlistName}'>
-          #{playlistName}
+            <i class='fa fa-align-justify'></i>
+                #{playlistName}
         </li>
       ")
 
