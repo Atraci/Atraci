@@ -6,6 +6,10 @@ db.transaction (tx) ->
   )
 
   tx.executeSql(
+    'ALTER TABLE playlists ADD platform_id DEFAULT ""'
+  )
+
+  tx.executeSql(
     'ALTER TABLE playlists ADD position DEFAULT 1'
   )
 
