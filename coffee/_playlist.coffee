@@ -97,7 +97,17 @@ class Playlists
           success? tracks
       )
 
+  @getPlaylistNameExist: (name, callback) ->
+    db.transaction((tx) ->
+      tx.executeSql(
+        'SELECT name FROM playlists WHERE name = ?',
+        [name], (tx, results) ->
+          callback(results.rows.length)
+      )
+    )
+
   @rename: (name, new_name) ->
+
     db.transaction((tx) ->
       tx.executeSql(
         'UPDATE playlists SET name = ? WHERE name = ?', [new_name, name]

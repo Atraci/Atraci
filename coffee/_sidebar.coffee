@@ -71,23 +71,29 @@ class Sidebar
         if !e or !str
           return
         else
-          youtubePlaylistId = Utils.getYoutubePlaylistId(str)
-          # We can support other platform's video here
-          if youtubePlaylistId
-            playlistName =
-              l10n.get('playlist') + '-' + youtubePlaylistId.substr(0, 5)
-            Playlists.create(playlistName, youtubePlaylistId)
-            Playlists.getAll((playlists) ->
-              self.populatePlaylists(playlists)
-            )
-            userTracking.event('Playlist', 'Create', youtubePlaylistId).send()
-          else
-            playlistName = Utils.filterSymbols(str)
-            Playlists.create(playlistName)
-            Playlists.getAll((playlists) ->
-              self.populatePlaylists(playlists)
-            )
-            userTracking.event("Playlist", "Create", playlistName).send()
+          Playlists.getPlaylistNameExist(str, (length) ->
+            if !length
+              youtubePlaylistId = Utils.getYoutubePlaylistId(str)
+              # We can support other platform's video here
+              if youtubePlaylistId
+                playlistName =
+                  l10n.get('playlist') + '-' + youtubePlaylistId.substr(0, 5)
+                Playlists.create(playlistName, youtubePlaylistId)
+                Playlists.getAll((playlists) ->
+                  self.populatePlaylists(playlists)
+                )
+                userTracking.event('Playlist', 'Create',
+                  youtubePlaylistId).send()
+              else
+                playlistName = Utils.filterSymbols(str)
+                Playlists.create(playlistName)
+                Playlists.getAll((playlists) ->
+                  self.populatePlaylists(playlists)
+                )
+                userTracking.event("Playlist", "Create", playlistName).send()
+            else
+              alertify.alert("This playlist name already exists")
+          )
 
     @bottomSidebar.on 'contextmenu', 'li.playlist', (e) ->
       e.stopPropagation()
@@ -147,7 +153,6 @@ class Sidebar
     sideBarItems = @bottomSidebar.find("li:not(.new)")
 
     sideBarItems.each () ->
-      console.log $(@)
       Playlists.updatePlaylistPos($(@).attr("data-name"), $(@).index())
 
 
@@ -212,11 +217,16 @@ class Sidebar
         alertify.prompt l10n.get('rename_playlist_popup'), (e, newName) ->
           if e && newName
             newName = Utils.filterSymbols(newName)
-            Playlists.rename(oldPlaylistName, newName)
-            Playlists.getAll((playlists) ->
-              self.populatePlaylists(playlists)
+            Playlists.getPlaylistNameExist(newName, (length) ->
+              if !length
+                Playlists.rename(oldPlaylistName, newName)
+                Playlists.getAll((playlists) ->
+                  self.populatePlaylists(playlists)
+                )
+                userTracking.event("Playlist", "Rename", newName).send()
+              else
+                alertify.alert("This playlist name already exists")
             )
-            userTracking.event("Playlist", "Rename", newName).send()
           else
             return
         , oldPlaylistName
