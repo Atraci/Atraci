@@ -59,6 +59,11 @@ class Sidebar
             window.tracklist.populate(tracks, artist)
             spinner.stop()
         )
+      else if $(@).hasClass('settings')
+        if $('#settings-panel').is ':hidden'
+          settingsPanel.show()
+        else
+          settingsPanel.close()
       else if $(@).hasClass('donations')
         gui.Shell.openExternal(
           'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&' +
