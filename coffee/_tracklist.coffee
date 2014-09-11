@@ -158,7 +158,7 @@ class Tracklist
     coverLargURL = options.coverLargURL
 
     return new gui.MenuItem(
-      label: 'Add to ' + playlistName,
+      label: l10n.get('context_menu_add_to_playlist') + ' ' + playlistName,
       click: ->
         Playlists.addTrack(
           artist,
@@ -180,7 +180,7 @@ class Tracklist
     title = options.title
 
     return new gui.MenuItem(
-      label: 'Remove from ' + playlistName,
+      label: l10n.get('context_menu_remove_from_plalist') + playlistName,
       click: ->
         Playlists.removeTrack(
           artist,
@@ -200,7 +200,7 @@ class Tracklist
     title = options.title
 
     return new gui.MenuItem(
-      label: 'Remove from History',
+      label: l10n.get('context_menu_remove_from_history'),
       click: ->
         History.removeTrack(
           artist,
