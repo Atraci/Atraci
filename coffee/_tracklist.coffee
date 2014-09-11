@@ -180,7 +180,7 @@ class Tracklist
     title = options.title
 
     return new gui.MenuItem(
-      label: l10n.get('context_menu_remove_from_plalist') + playlistName,
+      label: l10n.get('context_menu_remove_from_playlist') + playlistName,
       click: ->
         Playlists.removeTrack(
           artist,
