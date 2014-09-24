@@ -60,6 +60,7 @@ class Tracklist
         menu.append self._createOpenYoutubeMenuItem(options)
         menu.append self._createFindMoreMenuItem(options)
         menu.append self._createCopyVideoUrlMenuItem(options)
+        menu.append self._createDownloadMP3MenuItem(options)
 
         # show menu
         menu.popup e.clientX, e.clientY
@@ -259,4 +260,51 @@ class Tracklist
               link = data.feed.entry[0].link[0].href
               clipboard = gui.Clipboard.get()
               clipboard.set link, 'text'
+    )
+
+  _createDownloadMP3MenuItem : (options) ->
+    artist = options.artist
+    title = options.title
+    return new gui.MenuItem(
+      label: l10n.get('download_mp3'),
+      click: ->
+        request
+          url: 'http://gdata.youtube.com/feeds/api/videos?alt=json&' +
+          'max-results=1&q=' + encodeURIComponent(artist + ' - ' + title)
+          json: true,
+          (error, response, data) ->
+            if not data.feed.entry # no results
+              alertify.log l10n.get('link_not_found')
+              console.log l10n.get('link_not_found')
+            else
+              track = data.feed.entry[0]
+              link = track.link[0].href
+              title = track['media$group']['media$title']['$t']
+
+              path = require('path')
+              FileDialog.saveAs
+                name:"#{title}.mp3"
+                dir:"~/Downloads",
+                (filename) ->
+                  # replace mp3 with extension placeholder …
+                  # … since youtube-dl will download with best fitting format …
+                  # and then convert it to mp3
+                  if path.extname(filename).toLowerCase() is '.mp3'
+                    filename = filename.replace(/\mp3$/i, '%(ext)s')
+                  else
+                    filename = "#{filename}.%(ext)s"
+
+                  youtubedl = require('youtube-dl')
+                  youtubedl.exec link,
+                    [   '--extract-audio'
+                        '--audio-format', 'mp3'
+                        '--output', filename
+                        '--quiet'
+                    ],
+                    { cwd: path.dirname(filename) },
+                    (err, data) ->
+                      if err
+                        console.log '[youtube-dl] error', arguments
+                      else
+                        console.log '[youtube-dl]', data
     )
