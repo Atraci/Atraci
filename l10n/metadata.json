@@ -25,7 +25,7 @@
     { "label": "Cymraeg", "lang": "cy" },
     { "label": "Bahasa Indonesia", "lang": "id" },
     { "label": "Español", "lang": "es-419" },
-    { "label": "Español (España)", "lang": "es" }
+    { "label": "Español (España)", "lang": "es" },
     { "label": "Русский", "lang": "ru" }
   ]
 }
