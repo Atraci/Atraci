@@ -1,12 +1,20 @@
 # Based on jQuery
 class L10n
   constructor: (defaultLang) ->
+    @defaultLang = defaultLang or 'en'
     @cachedStrings = {}
-    @currentLang = Settings.get("lang") or defaultLang or 'en'
+    @currentLang = Settings.get("lang") or @defaultLang
     @folder = 'l10n/'
     @l10nFileSuffix = '.ini'
     @metadataPath = 'metadata.json'
     @callbacks = []
+    $.ajax(
+      url: @folder + @defaultLang + @l10nFileSuffix,
+    ).done((iniData) =>
+      @cachedStrings[@defaultLang] = @parseInI(iniData)
+    ).fail((error) ->
+      console.error(error)
+    )
 
   getSupportedLanguages: (cb) ->
     $.ajax(
@@ -62,7 +70,6 @@ class L10n
       lang = 'en'
 
     translatedString = @cachedStrings[lang][l10nId]
-
     reBracket = /\{\{\s*(\w+)\s*\}\}/g
     matched = false
     translate = () ->
@@ -77,13 +84,13 @@ class L10n
 
     translate() while matched = reBracket.exec(translatedString)
 
-    if not translatedString
+    if translatedString
+      return translatedString
+    else
       console.log("""
         You are accessing non-existent l10nId : #{l10nId},lang: #{@currentLang}
       """)
       return @get(l10nId, params, true)
-    else
-      return translatedString
 
   addEventListener: (eventName, callback) ->
     if eventName is 'localizationchange'

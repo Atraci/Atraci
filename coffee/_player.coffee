@@ -343,6 +343,13 @@ videoContainer.find(".ExpandButton").on "click", (e) ->
 videoContainer.find("#video_player").on "dblclick", (e) ->
   $("#video-container").toggleClass "expanded"
 
+videoContainer.find(".HideButton").on "click", (e) ->
+  $("#video-container").toggleClass "hide"
+  $("#SideBar").toggleClass "video-hide"
+  $(this).find('i')
+  .toggleClass "fa-arrow-down"
+  .toggleClass "fa-arrow-up"
+
 $('#PlayerContainer .progress-bg').on 'mousemove', (e) ->
   if videojs('video_player').currentTime() != 0
     percentage = ((e.pageX - $(this).offset().left) / $(this).width())
