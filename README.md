@@ -1,5 +1,5 @@
 #Atraci
-[![GitHub version](https://badge.fury.io/gh/atraci%2Fatraci.svg)](https://github.com/Atraci/Atraci/releases)
+[![GitHub version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=5&v=0.6.5)](https://github.com/Atraci/Atraci/releases)
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
 [![devDependency Status](https://david-dm.org/Atraci/Atraci/dev-status.svg?theme=shields.io)](https://david-dm.org/Atraci/Atraci#info=devDependencies)
 [![Dependency Status](https://david-dm.org/Atraci/Atraci.svg?theme=shields.io&v=1)](https://david-dm.org/Atraci/Atraci)
