@@ -8,7 +8,7 @@
 Atraci is a streaming application for Windows, Mac and Linux that lets you listen instantly to more than 60 million songs (way more than iTunes's 26 million).
 It requires no sign up, displays no ads and is 100% safe. 
 
-![screenshot](http://i.imgur.com/LzCDqkI.jpg)
+![screenshot](http://i.imgur.com/jpZVKgt.jpg)
 
 ## Download v0.6.5 (stable releases, prebuilt binaries)
 - [Windows](https://github.com/Atraci/Atraci/releases/download/0.6.5/Atraci.exe?raw=true)
