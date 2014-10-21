@@ -153,7 +153,7 @@ class TrackSource
             console.log l10n.get('not_found')
             spinner.stop()
           else
-            $('#sidebar-container li.active').removeClass('active')
+            $('#SideBar li.active').removeClass('active')
             $('#tracklist-container').empty()
             link =
               data.feed.entry[0].link[0].href.split("v=")[1].split("&")[0]

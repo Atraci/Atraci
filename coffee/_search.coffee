@@ -4,7 +4,7 @@ doSearch = (searchVal, getTracks, callback) ->
     "organic",
   searchVal).send()
 
-  $('#sidebar-container li.active').removeClass('active')
+  $('#SideBar li.active').removeClass('active')
   $('#tracklist-container').empty()
 
   spinner = new Spinner(spinner_opts).spin($('#tracklist-container')[0])
