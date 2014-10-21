@@ -71,6 +71,7 @@ $ ->
   window.settingsPanel = new SettingsPanel
   window.tracklist = new Tracklist
   window.sidebar = new Sidebar
+  window.playlistPanel = new PlaylistPanel
 
   splash = gui.Window.open 'splash.html', {
     position: 'center',
