@@ -91,24 +91,26 @@ class PlaylistPanel
       else
         @close()
 
-# Init preparation (should be improved later)
-db.transaction (tx) ->
-  tx.executeSql(
-    'CREATE TABLE IF NOT EXISTS playlists' +
-    '(name, platform_id, created, position)'
-  )
-
-  tx.executeSql(
-    'ALTER TABLE playlists ADD platform_id DEFAULT ""'
-  )
-
-  tx.executeSql(
-    'ALTER TABLE playlists ADD position DEFAULT 1'
-  )
 
 __playlists = []
 
 class Playlists
+
+  @initDB: ->
+    # Init preparation (should be improved later)
+    db.transaction (tx) ->
+      tx.executeSql(
+        'CREATE TABLE IF NOT EXISTS playlists' +
+        '(name, platform_id, created, position)'
+      )
+      tx.executeSql(
+        'ALTER TABLE playlists ADD platform_id DEFAULT ""'
+      )
+
+      tx.executeSql(
+        'ALTER TABLE playlists ADD position DEFAULT 1'
+      )
+
   @clear = (success) ->
     db.transaction (tx) ->
       tx.executeSql 'DROP TABLE playlist_tracks'

@@ -73,6 +73,11 @@ $ ->
   window.sidebar = new Sidebar
   window.playlistPanel = new PlaylistPanel
 
+  #Initialize the playlists DB
+  setTimeout( ->
+    Playlists.initDB()
+  , 1000)
+
   splash = gui.Window.open 'splash.html', {
     position: 'center',
     width: 600,
