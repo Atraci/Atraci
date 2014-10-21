@@ -72,33 +72,7 @@ class Sidebar
     )
 
     @bottomSidebar.on 'click', 'li.new', ->
-      alertify.prompt l10n.get('create_playlist_popup'), (e, str) ->
-        if !e or !str
-          return
-        else
-          Playlists.getPlaylistNameExist(str, (length) ->
-            if !length
-              youtubePlaylistId = Utils.getYoutubePlaylistId(str)
-              # We can support other platform's video here
-              if youtubePlaylistId
-                playlistName =
-                  l10n.get('playlist') + '-' + youtubePlaylistId.substr(0, 5)
-                Playlists.create(playlistName, youtubePlaylistId)
-                Playlists.getAll((playlists) ->
-                  self.populatePlaylists(playlists)
-                )
-                userTracking.event('Playlist', 'Create',
-                  youtubePlaylistId).send()
-              else
-                playlistName = Utils.filterSymbols(str)
-                Playlists.create(playlistName)
-                Playlists.getAll((playlists) ->
-                  self.populatePlaylists(playlists)
-                )
-                userTracking.event("Playlist", "Create", playlistName).send()
-            else
-              alertify.alert("This playlist name already exists")
-          )
+      playlistPanel.show()
 
     @bottomSidebar.on 'contextmenu', 'li.playlist', (e) ->
       e.stopPropagation()
@@ -106,6 +80,7 @@ class Sidebar
       menu = new gui.Menu()
       menu.append self._createDeleteMenuItem(playlistName)
       menu.append self._createRenameMenuItem(playlistName)
+      menu.append self._createExportMenuItem(playlistName)
       menu.popup e.clientX, e.clientY
 
   getActiveItem: ->
@@ -212,6 +187,15 @@ class Sidebar
               self.populatePlaylists(playlists)
             )
             userTracking.event("Playlist", "Delete", playlistName).send()
+    )
+
+  _createExportMenuItem: (playlistName) ->
+    self = @
+    return new gui.MenuItem(
+      label: 'Export ' + playlistName,
+      click: ->
+        Playlists.export(playlistName)
+        userTracking.event("Playlist", "Exported", playlistName).send()
     )
 
   _createRenameMenuItem: (oldPlaylistName) ->
