@@ -21,8 +21,6 @@ It requires no sign up, displays no ads and is 100% safe.
 When searching, Atraci will use iTunes, Last.fm and SoundCloud to display song information - cover, title, artist.
 Atraci will then try to find the best match for this song on Youtube and stream the **highest quality video stream**.
 
-No downloads, no torrents, completely decentralized and legal!
-
 ## Users Wiki
 - [FAQ](https://github.com/Atraci/Atraci/wiki/FAQ)
 - [Reviews](https://github.com/Atraci/Atraci/wiki/Testimonials-(Reviews))
