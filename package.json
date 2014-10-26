@@ -26,7 +26,8 @@
     "request": "~2.40.0",
     "ytdl": "~0.3.3",
     "universal-analytics": "~0.3.4",
-    "node-uuid": "~1.4.1"
+    "node-uuid": "~1.4.1",
+    "nedb": "~0.11.1"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
@@ -41,14 +42,14 @@
     "grunt-regex-replace": "~0.2.6",
     "grunt-shell": "~1.0.1",
     "grunt-coffeelint": "0.0.13",
-    "node-webkit-updater" : "0.0.14",
-    "tarball-extract" : "0.0.3"
+    "node-webkit-updater": "0.0.14",
+    "tarball-extract": "0.0.3"
   },
   "manifestUrl": "https://raw.githubusercontent.com/Atraci/Atraci/master/package.json",
-  "packages" : {
+  "packages": {
     "win": "https://github.com/Atraci/Atraci/releases/download/0.6.5/Atraci.exe",
-    "linux64" : "https://github.com/Atraci/Atraci/releases/download/0.6.5/Atraci-linux64.tar.gz",
-    "linux32" : "https://github.com/Atraci/Atraci/releases/download/0.6.5/Atraci-linux32.tar.gz",
-    "mac" : "https://github.com/Atraci/Atraci/releases/download/0.6.5/Atraci-mac.zip"
+    "linux64": "https://github.com/Atraci/Atraci/releases/download/0.6.5/Atraci-linux64.tar.gz",
+    "linux32": "https://github.com/Atraci/Atraci/releases/download/0.6.5/Atraci-linux32.tar.gz",
+    "mac": "https://github.com/Atraci/Atraci/releases/download/0.6.5/Atraci-mac.zip"
   }
 }
