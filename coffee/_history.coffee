@@ -1,55 +1,65 @@
-# Init preparation (should be improved later)
-db.transaction (tx) ->
-  tx.executeSql(
-    'CREATE TABLE IF NOT EXISTS history ' +
-    '(artist, title, cover_url_medium, cover_url_large, last_played)'
-  )
-
 class History
   @clear: (success) ->
-    db.transaction (tx) ->
-      tx.executeSql 'DROP TABLE history'
-      success?()
+    db.history.remove({}, { multi: true }, (error) ->
+      if error
+        console.log("History.clear remove erorr :")
+        console.log(error)
+        success?()
+      else
+        success?()
+    )
 
   @addTrack: (artist, title, cover_url_medium, cover_url_large) ->
     unix_timestamp = Math.round((new Date()).getTime() / 1000)
-    db.transaction (tx) ->
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS history ' +
-        '(artist, title, cover_url_medium, cover_url_large, last_played)'
-      )
-
-      tx.executeSql(
-        'DELETE FROM history WHERE artist = ? and title = ?', [artist, title]
-      )
-
-      tx.executeSql(
-        'INSERT INTO history ' +
-        '(artist, title, cover_url_medium, cover_url_large, last_played) ' +
-        'VALUES (?, ?, ?, ?, ?)',
-        [artist, title, cover_url_medium, cover_url_large, unix_timestamp]
-      )
+    db.history.remove({
+      artist: artist,
+      title: title
+    }, {}, (error, numRemoved) ->
+      if error
+        console.log("History.addTrack remove erorr :")
+        console.log(error)
+      else
+        db.history.insert({
+          artist: artist,
+          title: title,
+          cover_url_medium: cover_url_medium,
+          cover_url_large: cover_url_large,
+          last_played: unix_timestamp
+        }, (error) ->
+          if error
+            console.log("History.addTrack insert erorr :")
+            console.log(error)
+        )
+    )
 
   @removeTrack: (artist, title) ->
-    db.transaction (tx) ->
-      tx.executeSql(
-        'DELETE FROM history WHERE artist = ? and title = ?', [artist, title]
-      )
+    db.history.remove({
+      artist: artist,
+      title: title
+    }, {}, (error) ->
+      if error
+        console.log("History.removeTrack remove erorr :")
+        console.log(error)
+    )
 
   @getTracks: (success) ->
-    tracks = []
-    db.transaction (tx) ->
-      tx.executeSql(
-        'SELECT * FROM history ORDER BY last_played DESC LIMIT 150', [],
-        (tx, results) ->
-          i = 0
-          while i < results.rows.length
-            tracks.push results.rows.item(i)
-            i++
-          success? tracks
-      )
+    db.history.find({}).sort({
+      last_played: -1
+    }).limit(150).exec((error, foundTracks) ->
+      if error
+        console.log("History.getTracks find erorr :")
+        console.log(error)
+        success?([])
+      else
+        success?(foundTracks)
+    )
 
   @countTracks: (success) ->
-    db.transaction (tx) ->
-      tx.executeSql 'SELECT COUNT(*) AS cnt FROM history', [], (tx, results) ->
-        success? results.rows.item(0).cnt
+    db.history.count({}, (error, count) ->
+      if error
+        console.log("History.countTracks count erorr :")
+        console.log(error)
+        success?(0)
+      else
+        success?(count)
+    )

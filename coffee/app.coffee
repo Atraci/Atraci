@@ -1,5 +1,6 @@
 # Load native UI library
 gui = require('nw.gui')
+path = require('path')
 
 # Get auto update libraries
 pkg = require('../package.json')
@@ -21,9 +22,22 @@ win.focus()
 # Show the window when the app opens
 win.show()
 
-# Open Web SQL Database
-# https://github.com/rogerwang/node-webkit/wiki/Save-persistent-data-in-app
-db = openDatabase('AtraciDB', '1.0', '', 10 * 1024 * 1024)
+# DB
+Datastore = require('nedb')
+
+db = {}
+db.playlist = new Datastore(
+  filename: path.join(require('nw.gui').App.dataPath, 'playlist.db')
+  autoload: true
+)
+db.history = new Datastore(
+  filename: path.join(require('nw.gui').App.dataPath, 'history.db')
+  autoload: true
+)
+db.track = new Datastore(
+  filename: path.join(require('nw.gui').App.dataPath, 'track.db')
+  autoload: true
+)
 
 # Cancel all new windows (Middle clicks / New Tab)
 win.on "new-win-policy", (frame, url, policy) ->
@@ -72,11 +86,6 @@ $ ->
   window.tracklist = new Tracklist
   window.sidebar = new Sidebar
   window.playlistPanel = new PlaylistPanel
-
-  #Initialize the playlists DB
-  setTimeout( ->
-    Playlists.initDB()
-  , 1000)
 
   splash = gui.Window.open 'splash.html', {
     position: 'center',

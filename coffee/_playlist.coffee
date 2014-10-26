@@ -9,8 +9,11 @@ class PlaylistPanel
     @playlistPopup = $('.new')
     @playlistName = $('#playListName')
     @positionTarget = $('body')
-
-
+    @playlistPanel.keydown((e) ->
+      if e.keyCode is $.ui.keyCode.ENTER
+        saveButton = $(@).parent().find('.ui-dialog-buttonpane button:last')
+        saveButton.click()
+    )
     @playlistPanel.dialog
       autoOpen: false,
       height: 220,
@@ -49,19 +52,22 @@ class PlaylistPanel
                 if youtubePlaylistId
                   playlistName =
                     l10n.get('playlist') + '-' + youtubePlaylistId.substr(0, 5)
-                  Playlists.create(playlistName, youtubePlaylistId)
-                  Playlists.getAll((playlists) ->
-                    sidebar.populatePlaylists(playlists)
+                  Playlists.create(playlistName, youtubePlaylistId, ->
+                    Playlists.getAll((playlists) ->
+                      sidebar.populatePlaylists(playlists)
+                    )
+                    userTracking.event('Playlist', 'Create',
+                      youtubePlaylistId).send()
                   )
-                  userTracking.event('Playlist', 'Create',
-                    youtubePlaylistId).send()
                 else
                   playlistName = Utils.filterSymbols(str)
-                  Playlists.create(playlistName)
-                  Playlists.getAll((playlists) ->
-                    sidebar.populatePlaylists(playlists)
+                  Playlists.create(playlistName, '', ->
+                    Playlists.getAll((playlists) ->
+                      sidebar.populatePlaylists(playlists)
+                    )
+                    userTracking.event(
+                      "Playlist", "Create", playlistName).send()
                   )
-                  userTracking.event("Playlist", "Create", playlistName).send()
                 $('#playListName').val("")
               else
                 alertify.alert("This playlist name already exists")
@@ -95,96 +101,137 @@ class PlaylistPanel
 __playlists = []
 
 class Playlists
-
-  @initDB: ->
-    # Init preparation (should be improved later)
-    db.transaction (tx) ->
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS playlists' +
-        '(name, platform_id, created, position)'
-      )
-      tx.executeSql(
-        'ALTER TABLE playlists ADD platform_id DEFAULT ""'
-      )
-
-      tx.executeSql(
-        'ALTER TABLE playlists ADD position DEFAULT 1'
-      )
-
   @clear = (success) ->
-    db.transaction (tx) ->
-      tx.executeSql 'DROP TABLE playlist_tracks'
-      tx.executeSql 'DROP TABLE playlists'
-      success?()
+    db.playlist.remove({}, { multi: true }, (error) ->
+      if error
+        console.log("Playlists.clear remove playlist erorr :")
+        console.log(error)
+        success?()
+      else
+        db.track.remove({}, { multi: true }, (error) ->
+          if error
+            console.log("Playlists.clear remove track erorr :")
+            console.log(error)
+            success?()
+          else
+            success?()
+        )
+    )
 
   @addTrack: (artist, title, cover_url_medium, cover_url_large, playlist) ->
     unix_timestamp = Math.round((new Date()).getTime() / 1000)
-    db.transaction (tx) ->
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS playlist_tracks ' +
-        '(artist, title, cover_url_medium, cover_url_large, playlist, added)'
-      )
-      tx.executeSql(
-        'DELETE FROM playlist_tracks WHERE ' +
-        'artist = ? and title = ? and playlist = ?',
-        [artist, title, playlist]
-      )
-      tx.executeSql(
-        'INSERT INTO playlist_tracks ' +
-        '(artist, title, cover_url_medium, cover_url_large, playlist, added) '+
-        'VALUES (?, ?, ?, ?, ?, ?)',
-        [artist, title, cover_url_medium, cover_url_large,
-        playlist, unix_timestamp]
-      )
+
+    db.track.remove({
+      artist: artist,
+      title: title,
+      playlist: playlist
+    }, {}, (error) ->
+      if error
+        console.log("Playlists.addTrack remove track erorr :")
+        console.log(error)
+      else
+        db.track.insert({
+          artist: artist,
+          title: title,
+          cover_url_medium: cover_url_medium,
+          cover_url_large: cover_url_large,
+          playlist: playlist,
+          added: unix_timestamp
+        }, (error) ->
+          if error
+            console.log("Playlists.addTrack insert track erorr :")
+            console.log(error)
+        )
+    )
 
   @updatePlaylistPos: (playlistName, position) ->
-    db.transaction (tx) ->
-      tx.executeSql(
-        'update playlists set ' +
-        'position = ? WHERE name = ?', [position, playlistName]
-      )
+    db.playlist.update({
+      name: playlistName
+    }, {
+      $set: {
+        position: position
+      }
+    }, {}, (error) ->
+      if error
+        console.log("Playlists.updatePlaylistPos update playlist erorr :")
+        console.log(error)
+    )
 
   @removeTrack: (artist, title, playlist) ->
-    db.transaction (tx) ->
-      tx.executeSql(
-        'DELETE FROM playlist_tracks WHERE ' +
-        'artist = ? and title = ? and playlist = ?', [artist, title, playlist]
-      )
+    db.track.remove({
+      artist: artist,
+      title: title,
+      playlist: playlist
+    }, {}, (error) ->
+      if error
+        console.log("Playlists.removeTrack remove track erorr :")
+        console.log(error)
+    )
 
-  @create: (name, platform_id = '') ->
+  @create: (name, platform_id = '', success) ->
     unix_timestamp = Math.round((new Date()).getTime() / 1000)
-    db.transaction (tx) ->
-      tx.executeSql 'DELETE FROM playlists WHERE name = ?', [name]
-      tx.executeSql(
-        'INSERT INTO playlists (name, platform_id, created, position)' +
-        'VALUES (?, ?, ?, 0)',
-        [name, platform_id, unix_timestamp]
-      )
+    db.playlist.remove({
+      name: name
+    }, {}, (error) ->
+      if error
+        console.log("Playlists.create remove playlist erorr :")
+        console.log(error)
+      else
+        db.playlist.insert({
+          name: name,
+          platform_id: platform_id,
+          created: unix_timestamp,
+          position: 0
+        }, (error) ->
+          if error
+            console.log("Playlists.create create playlist erorr :")
+            console.log(error)
+          else
+            success?()
+        )
+    )
 
   @delete: (name) ->
-    db.transaction (tx) ->
-      tx.executeSql 'DELETE FROM playlists WHERE name = ?', [name]
-      tx.executeSql 'DELETE FROM playlist_tracks WHERE playlist = ?', [name]
+    db.playlist.remove({
+      name: name
+    }, {}, (error) ->
+      if error
+        console.log("Playlists.delete remove playlist erorr :")
+        console.log(error)
+      else
+        db.track.remove({
+          playlist: name
+        }, {}, (error) ->
+          if error
+            console.log("Playlists.delete remove track erorr :")
+            console.log(error)
+        )
+    )
 
   @export: (name) ->
     exportDump = []
     #Insert Signature to identify playlist files
-    exportDump.push "Atraci:ImportedPlaylist:"+name
-    db.transaction (tx) ->
-      tx.executeSql(
-        'SELECT * FROM playlist_tracks WHERE playlist = ?',
-        [name], (tx, results) ->
-          i = 0
-          while i < results.rows.length
-            exportDump.push results.rows.item(i)
-            i++
-          success? exportDump
-          fs.writeFile name + "Playlist.atpl",
-          JSON.stringify(exportDump), (error) ->
-            console.error("Error writing file", error) if error
-          alertify.log "Exported " + name + "Playlist.json" +
-          " to: " + process.cwd()
-      )
+    exportDump.push('Atraci:ImportedPlaylist:' + name)
+
+    db.track.find({
+      playlist: name
+    }, (error, foundTracks) ->
+      if error
+        console.log("Playlists.export find track erorr :")
+        console.log(error)
+      else
+        i = 0
+
+        while i < foundTracks.length
+          exportDump.push(foundTracks[i])
+          i++
+
+        fs.writeFile name + "Playlist.atpl",
+        JSON.stringify(exportDump), (error) ->
+          console.error("Error writing file", error) if error
+        alertify.log "Exported " + name + "Playlist.json" +
+        " to: " + process.cwd()
+    )
 
   @import: (name) ->
     objects = []
@@ -223,55 +270,64 @@ class Playlists
             return
 
   @getAll = (success) ->
-    playlists = []
-    db.transaction (tx) ->
-      tx.executeSql(
-        'SELECT * FROM playlists ORDER BY position ASC', [], (tx, results) ->
-          i = 0
-          while i < results.rows.length
-            playlists.push results.rows.item(i)
-            i++
-          __playlists = playlists
-          success? playlists
-      )
+    db.playlist.find({}).sort({
+      position: 1
+    }).exec((error, foundPlaylists) ->
+      if error
+        console.log("Playlists.getAll find playlist erorr :")
+        console.log(error)
+        success?([])
+      else
+        __playlists = foundPlaylists
+        success?(foundPlaylists)
+    )
 
   @getTracksForPlaylist = (playlist, success) ->
-    tracks = []
-    db.transaction (tx) ->
-      tx.executeSql(
-        'SELECT * FROM playlist_tracks WHERE playlist = ? ORDER BY added ASC',
-        [playlist], (tx, results) ->
-          i = 0
-          while i < results.rows.length
-            tracks.push results.rows.item(i)
-            i++
-          success? tracks
-      )
+    db.track.find({
+      playlist: playlist
+    }).sort({
+      added: 1
+    }).exec((error, foundTracks) ->
+      if error
+        console.log("Playlists.getTracksForPlaylist find track erorr :")
+        console.log(error)
+        success?([])
+      else
+        success?(foundTracks)
+    )
 
-  @getPlaylistNameExist: (name, callback) ->
-    db.transaction((tx) ->
-      tx.executeSql(
-        'SELECT name FROM playlists WHERE name = ?',
-        [name], (tx, results) ->
-          callback(results.rows.length)
-      )
+  @getPlaylistNameExist: (name, success) ->
+    db.playlist.find({
+      name: name
+    }, (error, foundPlaylists) ->
+      if error
+        console.log("Playlists.getPlaylistNameExist find playlist erorr :")
+        console.log(error)
+        success?(0)
+      else
+        success?(foundPlaylists.length)
     )
 
   @rename: (name, new_name) ->
+    db.playlist.update({
+      name: playlistName
+    }, {
+      $set: {
+        name: new_name
+      }
+    }, {}, (error) ->
+      if error
+        console.log("Playlists.rename update playlist erorr :")
+        console.log(error)
+      else
+        Playlists.getTracksForPlaylist(name, ((tracks) ->
+          i = 0
+          while i < tracks.length
+            Playlists.addTrack(
+              tracks[i].artist, tracks[i].title, tracks[i].cover_url_medium,
+              tracks[i].cover_url_large, new_name)
+            i++
+        ))
 
-    db.transaction((tx) ->
-      tx.executeSql(
-        'UPDATE playlists SET name = ? WHERE name = ?', [new_name, name]
-      )
+        Playlists.delete(name)
     )
-
-    Playlists.getTracksForPlaylist(name, ((tracks) ->
-      i = 0
-      while i < tracks.length
-        Playlists.addTrack(
-          tracks[i].artist, tracks[i].title, tracks[i].cover_url_medium,
-          tracks[i].cover_url_large, new_name)
-        i++
-    ))
-
-    Playlists.delete(name)
