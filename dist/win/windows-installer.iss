@@ -73,7 +73,9 @@ Source: "..\..\node_modules\node-uuid\*"; DestDir: "{app}\app\node_modules\node-
 Source: "..\..\node_modules\request\*"; DestDir: "{app}\app\node_modules\request\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node_modules\tarball-extract\*"; DestDir: "{app}\app\node_modules\tarball-extract\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node_modules\universal-analytics\*"; DestDir: "{app}\app\node_modules\universal-analytics\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\node_modules\nedb\*"; DestDir: "{app}\app\node_modules\nedb\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node_modules\ytdl\*"; DestDir: "{app}\app\node_modules\ytdl\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\node_modules\node-webkit-updater\*"; DestDir: "{app}\app\node_modules\node-webkit-updater\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\cache\{#WebKitVersion}\win\*"; DestDir: "{app}\node-webkit\"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
