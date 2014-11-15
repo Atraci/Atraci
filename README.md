@@ -13,8 +13,8 @@ It requires no sign up, displays no ads and is 100% safe.
 ## Download v0.7.0 (stable releases, prebuilt binaries)
 - [Windows](https://github.com/Atraci/Atraci/releases/download/0.7.0/Atraci.exe?raw=true)
 - [Mac OSX](https://github.com/Atraci/Atraci/releases/download/0.7.0/Atraci-mac.zip?raw=true)
-- [Linux 32](https://github.com/Atraci/Atraci/releases/download/0.7.0/Atraci-linux32.tgz?raw=true)
-- [Linux 64](https://github.com/Atraci/Atraci/releases/download/0.7.0/Atraci-linux64.tgz?raw=true)
+- [Linux 32](https://github.com/Atraci/Atraci/releases/download/0.7.0/Atraci-linux32.tar.gz?raw=true)
+- [Linux 64](https://github.com/Atraci/Atraci/releases/download/0.7.0/Atraci-linux64.tar.gz?raw=true)
 
 ## How does it work?
 
