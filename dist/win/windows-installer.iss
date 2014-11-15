@@ -71,6 +71,7 @@ Source: "..\..\js\*"; DestDir: "{app}\app\js\"; Flags: ignoreversion recursesubd
 Source: "..\..\images\*"; DestDir: "{app}\app\images\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node_modules\node-uuid\*"; DestDir: "{app}\app\node_modules\node-uuid\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node_modules\request\*"; DestDir: "{app}\app\node_modules\request\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\node_modules\tarball-extract\*"; DestDir: "{app}\app\node_modules\tarball-extract\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node_modules\universal-analytics\*"; DestDir: "{app}\app\node_modules\universal-analytics\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node_modules\ytdl\*"; DestDir: "{app}\app\node_modules\ytdl\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\cache\{#WebKitVersion}\win\*"; DestDir: "{app}\node-webkit\"; Flags: ignoreversion recursesubdirs createallsubdirs
