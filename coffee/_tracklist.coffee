@@ -46,6 +46,7 @@ class Tracklist
             return
 
           options.playlistName = playlist.name
+
           menu.append self._createPlaylistMenuItem(options)
 
         if window.sidebar.getActiveItem().hasClass('playlist')
@@ -94,10 +95,131 @@ class Tracklist
         .appendTo(@_contentWrapper)
       @_currentTracklist = tracks
       @calculateDivsInRow()
+      @makeDraggable()
+
     else
       @_tracklistErrorTemplate
         .tmpl({message: 'No tracks'})
         .appendTo(@_contentWrapper)
+
+
+  makeDraggable: ->
+    body = document.body
+    dropArea = document.getElementById("drop-area")
+    droppableArr = []
+    dropAreaTimeout = undefined
+
+    # initialize droppables
+    [].slice.call(document.querySelectorAll("#drop-area .drop-area__item"))
+      .forEach (el) ->
+        droppableArr.push new Droppable(el,
+          onDrop: (instance, draggableEl) ->
+
+            # show checkmark inside the droppabe element
+            classie.add instance.el, "drop-feedback"
+            clearTimeout instance.checkmarkTimeout
+            instance.checkmarkTimeout = setTimeout(->
+              classie.remove instance.el, "drop-feedback"
+              return
+            , 400)
+
+            playlistName = $(el).find(".playlistTitle").text()
+            cover = $(draggableEl).find(".cover")
+            Playlists.addTrack(
+              $(draggableEl).find(".info .title").text(),
+              $(draggableEl).find(".info .artist").text(),
+              cover.attr("data-cover_url_medium"),
+              cover.attr("data-cover_url_large"),
+              playlistName
+            )
+            userTracking.event(
+              'Playlist',
+              'Add Track to Playlist',
+              playlistName
+            ).send()
+
+            # Lets add the element to the playlist
+
+            return
+        )
+        return
+
+    down = null
+    startDrag = null
+
+    $('body').mousedown ->
+      down = true
+      return
+    $('body').mouseup ->
+      down = false
+      return
+
+    # initialize draggable(s)
+    [].slice.call(document.querySelectorAll(".grid__item")).forEach (el) ->
+      new Draggable(el, droppableArr,
+        scroll: true
+        scrollable: "#drop-area"
+        scrollSpeed: 40
+        scrollSensitivity: 50
+        draggabilly:
+          containment: document.body
+
+        onStart: ->
+          setTimeout(->
+            if down
+              #first
+              startDrag = true
+              # add class 'drag-active' to body
+              classie.add body, "drag-active"
+
+              # clear timeout: dropAreaTimeout (toggle drop area)
+              clearTimeout dropAreaTimeout
+
+
+              # show dropArea
+              # toggle sensitivty to prevent click based trigger drag
+
+              classie.add dropArea, "show"
+            else
+              return
+          , 200)
+          return
+
+        onEnd: (wasDropped) ->
+
+          # event.toElement is the element that was responsible
+          # for triggering this event. The handle, in case of a draggable.
+          if startDrag
+            $(event.toElement).one "click", (e) ->
+              e.stopImmediatePropagation()
+              return
+
+          afterDropFn = ->
+
+            #remove isactive
+            $(el).removeClass "is-active"
+
+            # hide dropArea
+
+            setTimeout(->
+              startDrag = false
+              classie.remove dropArea, "show"
+            , 400)
+
+            # remove class 'drag-active' from body
+            classie.remove body, "drag-active"
+            return
+
+          unless wasDropped
+            afterDropFn()
+          else
+
+            # after some time hide drop area, remove class 'drag-active'
+            clearTimeout dropAreaTimeout
+            dropAreaTimeout = setTimeout(afterDropFn, 400)
+          return
+      )
+      return
 
   getSelectedSortBy: ->
     return @_tracklistSorter.find(':selected').attr('value')

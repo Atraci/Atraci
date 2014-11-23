@@ -1,0 +1,224 @@
+.grid {
+	margin: 0 auto;
+	max-width: 50em;
+	padding: 0 1em;
+}
+
+.grid__item {
+	display: inline-block;
+	margin: 0.2em 0.1em;
+	font-size: 2em;
+	padding-top: 2.25em;
+	width: 5.5em;
+	height: 5.5em;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.grid__item:hover {
+	cursor: move;
+	cursor: -webkit-grab;
+	cursor: grab;
+}
+
+.grid__item:active {
+	cursor: -webkit-grabbing;
+	cursor: grabbing;
+}
+
+.is-dragging {
+	background: #525b62;
+}
+
+.is-active {
+	z-index: 5000;
+}
+
+.is-dropped {
+	opacity: 0;
+	-webkit-transform: scale3d(0.7,0.7,1) !important;
+  transform: scale3d(0.7,0.7,1) !important;
+}
+
+.is-complete {
+	opacity: 1;
+	-webkit-transition: opacity 0.3s, -webkit-transform 0.3s !important;
+	transition: opacity 0.3s, transform 0.3s !important;
+	-webkit-transform: scale3d(1,1,1) !important;
+	transform: scale3d(1,1,1) !important;
+}
+
+.animate {
+	-webkit-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+}
+
+.drop-area {
+	position: fixed;
+	margin-top: 35px;
+	top: 0;
+	left: 100%;
+	z-index: 99;
+	width: 19em;
+	bottom: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background: #34495e;
+	text-align: left;
+	-webkit-transition: -webkit-transform 0.5s;
+	transition: transform 0.5s;
+	-webkit-transform: translate3d(20px,0,0);
+	transform: translate3d(20px,0,0);
+}
+
+.drop-area.show {
+	-webkit-transform: translate3d(-16em,0,0);
+	transform: translate3d(-16em,0,0);
+}
+
+.drop-area > div {
+	width: 100%;
+	height: 100%;
+	-webkit-transition: -webkit-transform 0.4s 0.1s;
+	transition: transform 0.4s 0.1s;
+	-webkit-transform: translate3d(50%,0,0);
+	transform: translate3d(50%,0,0);
+}
+
+.drop-area.show > div {
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+.drop-area__item {
+	position: relative;
+	display: inline-block;
+	margin: 3em 0 1em 2em;
+	width: 12em;
+	height: 12em;
+	border-radius: 4px;
+	background: #6686a7;
+	text-align: center;
+	-webkit-transition: -webkit-transform 0.3s, background 0.3s;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.playlistTitle{
+	margin-top: 10px;
+	font-size: 15px;
+}
+
+.playlistAlphabet{
+	font-size: 100px;
+  margin-top: 22px;
+}
+
+.drop-area__item.highlight {
+	background: #84a4c4;
+	-webkit-transform: scale3d(1.08,1.08,1);
+	transform: scale3d(1.08,1.08,1);
+}
+
+.drop-area__item::before,
+.drop-area__item::after {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 100%;
+	color: rgba(0,0,0,0.15);
+	font-size: 1.5em;
+	margin-top: -0.35em;
+	font-family: FontAwesome;
+	pointer-events: none;
+}
+
+.drop-area__item::before {
+	content: '\f067';
+}
+
+.drop-feedback.drop-area__item::before {
+	opacity: 0;
+	-webkit-transform: scale3d(0,0,1);
+	transform: scale3d(0,0,1);
+}
+
+.drop-area__item::after {
+	color: rgba(52,73,94,0.6);
+	content: '\f00c';
+	font-size: 3em;
+	margin-top: -0.5em;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+	transition: opacity 0.3s, transform 0.3s;
+	-webkit-transform: scale3d(2,2,1);
+	transform: scale3d(2,2,1);
+}
+
+.drop-feedback.drop-area__item::after {
+	opacity: 1;
+	background: #DDD;
+	-webkit-transform: scale3d(1,1,1);
+	transform: scale3d(1,1,1);
+}
+
+.dummy,
+.dummy::after {
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	margin: 0.25em 0;
+	height: 0.65em;
+	border-radius: 2px;
+	background: rgba(255,255,255,0.1);
+	-webkit-backface-visibility: hidden;
+}
+
+.dummy {
+	width: 80%;
+}
+
+.dummy::after {
+	width: 90%;
+	content: '';
+}
+
+.drop-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.3);
+	opacity: 0;
+	-webkit-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+	pointer-events: none;
+}
+
+.drop-area.show + .drop-overlay {
+	opacity: 1;
+}
+
+.helper {
+	font-size: 2em;
+	position: absolute !important;
+	margin: 0;
+}
+
+@media screen and (max-width: 50em) {
+	.grid__item {
+		font-size: 1.5em;
+	}
+	.drop-area {
+		font-size: 0.6em;
+	}
+}
+
+@media screen and (max-width: 25.5em) {
+	.grid {
+		padding: 0 2em;
+	}
+	.grid__item {
+		font-size: 1em;
+	}
+}

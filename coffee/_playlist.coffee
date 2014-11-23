@@ -69,6 +69,37 @@ class PlaylistPanel
                       "Playlist", "Create", playlistName).send()
                   )
                 $('#playListName').val("")
+
+                # Animate new playlist add effect
+                # Find newly created playlist
+                setTimeout( ->
+                  
+                  newPlaylist = $(".drop-area__item").find(
+                    ":contains('" + playlistName + "')"
+                  ).parent()
+                  
+                  console.log $(newPlaylist).offset().top
+                  
+                  $("#drop-area").addClass("show")
+
+                  setTimeout( ->
+                    $("#drop-area").animate(
+                      { scrollTop:  ($(newPlaylist).offset().top - 80) }
+                    , 800)
+                    $( newPlaylist ).effect( "slide", {}, 1000)
+                    setTimeout( ->
+                      $("#drop-area").removeClass("show")
+                      setTimeout( ->
+                        $("#drop-area").animate(
+                          { scrollTop:  0 }
+                        , 0)
+                      ,200)
+                    , 2500)
+
+                  , 500)
+                , 200)
+                
+
               else
                 alertify.alert("This playlist name already exists")
             )
