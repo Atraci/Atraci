@@ -3,6 +3,8 @@ class Sidebar
   constructor: ->
     @sidebarContainer = $('#SideBar')
     @contentWrapper = $('#ContentWrapper')
+    @_playlistTemplate = $('#tmpl-playlist')
+    @_playlistAreaList = $('#drop-area-list')
     @topSidebar = @sidebarContainer.find('.top-sidebar ul')
     @middleSidebar = @sidebarContainer.find('.middle-sidebar ul')
     @bottomSidebar = @sidebarContainer.find('.bottom-sidebar ul')
@@ -111,14 +113,43 @@ class Sidebar
       )
     )
 
+  # Not the place for this function
+  # Placing it here till another can be found
+  getRandomColor = ->
+    letters = "012345".split("")
+    color = "#"
+    color += letters[Math.round(Math.random() * 5)]
+    letters = "0123456789ABCDEF".split("")
+    i = 0
+
+    while i < 5
+      color += letters[Math.round(Math.random() * 15)]
+      i++
+    return color
+
   populatePlaylists: (playlists) ->
     self = @
     @bottomSidebar.find('li.playlist').remove()
+    @_playlistAreaList.find('.drop-playlist').remove()
 
     for playlist in playlists
       @bottomSidebar.append(
         @_createPlaylistItem(playlist.name, playlist.platform_id)
       )
+
+    # Add playlist name to playlist template
+    playlistAreaList = []
+    for playlist in playlists
+      playlistAreaList.push(
+        'name': playlist.name,
+        'letter': playlist.name.charAt(0).toUpperCase(),
+        'platform_id': playlist.platform_id,
+        'bgColor': getRandomColor()
+      )
+    @_playlistTemplate
+      .tmpl({playlistAreaList})
+      .appendTo(@_playlistAreaList)
+    window.tracklist.makeDraggable()
 
     # Re-active context after repopulating
     @_reactivePlaylistItem(@getActivePlaylistName())

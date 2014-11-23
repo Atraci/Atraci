@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/vendor/alertify/alertify.core.css">
     <link rel="stylesheet" type="text/css" href="css/vendor/alertify/alertify.default.css">
     <link rel="stylesheet" type="text/css" href="css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/sidebar.css">
 </head>
 <body>
 <div class="blackScreen"></div>
@@ -241,13 +242,19 @@
 
         </div>
     </div>
+    <div id="drop-area" class="drop-area">
+        <div id="drop-area-list">
+        </div>
+    </div>
+    <div class="drop-overlay">
+    </div>
 </footer>
 
 
 
 <!-- TEMPLATES -->
 <script id="tmpl-tracklist" type="text/x-jquery-tmpl">
-    <div class="track-container" data-id="${id}">
+    <div class="track-container grid__item" data-id="${id}">
         <div class="cover" style="background-image: url(${cover_url_large})" data-cover_url_medium="${cover_url_medium}" data-cover_url_large="${cover_url_large}" title="${artist} - ${title}"></div>
         <div class="info">
             <div class="title">${title}</div>
@@ -272,6 +279,17 @@
 <script id="tmpl-tracklist-error" type="text/x-jquery-tmpl">
     <div class="tracklist-error">${message}</div>
 </script>
+
+<script id="tmpl-playlist" type="text/x-jquery-tmpl">
+    {{each playlistAreaList}}
+        <div class="drop-area__item drop-playlist" style="background: ${bgColor}" data-id="${platform_id}"><div class="dummy"></div>
+            <div class="playlistTile">
+                <h3 class="playlistAlphabet">${letter}</h3>
+                <p class="playlistTitle">${name}</p>
+            </div>
+        </div>
+    {{/each}}
+</script>
 <!---->
 
 <!-- SCRIPTS -->
@@ -283,6 +301,10 @@
 <script src="js/vendor/jquery.tmpl.min.js"></script>
 <script src="js/vendor/alertify.min.js"></script>
 <script src="js/app.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<script src="js/draggabilly.pkgd.min.js"></script>
+<script src="js/dragdrop.js"></script>
+       
 <!---->
 </body>
 </html>
