@@ -287,7 +287,7 @@ playerContainer.find('.progress-bg').on 'click', (e) ->
   )
   playerContainer
     .find('.progress-current')
-    .animate({'width': (percentage) * 100 + '%'})
+    .animate({'width': (percentage) * 100 + '%'}, 100, 'easeOutExpo')
 
 playerContainer.find('.volume-bg').on 'click', (e) ->
   percentage = (e.pageX - $(this).offset().left) / $(this).width()
@@ -308,7 +308,7 @@ playerContainer.find('.volume-bg').on 'click', (e) ->
 
   playerContainer
     .find('.volume-current')
-    .animate({'width': (percentage) * 100 + '%'})
+    .animate({'width': (percentage) * 100 + '%'}, 100, 'easeOutExpo')
 
 playerContainer.find('.track-info .backward').on 'click', (e) ->
   PlayPrevious(__currentTrack.artist, __currentTrack.title)
