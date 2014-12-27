@@ -12,3 +12,10 @@ class Utils
       return match[2]
     else
       return undefined
+
+  @createRandomPlaylistName: (playlistId = '') ->
+    randomId = playlistId.split('').sort(() ->
+      return 0.5 - Math.random()
+    ).join('')
+
+    return l10n.get('playlist') + '-' + randomId.substr(0, 5)

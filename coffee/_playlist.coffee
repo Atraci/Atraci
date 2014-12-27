@@ -51,7 +51,7 @@ class PlaylistPanel
                 # We can support other platform's video here
                 if youtubePlaylistId
                   playlistName =
-                    l10n.get('playlist') + '-' + youtubePlaylistId.substr(0, 5)
+                    Utils.createRandomPlaylistName(youtubePlaylistId)
                   Playlists.create(playlistName, youtubePlaylistId, ->
                     Playlists.getAll((playlists) ->
                       sidebar.populatePlaylists(playlists)
@@ -341,7 +341,7 @@ class Playlists
 
   @rename: (name, new_name) ->
     db.playlist.update({
-      name: playlistName
+      name: name
     }, {
       $set: {
         name: new_name
