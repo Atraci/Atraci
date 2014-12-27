@@ -254,7 +254,7 @@
 
 <!-- TEMPLATES -->
 <script id="tmpl-tracklist" type="text/x-jquery-tmpl">
-    <div class="track-container grid__item" data-id="${id}">
+    <div class="track-container grid__item ${belongsTo}" data-id="${id}">
         <div class="cover" style="background-image: url(${cover_url_large})" data-cover_url_medium="${cover_url_medium}" data-cover_url_large="${cover_url_large}" title="${artist} - ${title}"></div>
         <div class="info">
             <div class="title">${title}</div>
@@ -304,7 +304,7 @@
 <script src="js/modernizr.custom.js"></script>
 <script src="js/draggabilly.pkgd.min.js"></script>
 <script src="js/dragdrop.js"></script>
-       
+
 <!---->
 </body>
 </html>

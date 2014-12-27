@@ -57,7 +57,7 @@ class Sidebar
         ))
       else if $(@).hasClass('featured-artist')
         TrackSource.featuredArtist((artist)->
-          doSearch artist.value, true, (tracks) ->
+          doSearch {searchStr: artist.value}, true, (tracks) ->
             window.tracklist.populate(tracks, artist)
             spinner.stop()
         )

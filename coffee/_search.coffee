@@ -1,15 +1,16 @@
-doSearch = (searchVal, getTracks, callback) ->
+doSearch = (searchObj, getTracks, callback) ->
   userTracking.event(
     "Search",
     "organic",
-  searchVal).send()
+  searchObj.searchStr).send()
 
   $('#SideBar li.active').removeClass('active')
   $('#tracklist-container').empty()
 
   spinner = new Spinner(spinner_opts).spin($('#tracklist-container')[0])
   TrackSource.search({
-    keywords: searchVal,
+    keywords: searchObj.searchStr,
+    keywordsType: searchObj.searchType,
     type: 'default'
   }, ((tracks) ->
     if(!getTracks)
@@ -25,7 +26,10 @@ $ ->
       noResults: ''
       results:  ->
     select: (event, ui) ->
-      doSearch(ui.item.value)
+      doSearch({
+        searchStr: ui.item.value,
+        searchType: ui.item.type
+      })
     source: (request, response) ->
       searchVal = request.term
       if searchVal
@@ -94,7 +98,7 @@ $ ->
   $('#Search input').keypress (e) ->
     searchVal = $(@).val()
     if e.which is 13 and $(@).val() != ''
-      doSearch(searchVal)
+      doSearch({searchStr: searchVal})
       $(@).autocomplete('close')
 
   $('#ContentWrapper').on 'click', '.track-container', ->
