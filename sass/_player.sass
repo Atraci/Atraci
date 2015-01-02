@@ -44,7 +44,8 @@
     margin-left: 10px
 
 #PlayerContainer
-    display: table
+    display: flex
+    flex-direction: row
     position: fixed
     +box-sizing(border-box)
     height: 80px
@@ -53,7 +54,7 @@
     bottom: 0
     background-image: linear-gradient(to bottom, #fff, #fefefe)
     border-top: 1px solid #f0f0f0
-    +box-shadow(rgba(black, .3) 0 0 23px 2px)
+    +box-shadow(rgba(black,.1) 0 0 8px 1px)
 
     .cover, .info
         display: table-cell
@@ -75,24 +76,33 @@
             opacity: .5
 
     .info
+        flex: 1
         padding: 16px
         .info-text
+            padding-left: 30px
             height: 22px
             overflow: hidden
-            text-overflow: ellipsis
             .track-info
+                display: flex
+                flex-direction: row
+                width: 100%
                 .next
                     margin-right: 6px
                 .currentHolder
-                    width: calc(100% - 138px)
-                    overflow: hidden
-                    height: 22px
-                    float: left
                     text-overflow: ellipsis
+                    white-space: nowrap
+                    overflow: hidden
+                    height: 35px
+                    width: 10px
+                    flex: 1
                 .action
-                    width: 18px
-                    float: left
-                    margin-right: 5px
+                    padding-right: 13px
+                    &.right
+                        padding-right: 0px
+                        padding-left: 13px
+                        &.first
+                            padding-left: 67px
+
                     i
                         cursor: pointer
                         opacity: .25
