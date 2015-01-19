@@ -1,3 +1,7 @@
+## Hold On!
+We are currently refactoring Atraci to stronger and more stable infrastructure, want to help? keep update on:
+[Atraci-Angular](https://github.com/Atraci/Atraci-Angular)
+
 #Atraci
 [![GitHub version](https://badge.fury.io/gh/atraci%2Fatraci.svg)](https://github.com/Atraci/Atraci/releases)
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
