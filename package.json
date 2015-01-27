@@ -45,6 +45,7 @@
     "node-webkit-updater": "0.0.14",
     "tarball-extract": "0.0.3"
   },
+  "chromium-args" : "--ignore-gpu-blacklist",
   "manifestUrl": "https://raw.githubusercontent.com/Atraci/Atraci/master/package.json",
   "packages": {
     "win": "https://github.com/Atraci/Atraci/releases/download/0.7.0/Atraci.exe",
