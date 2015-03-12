@@ -24,7 +24,7 @@
   "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36",
   "dependencies": {
     "request": "~2.40.0",
-    "ytdl": "~0.3.3",
+    "ytdl": "~0.3.5",
     "universal-analytics": "~0.3.4",
     "node-uuid": "~1.4.1",
     "nedb": "~0.11.1"
@@ -38,7 +38,7 @@
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-cssmin": "0.10.0",
     "grunt-contrib-uglify": "0.5.1",
-    "grunt-node-webkit-builder": "~0.2.2",
+    "grunt-node-webkit-builder": "~1.0.0",
     "grunt-regex-replace": "~0.2.6",
     "grunt-shell": "~1.0.1",
     "grunt-coffeelint": "0.0.13",
