@@ -274,7 +274,12 @@ playerContainer.find('.volume-bg').ready ->
   playerContainer
     .find('.controls .volume-icon .action i.fa-volume-down')
     .hide()
-
+  volume_percentage = Settings.get('volume') || 1
+  playerContainer.
+    attr("data-volume", volume_percentage)
+  playerContainer.
+    find('.volume-current').css('width', volume_percentage * 100 + '%')
+  videojs('video_player').volume(volume_percentage)
   playerContainer
     .find('.controls .volume-icon #action i.fa-volume-off')
     .hide()
@@ -305,7 +310,7 @@ playerContainer.find('.volume-bg').on 'click', (e) ->
 
   videojs('video_player')
     .volume(percentage)
-
+  Settings.set('volume', percentage)
   playerContainer
     .find('.volume-current')
     .animate({'width': (percentage) * 100 + '%'}, 100, 'easeOutExpo')
