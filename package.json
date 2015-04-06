@@ -26,8 +26,8 @@
     "request": "~2.40.0",
     "ytdl": "~0.3.5",
     "universal-analytics": "~0.3.4",
-    "node-uuid": "~1.4.1",
-    "nedb": "~0.11.1"
+    "node-uuid": "~1.4.3",
+    "nedb": "~1.1.2"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
