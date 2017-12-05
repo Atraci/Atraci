@@ -1,4 +1,6 @@
 ## Hold On!
+
+[![Join the chat at https://gitter.im/Atraci/Atraci](https://badges.gitter.im/Atraci/Atraci.svg)](https://gitter.im/Atraci/Atraci?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 We are currently refactoring Atraci to stronger and more stable infrastructure, want to help? keep update on:
 [Atraci-Angular](https://github.com/Atraci/Atraci-Angular)
 
